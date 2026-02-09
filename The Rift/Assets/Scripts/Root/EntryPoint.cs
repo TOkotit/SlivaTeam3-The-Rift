@@ -12,13 +12,14 @@ namespace Root
         
         public void Start()
         {
+            _coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>();
+            _resolver.Inject(_coroutines);
             RunGame();
         }
 
-        private EntryPoint()
+        private EntryPoint(IObjectResolver resolver)
         {
-            _coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>();
-            _resolver.Inject(_coroutines);
+            _resolver = resolver;
         }
             
         public void RunGame()
