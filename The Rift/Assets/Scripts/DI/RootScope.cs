@@ -7,7 +7,7 @@ namespace DI
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterEntryPoint<Root.EntryPoint>();
+            builder.RegisterEntryPoint<Root.EntryPoint>(Lifetime.Singleton);
             
         }
     }
