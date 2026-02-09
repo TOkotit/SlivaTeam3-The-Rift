@@ -2,22 +2,22 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-// Код из старого проекта. Будет пересмотрено и переделано
+// Старый код. Просто приделал интерфейс. А так в основном то же самое
 
 namespace Systems
 {
-    public class GameManager
+    public class GameManager : IGameManager
     {
-        
-        private GameManager()
+        public GameManager()
         {
             CurrentState = GameState.Booting;
+            OnStateChange = new UnityEvent<GameState>();
             Debug.Log("GameManager: Инициализирован.");
         }
         
         public GameState CurrentState { get; private set; }
         
-        public UnityEvent<GameState> OnStateChange;
+        public UnityEvent<GameState> OnStateChange { get; }
         
         public void SetState(GameState newState)
         {
@@ -25,7 +25,7 @@ namespace Systems
 
             CurrentState = newState;
             Debug.Log($"Game State changed to: {newState}");
-            
+
             OnStateChange?.Invoke(newState);
 
             Time.timeScale = newState switch

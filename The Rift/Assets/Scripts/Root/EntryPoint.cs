@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Systems;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -12,17 +13,20 @@ namespace Root
         private readonly ICoroutineRunner _coroutines;
         private readonly IObjectResolver _resolver;
         private readonly UIRootView _uiRoot;
+        readonly IGameManager _gameManager;
         
         public void Start()
         {
+            _gameManager.SetState(GameState.Menu);
             RunGame();
         }
 
-        private EntryPoint(IObjectResolver resolver, ICoroutineRunner coroutines)
+        private EntryPoint(IObjectResolver resolver, ICoroutineRunner coroutines, IGameManager gameManager)
         {
             _resolver = resolver;
             _coroutines = coroutines;
             _resolver.Inject(_coroutines);
+            _gameManager = gameManager;
         }
         
         

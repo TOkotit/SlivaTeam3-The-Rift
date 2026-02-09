@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using Systems;
+using Unity.VisualScripting;
 using UnityEngine;
 using Utils;
 using VContainer;
@@ -15,7 +16,7 @@ namespace DI
             DontDestroyOnLoad(coroutines);
             builder.RegisterInstance<ICoroutineRunner>(coroutines);
 
-            
+            builder.Register<IGameManager, Systems.GameManager>(Lifetime.Singleton);
             builder.RegisterEntryPoint<Root.EntryPoint>(Lifetime.Singleton);
             
         }
