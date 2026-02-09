@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 using VContainer;
 using VContainer.Unity;
@@ -7,27 +9,63 @@ namespace Root
 {
     public class EntryPoint : IStartable
     {
-        private Coroutines _coroutines;
-        private IObjectResolver _resolver;
+        private readonly ICoroutineRunner _coroutines;
+        private readonly IObjectResolver _resolver;
+        private readonly UIRootView _uiRoot;
         
         public void Start()
         {
             RunGame();
         }
 
-        private EntryPoint(IObjectResolver resolver)
+        private EntryPoint(IObjectResolver resolver, ICoroutineRunner coroutines)
         {
             _resolver = resolver;
-            _coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>();
+            _coroutines = coroutines;
             _resolver.Inject(_coroutines);
         }
-            
-        public void RunGame()
+        
+        
+        private void RunGame() 
         {
-            
+            _coroutines.StartRoutine(LoadAndStartMainMenu());
         }
         
+        private IEnumerator LoadAndStartMainMenu()
+        {
         
+            _uiRoot.ShowLoadingScreen();
+        
+            yield return LoadScene(Scenes.BOOT);
+            yield return LoadScene(Scenes.MENU);
+        
+        
+            yield return new WaitForSeconds(0.5f);
+        
+            // var sceneEntryPoint = MainMenuEntryPoint.Instance;
+            //
+            // if (sceneEntryPoint)
+            // {
+            //     sceneEntryPoint.Run(_uiRoot);
+            // }
+            // else
+            // {
+            //     Debug.LogError("Ошибка: Не найдена точка входа в сцену MainMenu!");
+            // }
+        
+            // sceneEntryPoint.GoToLevelSelectSceneRequested += () =>
+            // {
+            //     _coroutines.StartCoroutine(LoadAndStartLevelSelect());
+            // };
+            //
+            // GameManager.Instance.SetState(GameState.Menu);
+            _uiRoot.HideLoadingScreen();
+        }
+        
+        private IEnumerator LoadScene(string sceneName)
+        {
+            yield return SceneManager.LoadSceneAsync(sceneName);
+        }
     }
     
     // блок кода с прошлого проекта. Буду под DI это переделывать
@@ -35,10 +73,6 @@ namespace Root
     
     // public class GameEntryPoint
     // {
-    //     private static GameEntryPoint _instance;
-    //     private readonly Coroutines _coroutines;
-    //     private readonly UIRootView _uiRoot;
-    //     private string _currentLevelId;
     //     
     //     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     //     public static void AfterStart()
@@ -156,36 +190,7 @@ namespace Root
     //         
     //     }
     //
-    //     private IEnumerator LoadAndStartMainMenu()
-    //     {
-    //
-    //         _uiRoot.ShowLoadingScreen();
-    //
-    //         yield return LoadScene(Scenes.BOOT);
-    //         yield return LoadScene(Scenes.MAIN_MENU);
-    //
-    //
-    //         yield return new WaitForSeconds(0.5f);
-    //
-    //         var sceneEntryPoint =MainMenuEntryPoint.Instance;
-    //
-    //         if (sceneEntryPoint)
-    //         {
-    //             sceneEntryPoint.Run(_uiRoot);
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError("Ошибка: Не найдена точка входа в сцену MainMenu!");
-    //         }
-    //
-    //         sceneEntryPoint.GoToLevelSelectSceneRequested += () =>
-    //         {
-    //             _coroutines.StartCoroutine(LoadAndStartLevelSelect());
-    //         };
-    //
-    //         GameManager.Instance.SetState(GameState.Menu);
-    //         _uiRoot.HideLoadingScreen();
-    //     }
+    //     
     //
     //     private IEnumerator LoadAndStartLevelSelect()
     //     {
@@ -259,9 +264,6 @@ namespace Root
     //         _uiRoot.HideLoadingScreen();
     //     }
     //     
-    //     private IEnumerator LoadScene(string sceneName)
-    //     {
-    //         yield return SceneManager.LoadSceneAsync(sceneName);
-    //     }
+
     // }
 }
