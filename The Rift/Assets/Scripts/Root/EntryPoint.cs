@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Systems;
+using UIRoot;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -12,7 +13,16 @@ namespace Root
     {
         private readonly ICoroutineRunner _coroutines;
         private readonly IObjectResolver _resolver;
-        private readonly UIRootView _uiRoot;
+        
+        
+        //----------------------------------------------------------------------------------------
+        // Из гайда лавки разработчика. Штука отвечает за весь UI и я не уверен что мы это оставим
+        // Нужно было передавать как префаб от сцены к сцене
+        // По большей части нужно было только ради экрана загрузки между сценами
+        
+        // По идее должно работать, но я не тестил
+        //----------------------------------------------------------------------------------------
+        readonly UIRootView _uiRootPrefab;
         readonly IGameManager _gameManager;
         
         public void Start()
@@ -21,12 +31,18 @@ namespace Root
             RunGame();
         }
 
-        private EntryPoint(IObjectResolver resolver, ICoroutineRunner coroutines, IGameManager gameManager)
+        
+        // вот как-то не очень что сюда столько всего пихаем, надо подумать можно ли получше сделать
+        private EntryPoint(IObjectResolver resolver,
+            ICoroutineRunner coroutines,
+            IGameManager gameManager,
+            UIRootView uiRootPrefab)
         {
             _resolver = resolver;
             _coroutines = coroutines;
             _resolver.Inject(_coroutines);
             _gameManager = gameManager;
+            _uiRootPrefab = uiRootPrefab;
         }
         
         
@@ -38,14 +54,19 @@ namespace Root
         private IEnumerator LoadAndStartMainMenu()
         {
         
-            _uiRoot.ShowLoadingScreen();
+            _uiRootPrefab.ShowLoadingScreen();
         
             yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.MENU);
         
         
             yield return new WaitForSeconds(0.5f);
-        
+            
+            
+            //--------------------------------------------------------------------------------------------------
+            // код для переключения в меню, но у нас пока нет меню и входной точки на сцену, поэтому не работает
+            //--------------------------------------------------------------------------------------------------
+            
             // var sceneEntryPoint = MainMenuEntryPoint.Instance;
             //
             // if (sceneEntryPoint)
@@ -63,7 +84,7 @@ namespace Root
             // };
             //
             // GameManager.Instance.SetState(GameState.Menu);
-            _uiRoot.HideLoadingScreen();
+            _uiRootPrefab.HideLoadingScreen();
         }
         
         private IEnumerator LoadScene(string sceneName)
@@ -72,8 +93,14 @@ namespace Root
         }
     }
     
+    
+    
+    
+    //----------------------------------------------------------------
     // блок кода с прошлого проекта. Буду под DI это переделывать
-
+    // Большая часть это мусор который я удалю, но часть вроде нужное
+    // Какую-то часть я уже перенёс, вроде норм
+    //----------------------------------------------------------------
     
     // public class GameEntryPoint
     // {

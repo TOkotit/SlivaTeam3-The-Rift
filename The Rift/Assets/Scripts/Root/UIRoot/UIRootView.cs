@@ -1,18 +1,10 @@
 ﻿using UnityEngine;
 
-
-
-
-//--------------------------------------------
-// Перенёс из другого проекта файл, скорей всего надо будет переделывать под DI
-//--------------------------------------------
-
-
-
-
-namespace Root
+namespace UIRoot
 {
-    public class UIRootView :  MonoBehaviour
+    
+    
+    public class UIRootView :  MonoBehaviour, IUIRoot
     {
 
         [SerializeField] private GameObject _loadingScreen;
@@ -42,11 +34,8 @@ namespace Root
 
         private void ClearSceneUI()
         {
-            var childCount = _uiSceneContainer.childCount;
-            for (var i = 0; i < childCount; i++)
-            {
+            for (var i = _uiSceneContainer.childCount - 1; i >= 0; i--)
                 Destroy(_uiSceneContainer.GetChild(i).gameObject);
-            }
         }
     }
 }
