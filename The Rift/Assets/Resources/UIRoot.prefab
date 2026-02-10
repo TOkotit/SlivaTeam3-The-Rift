@@ -260,6 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5264468315461501280}
+  - component: {fileID: 411524977763697260}
   m_Layer: 0
   m_Name: UIRoot
   m_TagString: Untagged
@@ -283,6 +284,20 @@ Transform:
   - {fileID: 5970001886057530607}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &411524977763697260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5262242300568991013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc1eb54e743b4a7aa5d4a47dd6b6e719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _loadingScreen: {fileID: 3097031071246069487}
+  _uiSceneContainer: {fileID: 0}
 --- !u!1 &8026478286793807132
 GameObject:
   m_ObjectHideFlags: 0
