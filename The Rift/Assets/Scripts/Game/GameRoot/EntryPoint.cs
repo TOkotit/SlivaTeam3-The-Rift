@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Game.Gameplay.Root;
 using Systems;
 using UIRoot;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace Root
         
         // По идее должно работать, но я не тестил
         //----------------------------------------------------------------------------------------
-        readonly UIRootView _uiRootPrefab;
+        readonly IuiRootView _iuiRootPrefab;
         readonly IGameManager _gameManager;
         
         public void Start()
@@ -36,61 +37,47 @@ namespace Root
         private EntryPoint(IObjectResolver resolver,
             ICoroutineRunner coroutines,
             IGameManager gameManager,
-            UIRootView uiRootPrefab)
+            IuiRootView iuiRootPrefab)
         {
             _resolver = resolver;
             _coroutines = coroutines;
             _resolver.Inject(_coroutines);
             _gameManager = gameManager;
-            _uiRootPrefab = uiRootPrefab;
+            _iuiRootPrefab = iuiRootPrefab;
         }
         
         
         private void RunGame() 
         {
-            _coroutines.StartRoutine(LoadAndStartMainMenu());
+            _coroutines.StartRoutine(LoadAndStartGameplay());
         }
         
-        private IEnumerator LoadAndStartMainMenu()
+        private IEnumerator LoadAndStartGameplay()
         {
         
-            _uiRootPrefab.ShowLoadingScreen();
+            _iuiRootPrefab.ShowLoadingScreen();
         
             yield return LoadScene(Scenes.BOOT);
-            yield return LoadScene(Scenes.MENU);
-        
-        
+            yield return LoadScene(Scenes.GAMEPLAY);
+            
             yield return new WaitForSeconds(0.5f);
+
+                                    
+            var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
+            
+            sceneEntryPoint.Run();
             
             
-            //--------------------------------------------------------------------------------------------------
-            // код для переключения в меню, но у нас пока нет меню и входной точки на сцену, поэтому не работает
-            //--------------------------------------------------------------------------------------------------
-            
-            // var sceneEntryPoint = MainMenuEntryPoint.Instance;
-            //
-            // if (sceneEntryPoint)
-            // {
-            //     sceneEntryPoint.Run(_uiRoot);
-            // }
-            // else
-            // {
-            //     Debug.LogError("Ошибка: Не найдена точка входа в сцену MainMenu!");
-            // }
-        
-            // sceneEntryPoint.GoToLevelSelectSceneRequested += () =>
-            // {
-            //     _coroutines.StartCoroutine(LoadAndStartLevelSelect());
-            // };
-            //
-            // GameManager.Instance.SetState(GameState.Menu);
-            _uiRootPrefab.HideLoadingScreen();
+           
+            _iuiRootPrefab.HideLoadingScreen();
         }
         
         private IEnumerator LoadScene(string sceneName)
         {
             yield return SceneManager.LoadSceneAsync(sceneName);
         }
+        
+        
     }
     
     
@@ -167,46 +154,7 @@ namespace Root
     //
     //         _coroutines.StartCoroutine(LoadAndStartMainMenu());
     //     }
-    //     private IEnumerator LoadAndStartGameplay()
-    //     {
-    //         
-    //         _uiRoot.ShowLoadingScreen();
-    //         yield return LoadScene(Scenes.GAMEPLAY);
-    //         
-    //         
-    //         if (SceneManager.GetActiveScene().name != Scenes.GAMEPLAY)
-    //         {
-    //             yield return LoadScene(Scenes.GAMEPLAY);
-    //         }
-    //         
-    //         if (Game.Instance.LevelModel != null)
-    //         {
-    //             Game.Instance.LevelModel.LevelCompleted.RemoveListener(OnLevelCompletedHandle);
-    //             Game.Instance.LevelModel.LevelCompleted.AddListener(OnLevelCompletedHandle);
-    //         }
-    //
-    //         var sceneEntryPoint = GameplayEntryPoint.Instance;
-    //         
-    //         if (sceneEntryPoint) 
-    //         {
-    //             sceneEntryPoint.Run(_uiRoot);
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError("Ошибка: Не найдена точка входа в сцену Gameplay!");
-    //         }
-    //
-    //         if (sceneEntryPoint != null)
-    //         {
-    //             sceneEntryPoint.GoToMainMenuSceneRequested += () =>
-    //             {
-    //                 _coroutines.StartCoroutine(LoadAndStartMainMenu());
-    //             };
-    //         }
-    //
-    //         GameManager.Instance.SetState(GameState.Gameplay);
-    //         _uiRoot.HideLoadingScreen();
-    //     }
+    //    
     //     
     //     private void OnLevelCompletedHandle(string levelId)
     //     {
