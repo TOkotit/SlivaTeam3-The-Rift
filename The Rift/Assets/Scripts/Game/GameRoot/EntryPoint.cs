@@ -22,7 +22,7 @@ namespace Root
         
         // По идее должно работать, но я не тестил
         //----------------------------------------------------------------------------------------
-        readonly UIRootView _uiRootPrefab;
+        readonly IUIRootView _uiRootPrefab;
         readonly IGameManager _gameManager;
         
         public void Start()
@@ -36,7 +36,7 @@ namespace Root
         private EntryPoint(IObjectResolver resolver,
             ICoroutineRunner coroutines,
             IGameManager gameManager,
-            UIRootView uiRootPrefab)
+            IUIRootView uiRootPrefab)
         {
             _resolver = resolver;
             _coroutines = coroutines;
