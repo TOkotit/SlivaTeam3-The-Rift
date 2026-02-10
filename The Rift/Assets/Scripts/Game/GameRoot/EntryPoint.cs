@@ -13,15 +13,16 @@ namespace Root
     public class EntryPoint : IStartable
     {
         private readonly ICoroutineRunner _coroutines;
-        readonly IUIRootView _uiRootPrefab;
+        readonly IUIRootView _uiRoot;
         readonly IGameManager _gameManager;
         
         public void Start()
         {
-            _gameManager.SetState(GameState.Gameplay);
-            RunGame();
+            _gameManager.SetState(GameState.Booting);
+            
+            _coroutines.StartRoutine(InitialLoadRoutine());
+            
         }
-
         
         private EntryPoint(
             ICoroutineRunner coroutines,
@@ -30,37 +31,21 @@ namespace Root
         {
             _coroutines = coroutines;
             _gameManager = gameManager;
-            _uiRootPrefab = uiRootPrefab;
+            _uiRoot = uiRootPrefab;
         }
         
         
-        private void RunGame() 
+        private IEnumerator InitialLoadRoutine()
         {
-            Debug.Log("\n\n============================\nRunGame EntryPoint \n\n============================\n");
-            _coroutines.StartRoutine(LoadAndStartGameplay());
-        }
-        
-        private IEnumerator LoadAndStartGameplay()
-        {
-        
-            _uiRootPrefab.ShowLoadingScreen();
-            
-            yield return LoadScene(Scenes.GAMEPLAY);
-            
-            yield return new WaitForSeconds(0.5f);
+            _uiRoot.ShowLoadingScreen();
 
-                                    
-            var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
+            yield return new WaitForSeconds(0.2f); 
             
-            sceneEntryPoint.Run();
-            
-           
-            _uiRootPrefab.HideLoadingScreen();
-        }
-        
-        private IEnumerator LoadScene(string sceneName)
-        {
-            yield return SceneManager.LoadSceneAsync(sceneName);
+            yield return SceneManager.LoadSceneAsync(Scenes.MAINMENU);
+
+            _gameManager.SetState(GameState.Menu);
+
+            _uiRoot.HideLoadingScreen();
         }
         
         
