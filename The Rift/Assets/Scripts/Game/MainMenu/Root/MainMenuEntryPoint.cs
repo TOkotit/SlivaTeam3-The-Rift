@@ -8,45 +8,24 @@ using UnityEngine.SceneManagement;
 using Utils;
 using VContainer.Unity;
 
-public class MainMenuEntryPoint : MonoBehaviour
+public class MainMenuEntryPoint : IStartable
 {
-    
-    private readonly ICoroutineRunner _coroutines;
-    readonly IUIRootView _uiRoot;
     readonly IGameManager _gameManager;
+    
+    
+    
+    
     
     public void Start()
     {
-    }
-
-    public MainMenuEntryPoint(            
-        ICoroutineRunner coroutines,
-        IGameManager gameManager,
-        IUIRootView uiRootPrefab)
-    {
-        _coroutines = coroutines;
-        _gameManager = gameManager;
-        _uiRoot = uiRootPrefab;
+        Debug.Log("Меню: Контейнер запущен, логика инициализирована.");
         
+        _gameManager.SetState(GameState.Menu);
     }
 
-    public void StartGameplay()
+    public MainMenuEntryPoint(IGameManager gameManager)
     {
-        _gameManager.SetState(GameState.Gameplay);
-            
-        _coroutines.StartRoutine(InitialLoadRoutine());
-    }
-    
-    private IEnumerator InitialLoadRoutine()
-    {
-        _uiRoot.ShowLoadingScreen();
-
-        yield return new WaitForSeconds(0.2f); 
-            
-        yield return SceneManager.LoadSceneAsync(Scenes.GAMEPLAY);
-
-        _gameManager.SetState(GameState.Gameplay);
-
-        _uiRoot.HideLoadingScreen();
+        _gameManager = gameManager;
+        
     }
 }

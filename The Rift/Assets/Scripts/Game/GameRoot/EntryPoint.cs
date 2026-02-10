@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DI;
 using Game.Gameplay.Root;
 using Systems;
 using UIRoot;
@@ -39,12 +40,14 @@ namespace Root
         {
             _uiRoot.ShowLoadingScreen();
 
-            yield return new WaitForSeconds(0.2f); 
+            using (LifetimeScope.EnqueueParent(RootScope.Instance))
+            {
+                var loadOperation = SceneManager.LoadSceneAsync(Scenes.MAINMENU);
+
+                while (!loadOperation.isDone)
+                    yield return null;
+            }
             
-            yield return SceneManager.LoadSceneAsync(Scenes.MAINMENU);
-
-            _gameManager.SetState(GameState.Menu);
-
             _uiRoot.HideLoadingScreen();
         }
         
