@@ -4,7 +4,7 @@ namespace UIRoot
 {
     
     
-    public class UIRootView :  MonoBehaviour, IUIRoot
+    public class IuiRootView :  MonoBehaviour, IUIRootView
     {
 
         [SerializeField] private GameObject _loadingScreen;
