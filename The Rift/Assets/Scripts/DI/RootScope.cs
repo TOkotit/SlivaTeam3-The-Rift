@@ -15,14 +15,16 @@ namespace DI
         protected override void Configure(IContainerBuilder builder)
         {
             
+            Debug.Log("\n\n============================\nRootScope.Configure()\n============================\n\n");
+            
             var coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>();
             DontDestroyOnLoad(coroutines.gameObject);
             builder.RegisterInstance<ICoroutineRunner>(coroutines);
             
             var uiRoot = Instantiate(Resources.Load<GameObject>("UIRoot"));
             DontDestroyOnLoad(uiRoot.gameObject);
-            var uiRootView = uiRoot.GetComponent<UIRootView>() as IUIRootView;
-            builder.RegisterInstance(uiRootView);
+            var uiRootView = uiRoot.GetComponent<UIRootView>();
+            builder.RegisterInstance<IUIRootView>(uiRootView);
 
             
             builder.Register<IGameManager, GameManager>(Lifetime.Singleton);

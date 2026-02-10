@@ -28,7 +28,7 @@ namespace Root
         
         public void Start()
         {
-            _gameManager.SetState(GameState.Menu);
+            _gameManager.SetState(GameState.Gameplay);
             RunGame();
         }
 
@@ -43,12 +43,15 @@ namespace Root
             _coroutines = coroutines;
             _resolver.Inject(_coroutines);
             _gameManager = gameManager;
+            _resolver.Inject(_gameManager);
             _uiRootPrefab = uiRootPrefab;
+            _resolver.Inject(_uiRootPrefab);
         }
         
         
         private void RunGame() 
         {
+            Debug.Log("\n\n============================\nRunGame EntryPoint \n\n============================\n");
             _coroutines.StartRoutine(LoadAndStartGameplay());
         }
         
