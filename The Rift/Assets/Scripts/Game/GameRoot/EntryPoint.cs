@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Game.Gameplay.Root;
 using Systems;
 using UIRoot;
 using UnityEngine;
@@ -58,9 +59,13 @@ namespace Root
         
             yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.GAMEPLAY);
-        
-        
+            
             yield return new WaitForSeconds(0.5f);
+
+                                    
+            var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
+            
+            sceneEntryPoint.Run();
             
             
            
