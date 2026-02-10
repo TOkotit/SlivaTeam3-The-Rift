@@ -21,6 +21,7 @@ namespace Systems
         
         public void SetState(GameState newState)
         {
+            Debug.Log("SetState GameManager");
             if (CurrentState == newState) return;
 
             CurrentState = newState;

@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
+using VContainer.Unity;
 
 namespace Game.Gameplay.Root
 {
-    public class GameplayEntryPoint : MonoBehaviour
+    public class GameplayEntryPoint : IStartable
     {
-        [SerializeField] private GameObject _sceneRootBinder;
-
-        public void Run()
+        public void Start()
         {
-            Debug.Log("Gameplay scene loaded");
         }
     }
 }

@@ -2,8 +2,6 @@
 
 namespace UIRoot
 {
-    
-    
     public class UIRootView :  MonoBehaviour, IUIRootView
     {
 
