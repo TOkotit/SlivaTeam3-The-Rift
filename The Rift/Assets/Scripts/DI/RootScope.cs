@@ -15,7 +15,7 @@ namespace DI
         protected override void Configure(IContainerBuilder builder)
         {
             
-            Debug.Log("\n\n============================\nRootScope.Configure()\n============================\n\n");
+            Debug.Log("\n============================ RootScope.Configure() ============================\n");
             
             var coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>();
             DontDestroyOnLoad(coroutines.gameObject);
@@ -29,7 +29,7 @@ namespace DI
             
             builder.Register<IGameManager, GameManager>(Lifetime.Singleton);
             
-            builder.RegisterEntryPoint<Root.EntryPoint>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<Root.EntryPoint>();
             
 
             

@@ -51,7 +51,7 @@ namespace Root
         
         private void RunGame() 
         {
-            Debug.Log("\n\n============================\nRunGame EntryPoint \n\n============================\n");
+            Debug.Log("\n============================ RunGame EntryPoint ============================\n");
             _coroutines.StartRoutine(LoadAndStartGameplay());
         }
         
@@ -60,7 +60,6 @@ namespace Root
         
             _uiRootPrefab.ShowLoadingScreen();
         
-            yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.GAMEPLAY);
             
             yield return new WaitForSeconds(0.5f);
