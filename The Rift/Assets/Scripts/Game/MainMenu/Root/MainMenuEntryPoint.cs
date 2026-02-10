@@ -1,14 +1,31 @@
-﻿using UnityEngine;
+using System.Collections;
+using Root;
+using Systems;
+using UIRoot;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
+using Utils;
+using VContainer.Unity;
 
-namespace Game.MainMenu.Root
+public class MainMenuEntryPoint : IStartable
 {
-    public class MainMenuEntryPoint : MonoBehaviour
+    readonly IGameManager _gameManager;
+    
+    
+    
+    
+    
+    public void Start()
     {
-        [SerializeField] private GameObject _sceneRootBinder;
+        Debug.Log("Меню: Контейнер запущен, логика инициализирована.");
+        
+        _gameManager.SetState(GameState.Menu);
+    }
 
-        public void Run()
-        {
-            Debug.Log("MainMenu scene loaded");
-        }
+    public MainMenuEntryPoint(IGameManager gameManager)
+    {
+        _gameManager = gameManager;
+        
     }
 }
