@@ -21,7 +21,7 @@ namespace DI
             
             var uiRoot = Instantiate(Resources.Load<GameObject>("UIRoot"));
             DontDestroyOnLoad(uiRoot.gameObject);
-            var uiRootView = uiRoot.GetComponent<IuiRootView>() as IUIRootView;
+            var uiRootView = uiRoot.GetComponent<UIRootView>() as IUIRootView;
             builder.RegisterInstance(uiRootView);
 
             

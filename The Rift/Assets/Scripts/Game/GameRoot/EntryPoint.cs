@@ -22,7 +22,7 @@ namespace Root
         
         // По идее должно работать, но я не тестил
         //----------------------------------------------------------------------------------------
-        readonly IuiRootView _iuiRootPrefab;
+        readonly UIRootView _uiRootPrefab;
         readonly IGameManager _gameManager;
         
         public void Start()
@@ -36,13 +36,13 @@ namespace Root
         private EntryPoint(IObjectResolver resolver,
             ICoroutineRunner coroutines,
             IGameManager gameManager,
-            IuiRootView iuiRootPrefab)
+            UIRootView uiRootPrefab)
         {
             _resolver = resolver;
             _coroutines = coroutines;
             _resolver.Inject(_coroutines);
             _gameManager = gameManager;
-            _iuiRootPrefab = iuiRootPrefab;
+            _uiRootPrefab = uiRootPrefab;
         }
         
         
@@ -54,7 +54,7 @@ namespace Root
         private IEnumerator LoadAndStartGameplay()
         {
         
-            _iuiRootPrefab.ShowLoadingScreen();
+            _uiRootPrefab.ShowLoadingScreen();
         
             yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.GAMEPLAY);
@@ -64,7 +64,7 @@ namespace Root
             
             
            
-            _iuiRootPrefab.HideLoadingScreen();
+            _uiRootPrefab.HideLoadingScreen();
         }
         
         private IEnumerator LoadScene(string sceneName)
