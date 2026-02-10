@@ -1,13 +1,35 @@
-﻿using VContainer;
+﻿using Systems;
+using UIRoot;
+using Unity.VisualScripting;
+using UnityEngine;
+using Utils;
+using VContainer;
 using VContainer.Unity;
 
 namespace DI
 {
     public class RootScope : LifetimeScope
     {
+        
+        
         protected override void Configure(IContainerBuilder builder)
         {
+            
+            var coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>();
+            DontDestroyOnLoad(coroutines.gameObject);
+            builder.RegisterInstance<ICoroutineRunner>(coroutines);
+            
+            var uiRoot = Instantiate(Resources.Load<GameObject>("UIRoot"));
+            DontDestroyOnLoad(uiRoot.gameObject);
+            var uiRootView = uiRoot.GetComponent<IuiRootView>() as IUIRootView;
+            builder.RegisterInstance(uiRootView);
+
+            
+            builder.Register<IGameManager, GameManager>(Lifetime.Singleton);
+            
             builder.RegisterEntryPoint<Root.EntryPoint>(Lifetime.Singleton);
+            
+
             
         }
     }
