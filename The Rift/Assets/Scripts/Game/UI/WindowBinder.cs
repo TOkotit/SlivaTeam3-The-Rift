@@ -2,6 +2,10 @@
 
 namespace Game.UI
 {
+    /// <summary>
+    /// Абстрактный класс который будет переписываться и цепляться к окнам ui
+    /// в качестве T принимает соответствующий view model 
+    /// </summary>
     public abstract class WindowBinder<T> : MonoBehaviour, IWindowBinder
         where T : WindowViewModel
     {
@@ -16,7 +20,6 @@ namespace Game.UI
 
         public virtual void Close()
         {
-            //здесь анимации закрытия
             Destroy(gameObject);
         }
         

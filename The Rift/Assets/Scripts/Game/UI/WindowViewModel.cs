@@ -3,6 +3,9 @@ using R3;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// Абстрактный класс описывающий определенное окно ui
+    /// </summary>
     public abstract class WindowViewModel : IDisposable
     {
         public Observable<WindowViewModel> CloseRequested => _closeRequested;
