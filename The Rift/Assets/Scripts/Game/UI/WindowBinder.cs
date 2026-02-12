@@ -5,16 +5,16 @@ namespace Game.UI
     public abstract class WindowBinder<T> : MonoBehaviour, IWindowBinder
         where T : WindowViewModel
     {
-        protected T _viewModel;
+        protected T ViewModel;
 
         public void Bind(WindowViewModel viewModel)
         {
-            _viewModel = (T)viewModel;
+            ViewModel = (T)viewModel;
 
-            OnBind(_viewModel);
+            OnBind(ViewModel);
         }
 
-        public virtual void Close(T viewModel)
+        public virtual void Close()
         {
             //здесь анимации закрытия
             Destroy(gameObject);
