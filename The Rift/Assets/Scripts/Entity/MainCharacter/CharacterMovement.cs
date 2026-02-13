@@ -1,10 +1,12 @@
 using System;
+using MainCharacter;
 using UnityEngine;
 using VContainer.Unity;
 
 [RequireComponent(typeof(CharacterController))]
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement : MonoBehaviour, IControllable
 {
+    //Компонент который можно цеплять на объекты которые должны двигаться, например персонажей
     private CharacterController _controller;
     [SerializeField] private float _speed;
     [SerializeField] private LayerMask _groundMask;
@@ -14,28 +16,24 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 _moveDirection;
     private Vector3 _velocity;
     private Vector3 _gravity = Vector3.down * 9.832f;
+    public Vector3 MoveDirection {get => _moveDirection; set => _moveDirection = value; }
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
     }
 
-    private void Move(Vector3 direction)
+    public void Move(Vector3 direction)
     {
-        _controller.Move(direction * (_speed * Time.fixedDeltaTime));
+        _moveDirection = direction;
     }
 
-    private void Update()
+    private void MoveInternal()
     {
-        _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
-        {
-            Jump();
-        }
+        _controller.Move(_moveDirection * (_speed * Time.fixedDeltaTime));
     }
-
     private void FixedUpdate()
     {
-        Move(_moveDirection);
+        MoveInternal();
         Inert();
         if (IsGrounded())
         {
@@ -48,9 +46,12 @@ public class CharacterMovement : MonoBehaviour
         return Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
     }
 
-    private void Jump()
+    public void Jump()
     {
-        _velocity.y = _jumpHeight;
+        if (IsGrounded())
+        {
+            _velocity.y += _jumpHeight;
+        }
     }
     
     private void Inert()
