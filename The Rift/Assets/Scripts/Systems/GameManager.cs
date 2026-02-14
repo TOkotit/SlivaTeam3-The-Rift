@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 // Старый код. Просто приделал интерфейс. А так в основном то же самое
 
@@ -38,5 +40,15 @@ namespace Systems
             };
         }
         
+        public IEnumerator LoadScene(SceneType sceneType)
+        {
+            var sceneName = sceneType.ToString();
+            var operation = SceneManager.LoadSceneAsync(sceneName);
+            
+            while (!operation.isDone)
+            {
+                yield return null;
+            }
+        }
     }
 }

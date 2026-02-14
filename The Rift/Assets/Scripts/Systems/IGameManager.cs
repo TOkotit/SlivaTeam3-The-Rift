@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine.Events;
 
 namespace Systems
@@ -27,5 +28,7 @@ namespace Systems
         /// Если состояние не изменилось — событие не вызывается.
         /// </summary>
         void SetState(GameState newState);
+
+        IEnumerator LoadScene(SceneType sceneType);
     }
 }

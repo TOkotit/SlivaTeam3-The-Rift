@@ -42,10 +42,7 @@ namespace Root
 
             using (LifetimeScope.EnqueueParent(RootScope.Instance))
             {
-                var loadOperation = SceneManager.LoadSceneAsync(Scenes.MAINMENU);
-
-                while (!loadOperation.isDone)
-                    yield return null;
+                yield return _gameManager.LoadScene(SceneType.MainMenu);
             }
             
             _uiRoot.HideLoadingScreen();
