@@ -15,11 +15,17 @@ namespace Game.MainMenu.View.UI.ScreenMainMenu
         private void OnEnable()
         {
             _btnPlay?.onClick.AddListener(OnPlayButtonClicked);
+            _btnContinue?.onClick.AddListener(OnContinueButtonClicked);
+            _btnOptions?.onClick.AddListener(OnOptionsButtonClicked);
+            _btnExit?.onClick.AddListener(OnExitButtonClicked);
         }
 
         private void OnDisable()
         {
-
+            _btnPlay?.onClick.RemoveListener(OnPlayButtonClicked);
+            _btnContinue?.onClick.RemoveListener(OnContinueButtonClicked);
+            _btnOptions?.onClick.RemoveListener(OnOptionsButtonClicked);
+            _btnExit?.onClick.RemoveListener(OnExitButtonClicked);
         }
 
         private void OnPlayButtonClicked()

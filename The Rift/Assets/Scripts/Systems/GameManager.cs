@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
+using DI;
+using UIRoot;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using VContainer.Unity;
 
 // Старый код. Просто приделал интерфейс. А так в основном то же самое
 
@@ -10,8 +13,11 @@ namespace Systems
 {
     public class GameManager : IGameManager
     {
-        public GameManager()
+        private readonly UIRootView _uiRootView;
+
+        public GameManager(UIRootView uiRootView)
         {
+            _uiRootView = uiRootView;
             CurrentState = GameState.Booting;
             OnStateChange = new UnityEvent<GameState>();
             Debug.Log("GameManager: Инициализирован.");
@@ -42,6 +48,8 @@ namespace Systems
         
         public IEnumerator LoadScene(SceneType sceneType)
         {
+            _uiRootView.ShowLoadingScreen();
+            
             var sceneName = sceneType.ToString();
             var operation = SceneManager.LoadSceneAsync(sceneName);
             
@@ -49,6 +57,8 @@ namespace Systems
             {
                 yield return null;
             }
+            
+            _uiRootView.HideLoadingScreen();
         }
     }
 }

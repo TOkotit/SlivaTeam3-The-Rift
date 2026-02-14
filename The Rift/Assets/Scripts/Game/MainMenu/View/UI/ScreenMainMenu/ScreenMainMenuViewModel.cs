@@ -1,6 +1,13 @@
-﻿using Game.Gameplay.View.UI;
+﻿using System;
+using System.Collections;
+using Game.Gameplay.View.UI;
 using Game.UI;
 using R3;
+using Root;
+using Systems;
+using UnityEngine;
+using Utils;
+using VContainer;
 
 namespace Game.MainMenu.View.UI.ScreenMainMenu
 {
@@ -9,19 +16,23 @@ namespace Game.MainMenu.View.UI.ScreenMainMenu
         public override string Id =>  "ScreenMainMenu";
         
         private readonly MainMenuUIManager _uiManager;
-        private readonly Subject<Unit> _exitSceneRequest;
+        private readonly IGameManager _gameManager;
+        private readonly ICoroutineRunner _coroutines;
+        private readonly EntryPoint _entryPoint;
 
-        public ScreenMainMenuViewModel(MainMenuUIManager uiManager, Subject<Unit> exitSceneRequest)
+        public ScreenMainMenuViewModel(MainMenuUIManager uiManager, IObjectResolver container)
         {
             _uiManager = uiManager;
-            _exitSceneRequest = exitSceneRequest;
-        }
-
-        public void RequestPlay()
-        {
-            
+            _gameManager =  container.Resolve<IGameManager>();
+            _coroutines = container.Resolve<ICoroutineRunner>();
         }
         
+        public void RequestPlay()
+        {
+            Debug.Log("RequestPlay");
+            _coroutines.StartRoutine(_gameManager.LoadScene(SceneType.Gameplay));
+        }
+
         public void RequestContinue()
         {
             

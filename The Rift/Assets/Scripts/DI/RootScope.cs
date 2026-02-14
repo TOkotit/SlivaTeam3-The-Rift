@@ -33,10 +33,10 @@ namespace DI
             DontDestroyOnLoad(coroutines.gameObject);
             builder.RegisterInstance<ICoroutineRunner>(coroutines);
             
-            var uiRoot = Instantiate(Resources.Load<GameObject>("UIRoot"));
+            var uiRoot = Instantiate(Resources.Load<GameObject>("Prefabs/UI/Root/UIRoot"));
             DontDestroyOnLoad(uiRoot.gameObject);
             var uiRootView = uiRoot.GetComponent<UIRootView>();
-            builder.RegisterInstance<IUIRootView>(uiRootView);
+            builder.RegisterInstance<UIRootView>(uiRootView);
             
             builder.Register<IGameManager, GameManager>(Lifetime.Singleton);
             
