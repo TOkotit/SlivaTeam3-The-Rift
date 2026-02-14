@@ -16,6 +16,7 @@ public class CharacterMovement : MonoBehaviour, IControllable
     private Vector3 _moveDirection;
     private Vector3 _velocity;
     private Vector3 _gravity = Vector3.down * 9.832f;
+    private Vector2 _currentRotation;
     public Vector3 MoveDirection {get => _moveDirection; set => _moveDirection = value; }
     private void Awake()
     {
@@ -27,6 +28,11 @@ public class CharacterMovement : MonoBehaviour, IControllable
         _moveDirection = direction;
     }
 
+    public void Rotate(Quaternion rotation)
+    {
+        transform.rotation = rotation;
+    }
+    
     private void MoveInternal()
     {
         _controller.Move(_moveDirection * (_speed * Time.fixedDeltaTime));

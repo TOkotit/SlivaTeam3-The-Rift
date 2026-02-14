@@ -22,6 +22,7 @@ namespace DI
         {
             protected override void Configure(IContainerBuilder builder)
             {
+                builder.RegisterComponentInHierarchy<MainCharacterCamera>();
                 builder.Register<CharacterController>(Lifetime.Scoped);
                 builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
     

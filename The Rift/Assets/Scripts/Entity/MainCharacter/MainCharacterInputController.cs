@@ -11,6 +11,7 @@ namespace MainCharacter
         private IControllable _controllable;
         private IGameInputManager _gameInputManager;
         private GameInput _gameInput;
+        [Inject] private MainCharacterCamera _mainCamera;
 
         [Inject]
         private void Construct(IGameInputManager gameInputManager)
@@ -44,7 +45,18 @@ namespace MainCharacter
         private void ReadMovement()
         {
             var inputDirection = _gameInput.Gameplay.Movement.ReadValue<Vector2>();
-            Vector3 moveDirection = new Vector3(inputDirection.x, 0f, inputDirection.y);
+
+            var cameraTransform = _mainCamera.transform;
+            var forward = cameraTransform.forward;
+            var right = cameraTransform.right;
+
+            forward.y = 0f;
+            right.y = 0f;
+            forward.Normalize();
+            right.Normalize();
+
+            var moveDirection = forward * inputDirection.y + right * inputDirection.x;
+
             _controllable.Move(moveDirection);
         }
         private void OnDisable()
