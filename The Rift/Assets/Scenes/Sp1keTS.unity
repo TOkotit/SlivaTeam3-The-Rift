@@ -240,6 +240,8 @@ GameObject:
   - component: {fileID: 132707735}
   - component: {fileID: 132707738}
   - component: {fileID: 132707739}
+  - component: {fileID: 132707740}
+  - component: {fileID: 132707741}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -360,6 +362,30 @@ MonoBehaviour:
   _groundCheck: {fileID: 1844131210}
   _groundCheckRadius: 0.1
   _jumpHeight: 5
+--- !u!114 &132707740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132707732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc1ca5f936fa4a979865020714600df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &132707741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132707732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd375042b9864b9285ccbaf8ff0c8091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &241506634
 GameObject:
   m_ObjectHideFlags: 0

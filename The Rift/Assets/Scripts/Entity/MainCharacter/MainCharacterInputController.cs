@@ -1,4 +1,5 @@
 ﻿using System;
+using Systems;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -7,23 +8,24 @@ namespace MainCharacter
 {
     public class MainCharacterInputController : MonoBehaviour
     {
-        private IControllable _controlable;
+        private IControllable _controllable;
+        private IGameInputManager _gameInputManager;
         private GameInput _gameInput;
 
+        [Inject]
+        private void Construct(IGameInputManager gameInputManager)
+        {
+            _gameInputManager = gameInputManager;
+            _gameInput = gameInputManager.GameInput;
+        }
         private void Awake()
         {
-            _controlable = GetComponent<IControllable>();
-            if (_controlable == null)
+            _controllable = GetComponent<IControllable>();
+            if (_controllable == null)
             {
                 Debug.Log("Main character controllable is not found");
             }
         }
-        [Inject]
-        public void Construct(GameInput gameInput)
-        {
-            _gameInput = gameInput;
-        }
-        
         private void OnEnable()
         {
             _gameInput.Gameplay.Jump.performed += OnJumpPerformed;
@@ -31,7 +33,7 @@ namespace MainCharacter
 
         private void OnJumpPerformed(InputAction.CallbackContext context)
         {
-            _controlable.Jump();
+            _controllable.Jump();
         }
 
         private void Update()
@@ -42,7 +44,8 @@ namespace MainCharacter
         private void ReadMovement()
         {
             var inputDirection = _gameInput.Gameplay.Movement.ReadValue<Vector2>();
-            _controlable.Move(inputDirection);
+            Vector3 moveDirection = new Vector3(inputDirection.x, 0f, inputDirection.y);
+            _controllable.Move(moveDirection);
         }
         private void OnDisable()
         {

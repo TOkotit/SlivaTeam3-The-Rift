@@ -12,10 +12,6 @@ public class MainMenuEntryPoint : IStartable
 {
     readonly IGameManager _gameManager;
     
-    
-    
-    
-    
     public void Start()
     {
         Debug.Log("Меню: Контейнер запущен, логика инициализирована.");
