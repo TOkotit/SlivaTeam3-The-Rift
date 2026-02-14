@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: DI.RootScope
   autoRun: 1
   autoInjectGameObjects: []
 --- !u!4 &694419598

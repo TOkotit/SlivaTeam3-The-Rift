@@ -16,12 +16,11 @@ namespace Game.Gameplay.Root
         
         public GameplayEntryPoint(IObjectResolver resolver)
         {
+            Debug.Log("GameplayEntryPoint");
             _gameManager =  resolver.Resolve<IGameManager>();
+            _sceneUIRootPrefab = Resources.Load<GameplayUIRootBinder>("Prefabs/UI/Root/GameplayUI");
             
             InitUI(resolver);
-
-            var exitSceneRequest = resolver.Resolve<Subject<Unit>>(AppConstants.EXIT_SCENE_REQUEST_TAG);
-            var exitToMainMenuSceneSignal = exitSceneRequest.Select(_ => Unit.Default);
         }
         
         public void Start()

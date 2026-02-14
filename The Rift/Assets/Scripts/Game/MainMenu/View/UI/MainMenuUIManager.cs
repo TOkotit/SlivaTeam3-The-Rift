@@ -18,7 +18,7 @@ namespace Game.MainMenu.View.UI
         
         public ScreenMainMenuViewModel OpenScreenMainMenu()
         {
-            var viewModel = new ScreenMainMenuViewModel(this, _exitSceneRequest);
+            var viewModel = new ScreenMainMenuViewModel(this, Container);
             var rootUI = Container.Resolve<MainMenuUIRootViewModel>();
 
             rootUI.OpenScreen(viewModel);
