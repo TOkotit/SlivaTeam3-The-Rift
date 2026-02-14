@@ -16,7 +16,7 @@ namespace Game.Gameplay.View.UI
         
         public ScreenGameplayViewModel OpenScreenGameplay()
         {
-            var viewModel = new ScreenGameplayViewModel(this, _exitSceneRequest);
+            var viewModel = new ScreenGameplayViewModel(this, Container);
             var rootUI = Container.Resolve<GameplayUIRootViewModel>();
 
             rootUI.OpenScreen(viewModel);
