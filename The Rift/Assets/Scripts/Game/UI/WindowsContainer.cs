@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// Объект который создает окна(объекты на сцене) из префабов в ресурсах, хранит их и удаляет/заменяет
+    /// Цепляется вместе с UIRootBinder сцены
+    /// </summary>
     public class WindowsContainer : MonoBehaviour
     {
         [SerializeField] private Transform _screensContainer;

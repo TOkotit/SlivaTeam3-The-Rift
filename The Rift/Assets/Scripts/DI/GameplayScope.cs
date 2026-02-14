@@ -14,8 +14,7 @@ namespace DI
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
-            builder.RegisterInstance(new Subject<Unit>())
-                .Keyed(AppConstants.EXIT_SCENE_REQUEST_TAG);
+            
             
             
             builder.RegisterEntryPoint<GameplayEntryPoint>();

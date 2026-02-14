@@ -22,7 +22,6 @@ namespace Root
             _gameManager.SetState(GameState.Booting);
             
             _coroutines.StartRoutine(InitialLoadRoutine());
-            
         }
         
         private EntryPoint(

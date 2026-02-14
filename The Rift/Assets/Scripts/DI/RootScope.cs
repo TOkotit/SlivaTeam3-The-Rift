@@ -8,6 +8,9 @@ using VContainer.Unity;
 
 namespace DI
 {
+    /// <summary>
+    /// Главный DI контейнер проекта
+    /// </summary>
     public class RootScope : LifetimeScope
     {
         
