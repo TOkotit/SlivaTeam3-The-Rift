@@ -1,4 +1,11 @@
-﻿using Game;
+using Game.Gameplay.Root;
+using VContainer;
+using VContainer.Unity;
+using Systems;
+using MainCharacter;
+using UnityEngine;
+using UnityEngine.TextCore.Text;
+using Game;
 using Game.Gameplay.Root;
 using Game.Gameplay.View.UI;
 using R3;
@@ -7,18 +14,34 @@ using VContainer.Unity;
 
 namespace DI
 {
-    public class GameplayScope : LifetimeScope
-    {
-        protected override void Configure(IContainerBuilder builder)
+        public class GameplayScope: LifetimeScope
         {
-            builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
-            builder.Register<GameplayUIManager>(Lifetime.Singleton);
+            protected override void Configure(IContainerBuilder builder)
+            {
+              
+                builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
+                builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
-            builder.RegisterInstance(new Subject<Unit>())
-                .Keyed(AppConstants.EXIT_SCENE_REQUEST_TAG);
+      
+              
             
-            
-            builder.RegisterEntryPoint<GameplayEntryPoint>();
+                builder.RegisterComponentInHierarchy<MainCharacterCamera>();
+                builder.Register<CharacterController>(Lifetime.Scoped);
+    
+                builder.Register<IGameInputManager, GameInputManager>(Lifetime.Singleton);
+    
+                builder.RegisterComponentInHierarchy<MainCharacter>()
+                    .AsSelf();
+                builder.RegisterComponentInHierarchy<CharacterMovement>()
+                    .As<IControllable>()      
+                    .AsSelf();
+                builder.RegisterComponentInHierarchy<MainCharacterInputController>()
+                    .AsSelf();
+    
+                builder.Register<MainCharacterModel>(Lifetime.Singleton);
+                
+                builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
+
+            }
         }
-    }
 }

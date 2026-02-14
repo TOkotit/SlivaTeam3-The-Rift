@@ -29,6 +29,8 @@ namespace DI
         
         protected override void Configure(IContainerBuilder builder)
         {
+            
+            
             var coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>();
             DontDestroyOnLoad(coroutines.gameObject);
             builder.RegisterInstance<ICoroutineRunner>(coroutines);
