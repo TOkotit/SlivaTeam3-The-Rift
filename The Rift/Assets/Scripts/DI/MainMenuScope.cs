@@ -14,9 +14,6 @@ namespace DI
             builder.Register<MainMenuUIRootViewModel>(Lifetime.Singleton);
             builder.Register<MainMenuUIManager>(Lifetime.Singleton);
             
-            builder.RegisterInstance(new Subject<Unit>())
-                .Keyed(AppConstants.EXIT_SCENE_REQUEST_TAG);
-            
             builder.RegisterEntryPoint<MainMenuEntryPoint>();
         }
     }
