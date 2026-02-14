@@ -7,6 +7,7 @@ namespace Game.Gameplay.Root
     {
         public void Start()
         {
+            
         }
     }
 }

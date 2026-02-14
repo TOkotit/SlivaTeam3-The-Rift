@@ -3,8 +3,8 @@
 namespace Game.UI
 {
     /// <summary>
-    /// Абстрактный класс который будет переписываться и цепляться к окнам ui
-    /// в качестве T принимает соответствующий view model 
+    /// Абстрактный класс который будет переписываться и цепляться к окнам(объектам) ui
+    /// в качестве T принимает соответствующий view model окна
     /// </summary>
     public abstract class WindowBinder<T> : MonoBehaviour, IWindowBinder
         where T : WindowViewModel
