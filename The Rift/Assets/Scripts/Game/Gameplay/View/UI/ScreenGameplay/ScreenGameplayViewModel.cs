@@ -1,0 +1,28 @@
+﻿using Game.UI;
+using R3;
+
+namespace Game.Gameplay.View.UI
+{
+    public class ScreenGameplayViewModel : WindowViewModel
+    {
+        private readonly GameplayUIManager _uiManager;
+        private readonly Subject<Unit> _exitSceneRequest;
+        public override string Id => "ScreenGameplay";
+
+        public ScreenGameplayViewModel(GameplayUIManager uiManager, Subject<Unit> exitSceneRequest)
+        {
+            _uiManager = uiManager;
+            _exitSceneRequest = exitSceneRequest;
+        }
+
+        public void RequestOpenPopupA()
+        {
+            _uiManager.OpenPopupA();
+        }
+        
+        public void RequestGoToMainMenu()
+        {
+            _exitSceneRequest.OnNext(Unit.Default);
+        }
+    }
+}
