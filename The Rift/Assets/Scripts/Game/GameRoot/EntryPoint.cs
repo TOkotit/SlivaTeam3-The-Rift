@@ -28,7 +28,7 @@ namespace Root
         private EntryPoint(
             ICoroutineRunner coroutines,
             IGameManager gameManager,
-            IUIRootView uiRootPrefab)
+            UIRootView uiRootPrefab)
         {
             _coroutines = coroutines;
             _gameManager = gameManager;
@@ -37,18 +37,8 @@ namespace Root
         
         
         private IEnumerator InitialLoadRoutine()
-        {
-            _uiRoot.ShowLoadingScreen();
-
-            using (LifetimeScope.EnqueueParent(RootScope.Instance))
-            {
-                var loadOperation = SceneManager.LoadSceneAsync(Scenes.MAINMENU);
-
-                while (!loadOperation.isDone)
-                    yield return null;
-            }
-            
-            _uiRoot.HideLoadingScreen();
+        { 
+            yield return _gameManager.LoadScene(SceneType.MainMenu);
         }
         
         
