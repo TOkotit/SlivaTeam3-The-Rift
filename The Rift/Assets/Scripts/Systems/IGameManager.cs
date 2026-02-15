@@ -29,6 +29,8 @@ namespace Systems
         /// </summary>
         void SetState(GameState newState);
 
-        IEnumerator LoadScene(SceneType sceneType);
+        public IEnumerator LoadMainMenu();
+        public IEnumerator LoadGameplay();
+
     }
 }

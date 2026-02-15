@@ -30,7 +30,7 @@ namespace Game.MainMenu.View.UI.ScreenMainMenu
         public void RequestPlay()
         {
             Debug.Log("RequestPlay");
-            _coroutines.StartRoutine(_gameManager.LoadScene(SceneType.Gameplay));
+            _coroutines.StartRoutine(_gameManager.LoadGameplay());
         }
 
         public void RequestContinue()

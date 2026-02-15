@@ -40,7 +40,7 @@ namespace DI
             var uiRootView = uiRoot.GetComponent<UIRootView>();
             builder.RegisterInstance<UIRootView>(uiRootView);
             builder.Register<IGameInputManager, GameInputManager>(Lifetime.Singleton);
-            
+
             Debug.Log("GameplayScope.Configure called");
             builder.Register<IGameManager, GameManager>(Lifetime.Singleton);
             
