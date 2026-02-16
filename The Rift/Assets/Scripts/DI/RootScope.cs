@@ -13,20 +13,20 @@ namespace DI
     {
         
         public static RootScope Instance { get; private set; }
-        protected override void Awake()
-        {
-            if (Instance is not null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            
-            Instance = this;
-            
-            DontDestroyOnLoad(gameObject);
-            
-            base.Awake();
-        }
+        // protected override void Awake()
+        // {
+        //     if (Instance is not null)
+        //     {
+        //         Destroy(gameObject);
+        //         return;
+        //     }
+        //     
+        //     Instance = this;
+        //     
+        //     DontDestroyOnLoad(gameObject);
+        //     
+        //     base.Awake();
+        // }
         
         protected override void Configure(IContainerBuilder builder)
         {
