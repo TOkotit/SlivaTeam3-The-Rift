@@ -11,7 +11,7 @@ namespace MainCharacter
         private Camera _camera;
         private GameInput _gameInput;
         private IControllable _controllable;
-
+        private bool _initialized;
         [SerializeField] private float _sensitivity = 1f; 
         [SerializeField] private float _maxPitch = 80f;  
         private Vector2 _rotation; 
@@ -20,16 +20,18 @@ namespace MainCharacter
         {
             _camera = GetComponent<Camera>();
         }
-
+        
         [Inject]
         public void Construct(IGameInputManager gameInputManager, IControllable controllable)
         {
             _gameInput = gameInputManager.GameInput;
             _controllable = controllable;
+            _initialized = true;
         }
 
         private void Update()
         {
+            if (!_initialized) return;
             ReadRotation();
         }
 

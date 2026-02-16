@@ -7,11 +7,8 @@ namespace Game.Gameplay.View.UI
 {
     public class GameplayUIManager : UIManager
     {
-        private readonly Subject<Unit> _exitSceneRequest;
-
         public GameplayUIManager(IObjectResolver container) : base(container)
         {
-            _exitSceneRequest = container.Resolve<Subject<Unit>>(AppConstants.EXIT_SCENE_REQUEST_TAG);
         }
         
         public ScreenGameplayViewModel OpenScreenGameplay()
