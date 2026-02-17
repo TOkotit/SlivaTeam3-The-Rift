@@ -30,7 +30,7 @@ namespace DI
     
                 builder.Register<IGameInputManager, GameInputManager>(Lifetime.Singleton);
     
-                builder.RegisterComponentInHierarchy<MainCharacter>()
+                builder.RegisterComponentInHierarchy<MainCharacter.MainCharacter>()
                     .AsSelf();
                 builder.RegisterComponentInHierarchy<CharacterMovement>()
                     .As<IControllable>()      
