@@ -21,10 +21,7 @@ namespace DI
               
                 builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
                 builder.Register<GameplayUIManager>(Lifetime.Singleton);
-            
-      
-              
-            
+                
                 builder.RegisterComponentInHierarchy<MainCharacterCamera>();
                 builder.Register<CharacterController>(Lifetime.Scoped);
     
@@ -37,8 +34,9 @@ namespace DI
                     .AsSelf();
                 builder.RegisterComponentInHierarchy<MainCharacterInputController>()
                     .AsSelf();
-    
-                builder.Register<MainCharacterModel>(Lifetime.Singleton);
+                
+                builder.Register<MainCharacterModel>(Lifetime.Singleton)
+                    .WithParameter(typeof(Health), new Health(200));
                 
                 builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
 
