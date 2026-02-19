@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class Rune : Item
+    public class Rune
     {
         
     }
