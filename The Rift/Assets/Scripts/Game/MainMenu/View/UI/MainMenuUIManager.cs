@@ -9,9 +9,11 @@ namespace Game.MainMenu.View.UI
 {
     public class MainMenuUIManager : UIManager
     {
+        
 
         public MainMenuUIManager(IObjectResolver container) : base(container)
         {
+            
         }
         
         public ScreenMainMenuViewModel OpenScreenMainMenu()

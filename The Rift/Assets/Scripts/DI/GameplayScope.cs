@@ -18,6 +18,7 @@ namespace DI
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
             
+            
 
             
             Debug.Log("GameplayScope.Configure called");

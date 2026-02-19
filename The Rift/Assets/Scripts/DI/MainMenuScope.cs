@@ -14,6 +14,8 @@ namespace DI
             builder.Register<MainMenuUIRootViewModel>(Lifetime.Singleton);
             builder.Register<MainMenuUIManager>(Lifetime.Singleton);
             
+            
+            
             builder.RegisterEntryPoint<MainMenuEntryPoint>();
         }
     }
