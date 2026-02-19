@@ -37,7 +37,7 @@ namespace Root
         
         private IEnumerator InitialLoadRoutine()
         { 
-            yield return _gameManager.LoadScene(SceneType.MainMenu);
+            yield return _gameManager.LoadMainMenu();
         }
         
         

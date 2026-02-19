@@ -27,7 +27,7 @@ namespace Game.Gameplay.View.UI
         
         public void RequestGoToMainMenu()
         {
-            _coroutines.StartRoutine(_gameManager.LoadScene(SceneType.MainMenu));
+            _coroutines.StartRoutine(_gameManager.LoadMainMenu());
         }
     }
 }
