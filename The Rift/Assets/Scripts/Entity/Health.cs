@@ -17,8 +17,11 @@ namespace MainCharacter
             {
                 _currentHealth = value;
                 if (_currentHealth >= _maxHealth) _currentHealth = _maxHealth;
-                if (_currentHealth <= 0) _currentHealth = 0;
-                OnDeath?.Invoke();
+                if (_currentHealth <= 0) {
+                    _currentHealth = 0;
+                    OnDeath?.Invoke();
+                }
+
             }
         }
         public IReadOnlyDictionary<Enums.DamageTypes, float> Vulnerabilities => _vulnerabilities;
