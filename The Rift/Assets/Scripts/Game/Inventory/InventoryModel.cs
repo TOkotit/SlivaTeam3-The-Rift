@@ -9,5 +9,7 @@ namespace Game.Inventory
     {
         public List<ResourceData> resources;
         
+        
+        
     }
 }

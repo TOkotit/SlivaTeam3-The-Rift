@@ -16,7 +16,7 @@ namespace Game.Inventory
         {
             Origin = origin;
             Amount = new ReactiveProperty<int>(origin.amount);
-            
+            //тут связываем количество с классом с данными 
             Amount.Subscribe(onNext: newValue => origin.amount = newValue );
         }
     }

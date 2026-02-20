@@ -1,3 +1,4 @@
+using Game.Gameplay;
 using Game.Gameplay.Root;
 using VContainer;
 using VContainer.Unity;
@@ -5,6 +6,7 @@ using Systems;
 using MainCharacter;
 using UnityEngine;
 using Game.Gameplay.View.UI;
+using Game.Inventory;
 using UIRoot;
 using Utils;
 
@@ -17,10 +19,12 @@ namespace DI
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
+            builder.Register<GameData>(Lifetime.Singleton);
             
-            
+            builder.Register<Inventory>(Lifetime.Singleton);
+            builder.Register<InventoryManager>(Lifetime.Singleton);
 
-            
+
             Debug.Log("GameplayScope.Configure called");
             builder.RegisterComponentInHierarchy<MainCharacterCamera>();
             builder.Register<CharacterController>(Lifetime.Scoped);
@@ -33,6 +37,8 @@ namespace DI
                 .AsSelf();
             builder.Register<MainCharacterModel>(Lifetime.Singleton);
 
+
+            
 
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
 
