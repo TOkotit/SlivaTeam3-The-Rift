@@ -1,11 +1,9 @@
-﻿namespace MainCharacter
+﻿using Entity;
+
+namespace MainCharacter
 {
-    public class MainCharacterModel
+    public class MainCharacterModel : CharacterModel
     {
-        private Health _health;
-        public Health Health =>  _health;
-        
-        
         //Модель, здесь будут характеристики и данные для сохранения
     }
 }

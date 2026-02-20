@@ -9,6 +9,6 @@ namespace MainCharacter
     {
         [Inject] private MainCharacterModel _mainCharacterModel;
         [Inject] private CharacterController _characterController;
-
+        [SerializeField] private GameObject arms;
     }
 }
