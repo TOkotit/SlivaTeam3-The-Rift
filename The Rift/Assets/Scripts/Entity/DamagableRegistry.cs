@@ -34,7 +34,6 @@ namespace Entity
             {
                 return _damagableObjects[collider];
             }
-            Debug.LogWarning($"Character {collider.name} has no Damagable");
             return null;
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using Entity;
 using Enums;
 using MainCharacter;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
@@ -16,6 +17,8 @@ namespace Systems
         
         [Inject]
         private readonly DamagableRegistry _registry;
+        [Inject]
+        private CoroutineRunner _coroutineRunner;
         
         public AttackSystem Instance
         {
@@ -32,13 +35,20 @@ namespace Systems
                 instance = value;
             }
         }
-
-        public void PerformAttack(RaycastAttackProfile profile, WeaponProfile weaponProfile,  GameObject sender, Teams team)
+        
+        public void PerformAttack(IAttackProfile profile, WeaponProfile weaponProfile,  GameObject sender, Teams team)
         {
-            CastRaysContinous(profile,weaponProfile ,sender, team);
+            if (profile is RaycastAttackProfile raycastProfile)
+            {
+                _coroutineRunner.StartCoroutine(
+                    CastRaysContinuous(raycastProfile, weaponProfile, sender, team)
+                );
+            }
+            
         }
+        
 
-        private IEnumerator CastRaysContinous(RaycastAttackProfile attackProfile, WeaponProfile weaponProfile, GameObject sender, Teams team) 
+        private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, WeaponProfile weaponProfile, GameObject sender, Teams team) 
         {
             var range = weaponProfile.Range * attackProfile.DistanceMultiplier;
             var damage = weaponProfile.Damage * attackProfile.DamageMultiplier;
