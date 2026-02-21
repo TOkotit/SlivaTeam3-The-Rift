@@ -4,6 +4,6 @@ namespace MainCharacter
 {
     public class MainCharacterModel : CharacterModel
     {
-        //Модель, здесь будут характеристики и данные для сохранения
+        //Модель, здесь будут характеристики и данные для сохранения 
     }
 }

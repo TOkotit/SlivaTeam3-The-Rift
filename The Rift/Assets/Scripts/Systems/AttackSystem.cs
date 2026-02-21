@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Entity;
 using Enums;
 using MainCharacter;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Entity
+namespace Systems
 {
     public class AttackSystem
     {
@@ -63,10 +64,10 @@ namespace Entity
                 {
                     var target = hit.collider.gameObject;
 
-                    var model = target.GetComponent<CharacterModel>();  // переделать с вызовом конкретного комопонента
+                    var model = target.GetComponent<Character>().CharacterModel;  // переделать с вызовом конкретного комопонента
                                                                         // Сделать модификаторы дальности и урона от профилья самой атаки
                     if (model == null) continue;                       
-                    if (model.Team == sender.GetComponent<CharacterModel>()?.Team) continue;
+                    if (model.Team == sender.GetComponent<Character>()?.CharacterModel.Team) continue;
                     if (piercing && hitTargets.Contains(target)) continue;
 
                     model.Health.TakeDamage(damage, profile.DamageType);

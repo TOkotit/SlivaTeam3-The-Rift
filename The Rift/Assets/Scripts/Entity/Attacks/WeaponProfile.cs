@@ -3,13 +3,13 @@ using Entity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MainCharacter
+namespace Entity
 {
     public class WeaponProfile : ScriptableObject
     {
         [SerializeField] private float range;
         [SerializeField] private int damage;
-        [SerializeField] private bool piercing;
+        [SerializeField] private bool piercing; 
         [SerializeField] private float attackSpeed;
         [SerializeField] private float swingSpeed;
         public float Range => range;
