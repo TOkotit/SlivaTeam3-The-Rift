@@ -38,18 +38,17 @@ namespace Systems
             CastRaysContinous(profile,weaponProfile ,sender, team);
         }
 
-        private IEnumerator CastRaysContinous(RaycastAttackProfile profile, WeaponProfile weaponProfile, GameObject sender, Teams team) 
+        private IEnumerator CastRaysContinous(RaycastAttackProfile attackProfile, WeaponProfile weaponProfile, GameObject sender, Teams team) 
         {
-            var range = weaponProfile.Range;
-            var damage = weaponProfile.Damage;
+            var range = weaponProfile.Range * attackProfile.DistanceMultiplier;
+            var damage = weaponProfile.Damage * attackProfile.DamageMultiplier;
             var piercing = weaponProfile.Piercing;
             var swingSpeed = weaponProfile.SwingSpeed; 
-            var totalAngle = profile.Angle;            
-            var tilt = profile.Tilt;                    
+            var totalAngle = attackProfile.Angle;            
+            var tilt = attackProfile.Tilt;                    
             var baseDirection = sender.transform.forward;
             var halfAngle = totalAngle * 0.5f;
             var waitTime = swingSpeed > 0 ? 1f / swingSpeed : 0f;
-            var hitTargets = new HashSet<DamagableModel>();
 
             for (float angle = -halfAngle; angle <= halfAngle; angle += 1f)
             {
@@ -60,20 +59,17 @@ namespace Systems
                 var ray = new Ray(sender.transform.position, finalDirection);
                 var hits = Physics.RaycastAll(ray, range);
 
-
                 foreach (RaycastHit hit in hits)
                 {
                     var targetModel = _registry.TryGetCharacter(hit.collider);
                     if (targetModel == null) continue;
                     if (targetModel.Team == team) continue;
-                    if (piercing && hitTargets.Contains(targetModel)) continue;
 
-                    targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), profile.DamageType);
+                    targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);
 
-                    if (piercing)
-                        hitTargets.Add(targetModel);
-                    else
+                    if (!piercing)
                         yield break; 
+                        
                 }
 
 

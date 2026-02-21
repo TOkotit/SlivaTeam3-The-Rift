@@ -16,6 +16,7 @@ namespace Entity
         public int Damage => damage;
         public bool Piercing => piercing;
         public float SwingSpeed => swingSpeed;
-        private Dictionary<List<Key>, IAttackProfile> Attacks = new Dictionary<List<Key>, IAttackProfile>();
+        private Dictionary<List<Key>, IAttackProfile> _attacks = new Dictionary<List<Key>, IAttackProfile>();
+        public Dictionary<List<Key>, IAttackProfile>  Attacks => _attacks;
     }
 }

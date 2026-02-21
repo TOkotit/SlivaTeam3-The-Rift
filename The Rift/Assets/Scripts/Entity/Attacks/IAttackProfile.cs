@@ -1,6 +1,6 @@
 ﻿namespace Entity
 {
-    internal interface IAttackProfile
+    public interface IAttackProfile
     {
         protected string Name { get; set; }
     }
