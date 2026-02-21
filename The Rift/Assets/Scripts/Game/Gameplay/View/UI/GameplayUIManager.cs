@@ -7,8 +7,11 @@ namespace Game.Gameplay.View.UI
 {
     public class GameplayUIManager : UIManager
     {
+        
+
         public GameplayUIManager(IObjectResolver container) : base(container)
         {
+            
         }
         
         public ScreenGameplayViewModel OpenScreenGameplay()
