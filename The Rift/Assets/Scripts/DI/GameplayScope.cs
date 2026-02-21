@@ -14,20 +14,20 @@ namespace DI
 {
     public class GameplayScope: LifetimeScope
     {
-        protected override void Configure(IContainerBuilder builder)
-        {
+          protected override void Configure(IContainerBuilder builder)
+          {
+          
+            Debug.Log("GameplayScope.Configure called");
+
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
-            
-            builder.Register<GameData>(Lifetime.Singleton);
-            
-            builder.Register<Inventory>(Lifetime.Singleton);
-            builder.Register<InventoryManager>(Lifetime.Singleton);
 
-
-            Debug.Log("GameplayScope.Configure called");
             builder.RegisterComponentInHierarchy<MainCharacterCamera>();
             builder.Register<CharacterController>(Lifetime.Scoped);
+            builder.Register<GameData>(Lifetime.Singleton);
+
+            builder.Register<IGameInputManager, GameInputManager>(Lifetime.Singleton);
+
             builder.RegisterComponentInHierarchy<MainCharacter.MainCharacter>()
                 .AsSelf();
             builder.RegisterComponentInHierarchy<CharacterMovement>()
@@ -35,8 +35,13 @@ namespace DI
                 .AsSelf();
             builder.RegisterComponentInHierarchy<MainCharacterInputController>()
                 .AsSelf();
-            builder.Register<MainCharacterModel>(Lifetime.Singleton);
 
+            builder.Register<MainCharacterModel>(Lifetime.Singleton)
+                .WithParameter(typeof(Health), new Health(200));
+
+
+            builder.Register<Inventory>(Lifetime.Singleton);
+            builder.Register<InventoryManager>(Lifetime.Singleton); 
 
             
 
