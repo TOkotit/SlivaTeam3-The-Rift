@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using Enums;
+using Game.Inventory.InventoryItems;
 using UnityEngine;
 
 namespace Game.Inventory
@@ -12,50 +14,80 @@ namespace Game.Inventory
             _inventory = inventory;
         }
 
-        public Resource CreateNewResource(ResourceType resourceType)
+        public Item CreateNewItem(ItemsCategory category)
         {
-            var newRData = new ResourceData()
+            var newIData = new ItemData()
             {
-                resourceType = resourceType,
+                itemsCategory = category,
                 amount = 0
             };
             
-            var newResource = new Resource(newRData);
+            var newItem = new Item(newIData);
             
-            _inventory.Resources.Add(newResource);
+            _inventory.Items.Add(newItem);
+
+            return newItem;
+        }
+        
+        public void AddItem(ItemsCategory category, int amount)
+        {
+            var requiredItem = _inventory.Items.FirstOrDefault(r => r.ItemsCategory == category) ??
+                                   CreateNewItem(category);
+
+            requiredItem.Amount.Value += amount;
+        }
+        
+        public bool TrySpendItems(ItemsCategory category, int amount)
+        {
+            var requiredItem = _inventory.Items.FirstOrDefault(r => r.ItemsCategory == category) ??
+                               CreateNewItem(category);
+
+            if (requiredItem.Amount.Value < amount)
+            {
+                Debug.Log($"Not enough item {category}");
+                return false;
+            }
+            
+            requiredItem.Amount.Value -= amount;
+            return true;
+        }
+        
+        public bool IsEnough(ItemsCategory category, int amount)
+        {
+            var requiredItem = _inventory.Items.FirstOrDefault(r => r.ItemsCategory == category) ??
+                               CreateNewItem(category);
+
+            return requiredItem.Amount.Value >= amount;
+            
+        }
+        
+        public Resource CreateNewResource(ResourceType resourceType)
+        {
+            var newData = new ResourceData()
+            {
+                itemsCategory = ItemsCategory.Resource, // Всегда Resource так как это ресурсы
+                resourceType = resourceType,
+                amount = 0
+            };
+    
+            var newResource = new Resource(newData);
+            _inventory.Items.Add(newResource);
 
             return newResource;
         }
-        
-        public void AddResource(ResourceType resourceType, int amount)
-        {
-            var requiredResource = _inventory.Resources.FirstOrDefault(r => r.ResourceType == resourceType) ??
-                                   CreateNewResource(resourceType);
 
-            requiredResource.Amount.Value += amount;
-        }
-        
-        public void TrySpendResource(ResourceType resourceType, int amount)
+        // Обновленный метод добавления именно ресурсов
+        public void AddResource(ResourceType type, int amount)
         {
-            var requiredResource = _inventory.Resources.FirstOrDefault(r => r.ResourceType == resourceType) ??
-                                   CreateNewResource(resourceType);
+            var resource = _inventory.Items
+                .OfType<Resource>() 
+                .FirstOrDefault(r => r.ResourceType == type);
 
-            if (requiredResource.Amount.Value < amount)
+            if (resource == null)
             {
-                Debug.Log($"Not enough resource {resourceType}");
-                return;
+                resource = CreateNewResource(type);
             }
-            
-            requiredResource.Amount.Value -= amount;
-        }
-        
-        public bool IsEnough(ResourceType resourceType, int amount)
-        {
-            var requiredResource = _inventory.Resources.FirstOrDefault(r => r.ResourceType == resourceType) ??
-                                   CreateNewResource(resourceType);
-
-            return requiredResource.Amount.Value >= amount;
-            
+            resource.Amount.Value += amount;
         }
     }
 }
