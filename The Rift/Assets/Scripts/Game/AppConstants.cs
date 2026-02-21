@@ -6,7 +6,6 @@
     /// </summary>
     public static class AppConstants
     {
-        // Сохраняем в переменную имя самой переменной :)
-        public const string EXIT_SCENE_REQUEST_TAG = nameof(EXIT_SCENE_REQUEST_TAG);
+        
     }
 }

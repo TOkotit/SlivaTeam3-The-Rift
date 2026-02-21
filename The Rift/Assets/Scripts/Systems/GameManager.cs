@@ -14,10 +14,12 @@ namespace Systems
     public class GameManager : IGameManager
     {
         private readonly UIRootView _uiRootView;
+        private readonly IGameInputManager _gameInputManager;
 
-        public GameManager(UIRootView uiRootView)
+        public GameManager(UIRootView uiRootView, IGameInputManager gameInputManager)
         {
             _uiRootView = uiRootView;
+            _gameInputManager = gameInputManager;
             CurrentState = GameState.Booting;
             OnStateChange = new UnityEvent<GameState>();
             Debug.Log("GameManager: Инициализирован.");
@@ -46,7 +48,24 @@ namespace Systems
             };
         }
         
-        public IEnumerator LoadScene(SceneType sceneType)
+        
+        
+        public IEnumerator LoadMainMenu()
+        {
+            _gameInputManager.GameInput.Gameplay.Disable();
+            yield return LoadScene(SceneType.MainMenu);
+            SetState(GameState.Menu);
+        }
+
+        public IEnumerator LoadGameplay()
+        {
+            _gameInputManager.GameInput.Gameplay.Enable();
+            yield return LoadScene(SceneType.Gameplay);
+            SetState(GameState.Gameplay);
+        }
+        
+        
+        private IEnumerator LoadScene(SceneType sceneType)
         {
             _uiRootView.ShowLoadingScreen();
             

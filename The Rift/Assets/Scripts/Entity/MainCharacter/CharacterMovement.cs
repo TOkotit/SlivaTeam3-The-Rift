@@ -7,6 +7,8 @@ using VContainer.Unity;
 public class CharacterMovement : MonoBehaviour, IControllable
 {
     //Компонент который можно цеплять на объекты которые должны двигаться, например персонажей
+    
+    //TODO всё что можно перенести в статы в scriptableObject надо бы перенести
     private CharacterController _controller;
     [SerializeField] private float _speed;
     [SerializeField] private LayerMask _groundMask;

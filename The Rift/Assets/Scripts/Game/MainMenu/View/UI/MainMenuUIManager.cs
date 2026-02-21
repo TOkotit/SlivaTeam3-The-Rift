@@ -9,11 +9,11 @@ namespace Game.MainMenu.View.UI
 {
     public class MainMenuUIManager : UIManager
     {
-        private readonly Subject<Unit> _exitSceneRequest;
+        
 
         public MainMenuUIManager(IObjectResolver container) : base(container)
         {
-            _exitSceneRequest = container.Resolve<Subject<Unit>>(AppConstants.EXIT_SCENE_REQUEST_TAG);
+            
         }
         
         public ScreenMainMenuViewModel OpenScreenMainMenu()

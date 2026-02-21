@@ -4,17 +4,15 @@ using VContainer.Unity;
 using Systems;
 using MainCharacter;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using Game;
-using Game.Gameplay.Root;
 using Game.Gameplay.View.UI;
-using R3;
-using VContainer;
-using VContainer.Unity;
+using UIRoot;
+using Utils;
 
 namespace DI
 {
-        public class GameplayScope: LifetimeScope
+    public class GameplayScope: LifetimeScope
+    {
+        protected override void Configure(IContainerBuilder builder)
         {
             protected override void Configure(IContainerBuilder builder)
             {
@@ -40,6 +38,22 @@ namespace DI
                 
                 builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
 
-            }
+            
+            Debug.Log("GameplayScope.Configure called");
+            builder.RegisterComponentInHierarchy<MainCharacterCamera>();
+            builder.Register<CharacterController>(Lifetime.Scoped);
+            builder.RegisterComponentInHierarchy<MainCharacter.MainCharacter>()
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<CharacterMovement>()
+                .As<IControllable>()      
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacterInputController>()
+                .AsSelf();
+            builder.Register<MainCharacterModel>(Lifetime.Singleton);
+
+
+            builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
+
         }
+    }
 }

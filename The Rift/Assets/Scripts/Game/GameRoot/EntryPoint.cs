@@ -22,7 +22,6 @@ namespace Root
             _gameManager.SetState(GameState.Booting);
             
             _coroutines.StartRoutine(InitialLoadRoutine());
-            
         }
         
         private EntryPoint(
@@ -38,7 +37,7 @@ namespace Root
         
         private IEnumerator InitialLoadRoutine()
         { 
-            yield return _gameManager.LoadScene(SceneType.MainMenu);
+            yield return _gameManager.LoadMainMenu();
         }
         
         
