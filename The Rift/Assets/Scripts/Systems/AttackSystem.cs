@@ -6,13 +6,17 @@ using Enums;
 using MainCharacter;
 using UnityEngine;
 using UnityEngine.UIElements;
+using VContainer;
 
 namespace Systems
 {
     public class AttackSystem
     {
         static AttackSystem instance;
-
+        
+        [Inject]
+        private readonly DamagableRegistry _registry;
+        
         public AttackSystem Instance
         {
             get
@@ -29,12 +33,12 @@ namespace Systems
             }
         }
 
-        public void PerformAttack(RaycastAttackProfile profile, WeaponProfile weaponProfile,  GameObject sender)
+        public void PerformAttack(RaycastAttackProfile profile, WeaponProfile weaponProfile,  GameObject sender, Teams team)
         {
-            CastRaysContinous(profile,weaponProfile ,sender);
+            CastRaysContinous(profile,weaponProfile ,sender, team);
         }
 
-        private IEnumerator CastRaysContinous(RaycastAttackProfile profile, WeaponProfile weaponProfile, GameObject sender) 
+        private IEnumerator CastRaysContinous(RaycastAttackProfile profile, WeaponProfile weaponProfile, GameObject sender, Teams team) 
         {
             var range = weaponProfile.Range;
             var damage = weaponProfile.Damage;
@@ -45,37 +49,33 @@ namespace Systems
             var baseDirection = sender.transform.forward;
             var halfAngle = totalAngle * 0.5f;
             var waitTime = swingSpeed > 0 ? 1f / swingSpeed : 0f;
-
-            HashSet<GameObject> hitTargets = new HashSet<GameObject>();
+            var hitTargets = new HashSet<DamagableModel>();
 
             for (float angle = -halfAngle; angle <= halfAngle; angle += 1f)
             {
                 var horizontalRotation = Quaternion.AngleAxis(angle, Vector3.up);
                 var directionAfterYaw = horizontalRotation * baseDirection;
-
                 var tiltRotation = Quaternion.AngleAxis(tilt, sender.transform.right);
                 var finalDirection = tiltRotation * directionAfterYaw;
-
                 var ray = new Ray(sender.transform.position, finalDirection);
                 var hits = Physics.RaycastAll(ray, range);
 
 
                 foreach (RaycastHit hit in hits)
                 {
-                    var target = hit.collider.gameObject;
+                    var targetModel = _registry.TryGetCharacter(hit.collider);
+                    if (targetModel == null) continue;
+                    if (targetModel.Team == team) continue;
+                    if (piercing && hitTargets.Contains(targetModel)) continue;
 
-                    var model = target.GetComponent<Character>().CharacterModel;  // переделать с вызовом конкретного комопонента
-                                                                        // Сделать модификаторы дальности и урона от профилья самой атаки
-                    if (model == null) continue;                       
-                    if (model.Team == sender.GetComponent<Character>()?.CharacterModel.Team) continue;
-                    if (piercing && hitTargets.Contains(target)) continue;
+                    targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), profile.DamageType);
 
-                    model.Health.TakeDamage(damage, profile.DamageType);
-
-                    if (piercing) hitTargets.Add(target);
-
-                    if (!piercing) yield break; 
+                    if (piercing)
+                        hitTargets.Add(targetModel);
+                    else
+                        yield break; 
                 }
+
 
                 if (waitTime > 0f)
                 {

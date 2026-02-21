@@ -2,8 +2,8 @@
 
 namespace Entity.Enemy
 {
-    public class EnemyModel : CharacterModel
+    public class EnemyModel : DamagableModel
     {
-        //Тут будут сохраняемые свойства противника
+        //Тут будут сохраняемые свойства противника 
     }
 }

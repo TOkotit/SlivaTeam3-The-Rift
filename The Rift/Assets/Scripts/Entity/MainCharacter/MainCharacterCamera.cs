@@ -17,7 +17,7 @@ namespace MainCharacter
         private Vector2 _rotation; 
 
         private void Awake()
-        {
+        { 
             _camera = GetComponent<Camera>();
         }
 

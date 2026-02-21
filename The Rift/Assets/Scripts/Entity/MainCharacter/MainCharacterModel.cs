@@ -2,8 +2,8 @@
 
 namespace MainCharacter
 {
-    public class MainCharacterModel : CharacterModel
+    public class MainCharacterModel : DamagableModel
     {
-        //Модель, здесь будут характеристики и данные для сохранения 
+        //Модель, здесь будут характеристики и данные для сохранения  
     }
 }

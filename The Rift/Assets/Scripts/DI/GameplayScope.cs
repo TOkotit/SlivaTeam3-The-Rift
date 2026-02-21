@@ -1,3 +1,4 @@
+using Entity;
 using Game.Gameplay.Root;
 using VContainer;
 using VContainer.Unity;
@@ -18,7 +19,9 @@ namespace DI
         {
             protected override void Configure(IContainerBuilder builder)
             {
-              
+                builder.Register<DamagableRegistry>(Lifetime.Singleton);
+                builder.Register<AttackSystem>(Lifetime.Singleton);
+                
                 builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
                 builder.Register<GameplayUIManager>(Lifetime.Singleton);
                 
@@ -32,7 +35,7 @@ namespace DI
                 builder.RegisterComponentInHierarchy<CharacterMovement>()
                     .As<IControllable>()      
                     .AsSelf();
-                builder.RegisterComponentInHierarchy<MainCharacterInputController>()
+                builder.RegisterComponentInHierarchy<MainCharacterMovementController>()
                     .AsSelf();
                 
                 builder.Register<MainCharacterModel>(Lifetime.Singleton)

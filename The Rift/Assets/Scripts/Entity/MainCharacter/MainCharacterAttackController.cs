@@ -1,7 +1,9 @@
-﻿namespace MainCharacter
+﻿using UnityEngine;
+
+namespace MainCharacter
 {
-    public class MainCharacterAttackController
+    public class MainCharacterAttackController : MonoBehaviour
     {
-         
+          
     }
 }
