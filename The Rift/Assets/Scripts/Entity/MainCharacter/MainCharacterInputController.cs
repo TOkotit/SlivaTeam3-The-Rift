@@ -6,7 +6,7 @@ using VContainer;
 
 namespace MainCharacter
 {
-    public class MainCharacterInputController : MonoBehaviour
+    public class MainCharacterMovementController : MonoBehaviour
     {
         [Inject] private IControllable _controllable;
         private IGameInputManager _gameInputManager;
