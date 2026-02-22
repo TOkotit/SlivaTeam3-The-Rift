@@ -29,8 +29,7 @@ namespace DI
                 builder.RegisterInstance<ICoroutineRunner>(coroutines);
                 
                 builder.RegisterComponentInHierarchy<MainCharacterAttackController>();
-                builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
-                builder.Register<GameplayUIManager>(Lifetime.Singleton);
+                
                 
                 builder.RegisterComponentInHierarchy<MainCharacterCamera>();
                 builder.Register<CharacterController>(Lifetime.Scoped);
@@ -52,6 +51,9 @@ namespace DI
                     
                 builder.Register<Inventory>(Lifetime.Singleton);
                 builder.Register<InventoryManager>(Lifetime.Singleton); 
+                
+                builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
+                builder.Register<GameplayUIManager>(Lifetime.Singleton);
                 
                 builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
 
