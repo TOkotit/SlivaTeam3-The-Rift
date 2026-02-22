@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MainCharacter
 {
+    [CreateAssetMenu(fileName = "RaycastAttack", menuName = "Attacks/Raycast attacks")]
     public class RaycastAttackProfile : ScriptableObject, IAttackProfile 
     {
         [SerializeField] private float angle;

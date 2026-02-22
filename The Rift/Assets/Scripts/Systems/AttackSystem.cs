@@ -7,6 +7,7 @@ using MainCharacter;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utils;
 using VContainer;
 
 namespace Systems
@@ -18,7 +19,7 @@ namespace Systems
         [Inject]
         private readonly DamagableRegistry _registry;
         [Inject]
-        private CoroutineRunner _coroutineRunner;
+        private ICoroutineRunner _coroutineRunner;
         
         public AttackSystem Instance
         {
@@ -38,9 +39,12 @@ namespace Systems
         
         public void PerformAttack(IAttackProfile profile, WeaponProfile weaponProfile,  GameObject sender, Teams team)
         {
+            
+            Debug.Log("attack was performed");
             if (profile is RaycastAttackProfile raycastProfile)
             {
-                _coroutineRunner.StartCoroutine(
+                Debug.Log("Starting coroutine");
+                _coroutineRunner.StartRoutine(
                     CastRaysContinuous(raycastProfile, weaponProfile, sender, team)
                 );
             }
@@ -56,19 +60,34 @@ namespace Systems
             var swingSpeed = weaponProfile.SwingSpeed; 
             var totalAngle = attackProfile.Angle;            
             var tilt = attackProfile.Tilt;                    
-            var baseDirection = sender.transform.forward;
             var halfAngle = totalAngle * 0.5f;
-            var waitTime = swingSpeed > 0 ? 1f / swingSpeed : 0f;
+            var waitTime = (swingSpeed > 0 ? 1f / swingSpeed : 0f) / (totalAngle * 2 );
 
+            Debug.Log("CastRaysContinuous started");
             for (float angle = -halfAngle; angle <= halfAngle; angle += 1f)
             {
+                var baseDirection = sender.transform.forward;
                 var horizontalRotation = Quaternion.AngleAxis(angle, Vector3.up);
                 var directionAfterYaw = horizontalRotation * baseDirection;
                 var tiltRotation = Quaternion.AngleAxis(tilt, sender.transform.right);
                 var finalDirection = tiltRotation * directionAfterYaw;
                 var ray = new Ray(sender.transform.position, finalDirection);
                 var hits = Physics.RaycastAll(ray, range);
-
+                
+                Vector3 endPoint = ray.origin + ray.direction * range;
+                GameObject lineObj = new GameObject("AttackRay");
+                LineRenderer lr = lineObj.AddComponent<LineRenderer>();
+                lr.positionCount = 2;
+                lr.SetPosition(0, ray.origin);
+                lr.SetPosition(1, endPoint);
+                lr.startWidth = 0.1f;
+                lr.endWidth = 0.1f;
+                lr.material = new Material(Shader.Find("Sprites/Default")); // или ваш материал
+                lr.startColor = Color.red;
+                lr.endColor = Color.red; 
+                CoroutineRunner.Destroy(lineObj, 0.2f);
+                
+                
                 foreach (RaycastHit hit in hits)
                 {
                     var targetModel = _registry.TryGetCharacter(hit.collider);
@@ -88,6 +107,8 @@ namespace Systems
                     yield return new WaitForSeconds(waitTime);
                 }
             }
+            
+            Debug.Log("CastRaysContinuous finished" );
         }
         
     }

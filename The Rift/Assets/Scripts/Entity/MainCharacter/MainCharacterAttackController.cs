@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Entity;
 using Enums;
+using Game.Gameplay.View.UI;
 using Systems;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 using Utils.MiscClasses;
 using VContainer;
 
@@ -14,8 +17,9 @@ namespace MainCharacter
 {
     public class MainCharacterAttackController : MonoBehaviour
     {
-        [Inject] private GameInputManager _inputManager;
+        [Inject] private IGameInputManager _inputManager;
         [Inject] private AttackSystem _attackSystem;
+        [Inject] private ICoroutineRunner _coroutineRunner;
 
         [SerializeField] private float _comboTimeout = 0.5f; 
 
@@ -56,10 +60,10 @@ namespace MainCharacter
 
             foreach (var weapon in _equippedWeapons)
             {
-                foreach (var kvp in weapon.Attacks) 
+                foreach (var kvp in weapon._attacks) 
                 {
-                    var keys = kvp.Key.ToArray(); 
-                    _allCombos.Add(new ComboEntry{ Keys = keys, AttackProfile = kvp.Value, Weapon = weapon });
+                    var keys = kvp.keys.ToArray(); 
+                    _allCombos.Add(new ComboEntry{ Keys = keys, AttackProfile = kvp.profile, Weapon = weapon });
                     
                     foreach (var key in keys)
                     {
@@ -78,9 +82,9 @@ namespace MainCharacter
                     _inputs.Enqueue(key);
 
                     if (_timeoutCoroutine != null)
-                        StopCoroutine(_timeoutCoroutine);
+                        _coroutineRunner.StopRoutine(_timeoutCoroutine);
 
-                    _timeoutCoroutine = StartCoroutine(InputTimeout());
+                    _timeoutCoroutine = _coroutineRunner.StartRoutine(InputTimeout());
 
                     CheckForCombo();
 
@@ -96,12 +100,12 @@ namespace MainCharacter
             {
                 if (IsSequenceMatch(currentSequence, combo.Keys))
                 {
-                    _attackSystem.PerformAttack(combo.AttackProfile, combo.Weapon, gameObject, Teams.Player );
+                    _attackSystem.PerformAttack(combo.AttackProfile, combo.Weapon, gameObject,Teams.Player );
 
                     _inputs.Clear();
                     if (_timeoutCoroutine != null)
                     {
-                        StopCoroutine(_timeoutCoroutine);
+                        _coroutineRunner.StopRoutine(_timeoutCoroutine);
                         _timeoutCoroutine = null;
                     }
                     return; 

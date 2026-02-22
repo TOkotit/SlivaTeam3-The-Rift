@@ -1,9 +1,17 @@
-﻿using Entity;
+﻿using System.Collections.Generic;
+using Entity;
+using NUnit.Framework;
 
 namespace MainCharacter
 {
     public class MainCharacterModel : DamagableModel
     {
-        //Модель, здесь будут характеристики и данные для сохранения  
+        private List<WeaponProfile>  _weapons;
+        public List<WeaponProfile> Weapons {get => _weapons; set => _weapons = value; }
+
+        MainCharacterModel()
+        {
+            Weapons = new List<WeaponProfile>();
+        }
     }
 }

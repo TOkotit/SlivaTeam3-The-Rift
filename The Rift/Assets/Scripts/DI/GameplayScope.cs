@@ -10,6 +10,8 @@ using Game;
 using Game.Gameplay.Root;
 using Game.Gameplay.View.UI;
 using R3;
+using Unity.VisualScripting;
+using Utils;
 using VContainer;
 using VContainer.Unity;
 
@@ -22,6 +24,11 @@ namespace DI
                 builder.Register<DamagableRegistry>(Lifetime.Singleton);
                 builder.Register<AttackSystem>(Lifetime.Singleton);
                 
+                var coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>(); //удалить потом
+                DontDestroyOnLoad(coroutines.gameObject);
+                builder.RegisterInstance<ICoroutineRunner>(coroutines);
+                
+                builder.RegisterComponentInHierarchy<MainCharacterAttackController>();
                 builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
                 builder.Register<GameplayUIManager>(Lifetime.Singleton);
                 

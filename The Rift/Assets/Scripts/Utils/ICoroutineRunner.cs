@@ -11,5 +11,6 @@ namespace Utils
     public interface ICoroutineRunner
     {
         Coroutine StartRoutine(IEnumerator routine);
+        void StopRoutine(Coroutine routine);
     }
 }
