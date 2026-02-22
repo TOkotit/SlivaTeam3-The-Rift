@@ -1,11 +1,17 @@
-﻿namespace MainCharacter
+﻿using System.Collections.Generic;
+using Entity;
+using NUnit.Framework;
+
+namespace MainCharacter
 {
-    public class MainCharacterModel
+    public class MainCharacterModel : DamagableModel
     {
-        private Health _health;
-        public Health Health =>  _health;
-        
-        
-        //Модель, здесь будут характеристики и данные для сохранения
+        private List<WeaponProfile>  _weapons;
+        public List<WeaponProfile> Weapons {get => _weapons; set => _weapons = value; }
+
+        MainCharacterModel()
+        {
+            Weapons = new List<WeaponProfile>();
+        }
     }
 }

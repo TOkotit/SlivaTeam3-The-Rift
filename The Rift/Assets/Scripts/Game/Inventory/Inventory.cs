@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Game.Gameplay;
+using Game.Inventory.InventoryItems;
 using ObservableCollections;
 using R3;
 using UnityEditor;
@@ -15,30 +16,30 @@ namespace Game.Inventory
     {
         private readonly InventoryModel _inventoryModel;
 
-        public ObservableList<Resource> Resources;
+        public ObservableList<Item> Items;
         
         public Inventory(GameData gameData)
         {
             _inventoryModel = gameData._inventoryModel;
-            Resources = new ObservableList<Resource>();
+            Items = new ObservableList<Item>();
             
             //Связываем этот инвентарь и чистый инвентарь с данными
-            foreach (var resourceData in gameData._inventoryModel.resources)
+            foreach (var itemsData in gameData._inventoryModel.items)
             {
-                Resources.Add(new Resource(resourceData));
+                Items.Add(new Item(itemsData));
             }
 
-            Resources.ObserveAdd().Subscribe(e =>
+            Items.ObserveAdd().Subscribe(e =>
             {
                 var added = e.Value;
-                _inventoryModel.resources.Add(added.Origin);
+                _inventoryModel.items.Add(added.Origin);
                 Debug.Log($"Added {e.Value}");
             });
             
-            Resources.ObserveRemove().Subscribe(e =>
+            Items.ObserveRemove().Subscribe(e =>
             {
                 var removed = e.Value;
-                _inventoryModel.resources.Remove(removed.Origin);
+                _inventoryModel.items.Remove(removed.Origin);
                 Debug.Log($"Removed {e.Value}");
             });
 

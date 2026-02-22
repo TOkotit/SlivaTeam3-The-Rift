@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.Inventory.InventoryItems;
 using Mono.Cecil;
 
 namespace Game.Inventory
@@ -7,9 +8,9 @@ namespace Game.Inventory
     [Serializable]
     public class InventoryModel
     {
-        public List<ResourceData> resources;
+        public List<ItemData> items =  new();
         
-        
-        
+
+
     }
 }
