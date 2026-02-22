@@ -18,7 +18,7 @@ namespace Entity
         [SerializeField] private string name;
         public float Range => range;
         public int Damage => damage;
-        public bool Piercing => piercing;
+        public bool Piercing => piercing; 
         public float SwingSpeed => swingSpeed;
         [SerializeField]
         public List<Attack> _attacks = new List<Attack>();

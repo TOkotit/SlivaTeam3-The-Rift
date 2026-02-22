@@ -69,7 +69,7 @@ namespace Systems
                 var baseDirection = sender.transform.forward;
                 var horizontalRotation = Quaternion.AngleAxis(angle, Vector3.up);
                 var directionAfterYaw = horizontalRotation * baseDirection;
-                var tiltRotation = Quaternion.AngleAxis(tilt, sender.transform.right);
+                var tiltRotation = Quaternion.AngleAxis(tilt, sender.transform.forward);
                 var finalDirection = tiltRotation * directionAfterYaw;
                 var ray = new Ray(sender.transform.position, finalDirection);
                 var hits = Physics.RaycastAll(ray, range);
