@@ -6,6 +6,9 @@ using R3;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// Класс хранит viewModel для каждого окна и манипулирует ими
+    /// </summary>
     public class UIRootViewModel : IDisposable
     {
         public ReadOnlyReactiveProperty<WindowViewModel> OpenedScreen => _openedScreen;
