@@ -24,9 +24,7 @@ namespace DI
                 builder.Register<DamagableRegistry>(Lifetime.Singleton);
                 builder.Register<AttackSystem>(Lifetime.Singleton);
                 
-                var coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>(); //удалить потом
-                DontDestroyOnLoad(coroutines.gameObject);
-                builder.RegisterInstance<ICoroutineRunner>(coroutines);
+               
                 
                 builder.RegisterComponentInHierarchy<MainCharacterAttackController>();
                 
