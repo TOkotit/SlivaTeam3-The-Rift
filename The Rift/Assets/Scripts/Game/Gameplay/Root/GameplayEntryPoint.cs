@@ -12,26 +12,27 @@ namespace Game.Gameplay.Root
     {
         private GameplayUIRootBinder _sceneUIRootPrefab;
         
-        readonly IGameManager _gameManager;
+        [Inject] readonly IGameManager _gameManager;
+        [Inject] IObjectResolver resolver;
         
-        public GameplayEntryPoint(IObjectResolver resolver)
+        public GameplayEntryPoint()
         {
             Debug.Log("GameplayEntryPoint");
-            _gameManager =  resolver.Resolve<IGameManager>();
             _sceneUIRootPrefab = Resources.Load<GameplayUIRootBinder>("Prefabs/UI/Root/GameplayUI");
             
-            InitUI(resolver);
+            
         }
         
         public void Start()
         {
             Debug.Log("GameplayEntryPoint.Start");
             
+            InitUI();
             _gameManager.SetState(GameState.Gameplay);
         }
         
 
-        private void InitUI(IObjectResolver resolver)
+        private void InitUI()
         {
             // Создали UI для сцены (это было)
             var uiRoot = resolver.Resolve<UIRootView>();
@@ -42,9 +43,10 @@ namespace Game.Gameplay.Root
             var uiSceneRootViewModel = resolver.Resolve<GameplayUIRootViewModel>();
             uiSceneRootBinder.Bind(uiSceneRootViewModel);
             
-            // можно открывать окошки
-            var uiManager = resolver.Resolve<GameplayUIManager>();
-            uiManager.OpenScreenGameplay();
+            // // можно открывать окошки
+            // var uiManager = resolver.Resolve<GameplayUIManager>();
+            // uiManager.OpenScreenGameplay();
+            //
         }
 
         

@@ -17,8 +17,8 @@ namespace Game.Gameplay.View.UI
             _btnGoToMainMenu?.onClick.AddListener(OnGoToMainMenuButtonClicked);
             _btnPopupA?.onClick.AddListener(OnPopupAButtonClicked);
             
-            ViewModel.inithealthText(UpdateHealthText);
-            ViewModel.RequestSubText(UpdateHealthText);
+            // ViewModel.inithealthText(UpdateHealthText);
+            // ViewModel.RequestSubText(UpdateHealthText);
             
         }
 
@@ -27,7 +27,7 @@ namespace Game.Gameplay.View.UI
             _btnGoToMainMenu?.onClick.RemoveListener(OnGoToMainMenuButtonClicked);
             _btnPopupA?.onClick.RemoveListener(OnPopupAButtonClicked);
             
-            ViewModel.RequestUnsubText(UpdateHealthText);
+            // ViewModel.RequestUnsubText(UpdateHealthText);
         }
 
         private void UpdateHealthText(int newValue)

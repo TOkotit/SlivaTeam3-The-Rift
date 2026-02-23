@@ -27,22 +27,22 @@ namespace Game.Gameplay.View.UI
             _mainCharacter = container.Resolve<MainCharacterModel>();
         }
 
-        public void inithealthText(Action<int> f)
-        {
-            Debug.Log("inithealthText");
-            f(_mainCharacter.Health.CurrentHealth);
-        }
-        
-        public void RequestSubText(Action<int> f)
-        {
-            Debug.Log("RequestSubText");
-            _mainCharacter.Health.OnHealthChanged += f;
-        }
-        
-        public void RequestUnsubText(Action<int> f)
-        {
-            _mainCharacter.Health.OnHealthChanged -= f;
-        }
+        // public void inithealthText(Action<int> f)
+        // {
+        //     Debug.Log("inithealthText");
+        //     f(_mainCharacter.Health.CurrentHealth);
+        // }
+        //
+        // public void RequestSubText(Action<int> f)
+        // {
+        //     Debug.Log("RequestSubText");
+        //     _mainCharacter.Health.OnHealthChanged += f;
+        // }
+        //
+        // public void RequestUnsubText(Action<int> f)
+        // {
+        //     _mainCharacter.Health.OnHealthChanged -= f;
+        // }
         
         public void RequestOpenPopupA()
         {
