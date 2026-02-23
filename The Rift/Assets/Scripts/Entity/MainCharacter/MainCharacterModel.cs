@@ -9,7 +9,7 @@ namespace MainCharacter
         private List<WeaponProfile>  _weapons;
         public List<WeaponProfile> Weapons {get => _weapons; set => _weapons = value; }
 
-        MainCharacterModel()
+        public MainCharacterModel()
         {
             Weapons = new List<WeaponProfile>();
         }

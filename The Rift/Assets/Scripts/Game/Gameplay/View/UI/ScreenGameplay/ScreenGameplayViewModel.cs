@@ -14,6 +14,7 @@ namespace Game.Gameplay.View.UI
         private readonly GameplayUIManager _uiManager;
         private readonly IGameManager _gameManager;
         private readonly ICoroutineRunner _coroutines;
+        private readonly IGameInputManager _gameInputManager;
         
         private readonly MainCharacterModel  _mainCharacter;
         
@@ -25,6 +26,7 @@ namespace Game.Gameplay.View.UI
             _gameManager =  container.Resolve<IGameManager>();
             _coroutines = container.Resolve<ICoroutineRunner>();
             _mainCharacter = container.Resolve<MainCharacterModel>();
+            _gameInputManager = container.Resolve<IGameInputManager>();
         }
 
         // public void inithealthText(Action<int> f)
