@@ -10,7 +10,9 @@ namespace Game.Inventory.InventoryItems
     {
         public ItemData Origin;
         public ReactiveProperty<int> Amount;
-        
+        public string Name => Origin.name;
+        public string Description  => Origin.description;
+        public int Cost  => Origin.cost;
         public ItemsCategory ItemsCategory => Origin.itemsCategory;
 
         public Item(ItemData origin)
