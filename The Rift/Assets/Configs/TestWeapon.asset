@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb23d10d221c4da0b1b53e89c91bfd0b, type: 3}
   m_Name: TestWeapon
   m_EditorClassIdentifier: 
-  range: 0
-  damage: 0
-  piercing: 0
-  attackSpeed: 0
-  swingSpeed: 0
-  name: 
+  range: 2
+  damage: 1
+  piercing: 1
+  attackSpeed: 1
+  swingSpeed: 20
+  name: Test Weapon
+  _attacks:
+  - keys: 1f000000
+    profile: {fileID: 11400000, guid: 9431ab0a23870e44d8d5a8c447bf0903, type: 2}

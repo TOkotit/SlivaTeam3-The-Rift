@@ -61,7 +61,7 @@ namespace Systems
             var totalAngle = attackProfile.Angle;            
             var tilt = attackProfile.Tilt;                    
             var halfAngle = totalAngle * 0.5f;
-            var waitTime = (swingSpeed > 0 ? 1f / swingSpeed : 0f) / (totalAngle * 2 );
+            var waitTime = (swingSpeed > 0 ? 1f / swingSpeed : 0f) / totalAngle;
 
             Debug.Log("CastRaysContinuous started");
             for (float angle = -halfAngle; angle <= halfAngle; angle += 1f)
@@ -85,7 +85,7 @@ namespace Systems
                 lr.material = new Material(Shader.Find("Sprites/Default")); // или ваш материал
                 lr.startColor = Color.red;
                 lr.endColor = Color.red; 
-                CoroutineRunner.Destroy(lineObj, 0.2f);
+                CoroutineRunner.Destroy(lineObj, 0.1f);
                 
                 
                 foreach (RaycastHit hit in hits)

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888434143b78429984c8f25cd5da14aa, type: 3}
   m_Name: RaycastAttack
   m_EditorClassIdentifier: 
-  angle: 0
-  tilt: 0
+  angle: 2
+  tilt: -90
   damageType: 0
-  damageMultiplier: 0
-  distanceMultiplier: 0
+  damageMultiplier: 1
+  distanceMultiplier: 1
