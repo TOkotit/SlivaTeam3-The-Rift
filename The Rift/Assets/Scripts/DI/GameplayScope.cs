@@ -23,6 +23,7 @@ namespace DI
             
                 builder.Register<DamagableRegistry>(Lifetime.Singleton);
                 builder.Register<AttackSystem>(Lifetime.Singleton);
+                builder.Register<WeaponManager>(Lifetime.Singleton);
                 
                 var coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>(); //удалить потом
                 DontDestroyOnLoad(coroutines.gameObject);
