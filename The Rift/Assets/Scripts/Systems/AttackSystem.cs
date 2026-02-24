@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Entity;
+using Entity.Attacks;
 using Enums;
 using MainCharacter;
 using Unity.VisualScripting;
@@ -37,7 +38,7 @@ namespace Systems
             }
         }
         
-        public void PerformAttack(IAttackProfile profile, WeaponProfile weaponProfile,  GameObject sender, Teams team)
+        public void PerformAttack(IAttackProfile profile, WeaponModel weaponProfile,  GameObject sender, Teams team)
         {
             
             Debug.Log("attack was performed");
@@ -52,7 +53,7 @@ namespace Systems
         }
         
 
-        private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, WeaponProfile weaponProfile, GameObject sender, Teams team) 
+        private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, WeaponModel weaponProfile, GameObject sender, Teams team) 
         {
             var range = weaponProfile.Range * attackProfile.DistanceMultiplier;
             var damage = weaponProfile.Damage * attackProfile.DamageMultiplier;

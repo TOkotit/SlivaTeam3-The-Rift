@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Entity;
+using Entity.Attacks;
 using Enums;
 using Game.Gameplay.View.UI;
 using Systems;
@@ -25,20 +26,20 @@ namespace MainCharacter
 
         private LimitedQueue<Key> _inputs = new LimitedQueue<Key>(4);
         private HashSet<Key> _availableComboKeys = new HashSet<Key>();
-        private List<WeaponProfile> _equippedWeapons = new List<WeaponProfile>();
+        private List<WeaponModel> _equippedWeapons = new List<WeaponModel>();
 
         private struct ComboEntry
         {
             public Key[] Keys; 
             public IAttackProfile AttackProfile;
-            public WeaponProfile Weapon; 
+            public WeaponModel Weapon; 
         }
         private List<ComboEntry> _allCombos = new List<ComboEntry>();
 
         private Coroutine _timeoutCoroutine;
         private bool _waitingForNextInput;
 
-        public List<WeaponProfile> EquippedWeapons
+        public List<WeaponModel> EquippedWeapons
         {
             get => _equippedWeapons;
             set
@@ -60,7 +61,7 @@ namespace MainCharacter
 
             foreach (var weapon in _equippedWeapons)
             {
-                foreach (var kvp in weapon._attacks) 
+                foreach (var kvp in weapon.AttackBinds) 
                 {
                     var keys = kvp.keys.ToArray(); 
                     _allCombos.Add(new ComboEntry{ Keys = keys, AttackProfile = kvp.profile, Weapon = weapon });

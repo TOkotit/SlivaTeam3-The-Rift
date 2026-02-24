@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entity;
+using Entity.Attacks;
 using Systems;
 using UnityEngine;
 using VContainer;
@@ -15,12 +16,12 @@ namespace MainCharacter
         public override DamagableModel Damagable => _mainCharacterModel;
         public MainCharacterModel MainCharacterModel => _mainCharacterModel;
         [SerializeField] private GameObject arms;
-        [SerializeField] private WeaponProfile weapon; //Свойство для теста, потом переделать получение через инвентарь
+        [SerializeField] private WeaponModel weapon; //Свойство для теста, потом переделать получение через инвентарь
         public GameObject Arms => arms;
 
         private void Start()
         {
-            _mainCharacterModel.Weapons = new List<WeaponProfile> { weapon };
+            _mainCharacterModel.Weapons = new List<WeaponModel> { weapon };
             _attackController.EquippedWeapons = _mainCharacterModel.Weapons;
         }
     }

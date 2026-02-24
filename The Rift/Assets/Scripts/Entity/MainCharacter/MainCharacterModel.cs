@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using Entity;
+using Entity.Attacks;
 using NUnit.Framework;
 
 namespace MainCharacter
 {
     public class MainCharacterModel : DamagableModel
     {
-        private List<WeaponProfile>  _weapons;
-        public List<WeaponProfile> Weapons {get => _weapons; set => _weapons = value; }
+        private List<WeaponModel>  _weapons;
+        public List<WeaponModel> Weapons {get => _weapons; set => _weapons = value; }
 
         MainCharacterModel()
         {
-            Weapons = new List<WeaponProfile>();
+            Weapons = new List<WeaponModel>();
         }
     }
 }
