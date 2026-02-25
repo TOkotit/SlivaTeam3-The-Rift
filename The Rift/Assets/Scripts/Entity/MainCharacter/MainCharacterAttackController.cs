@@ -26,20 +26,20 @@ namespace MainCharacter
 
         private LimitedQueue<Key> _inputs = new LimitedQueue<Key>(4);
         private HashSet<Key> _availableComboKeys = new HashSet<Key>();
-        private List<WeaponModel> _equippedWeapons = new List<WeaponModel>();
+        private List<Weapon> _equippedWeapons = new List<Weapon>();
 
         private struct ComboEntry
         {
             public Key[] Keys; 
             public IAttackProfile AttackProfile;
-            public WeaponModel Weapon; 
+            public Weapon Weapon; 
         }
         private List<ComboEntry> _allCombos = new List<ComboEntry>();
 
         private Coroutine _timeoutCoroutine;
         private bool _waitingForNextInput;
 
-        public List<WeaponModel> EquippedWeapons
+        public List<Weapon> EquippedWeapons
         {
             get => _equippedWeapons;
             set

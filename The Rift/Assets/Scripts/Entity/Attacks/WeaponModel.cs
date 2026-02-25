@@ -6,37 +6,36 @@ namespace Entity.Attacks
 {
     public class WeaponModel
     {
-        private float range;
-        private int damage;
-        private bool piercing; 
-        private float attackSpeed;
-        private float swingSpeed;
-        private string name;
-        private int maxDurability;
-        private int currentDurability;
+        private float _range;
+        private int _damage;
+        private bool _piercing; 
+        private float _attackSpeed;
+        private float _swingSpeed;
+        private string _name;
+        private int _maxDurability;
+        private int _currentDurability;
+        private Dictionary<Key,string> _attackIDs;
         
-        public float Range => range;
-        public int Damage => damage;
-        public bool Piercing => piercing;
-        public float AttackSpeed => attackSpeed;
-        public float SwingSpeed => swingSpeed;
-        public string Name => name;
-        public int MaxDurability => maxDurability;
-        public int CurrentDurability => currentDurability;
+        public float Range => _range;
+        public int Damage => _damage;
+        public bool Piercing => _piercing;
+        public float AttackSpeed => _attackSpeed;
+        public float SwingSpeed => _swingSpeed;
+        public string Name => _name;
+        public int MaxDurability => _maxDurability;
+        public int CurrentDurability => _currentDurability;
         
-        private List<AttackBind> _attacks = new List<AttackBind>();
-        public IReadOnlyList<AttackBind> AttackBinds => _attacks;
-
+        
         public WeaponModel(WeaponProfile profile)
         {
-            range = profile.Range;
-            damage = profile.Damage;
-            piercing = profile.Piercing;
-            attackSpeed = profile.AttackSpeed;
-            swingSpeed = profile.SwingSpeed;
-            name = profile.Name;
-            maxDurability = profile.MaxDurability;
-            currentDurability = maxDurability;
+            _range = profile.Range;
+            _damage = profile.Damage;
+            _piercing = profile.Piercing;
+            _attackSpeed = profile.AttackSpeed;
+            _swingSpeed = profile.SwingSpeed;
+            _name = profile.Name;
+            _maxDurability = profile.MaxDurability;
+            _currentDurability = _maxDurability;
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IAttackProfile
     {
-        protected string Name { get; set; }
+        string Name { get; set; }
     }
 }

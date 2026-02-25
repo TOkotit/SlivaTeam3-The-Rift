@@ -13,16 +13,20 @@ namespace MainCharacter
         [Inject] private MainCharacterModel _mainCharacterModel;
         [Inject] private CharacterController _characterController;
         [Inject] private MainCharacterAttackController _attackController;
+        [Inject] private WeaponManager _weaponManager;
         public override DamagableModel Damagable => _mainCharacterModel;
         public MainCharacterModel MainCharacterModel => _mainCharacterModel;
         [SerializeField] private GameObject arms;
-        [SerializeField] private WeaponModel weapon; //Свойство для теста, потом переделать получение через инвентарь
+        [SerializeField] private string weaponID; //Свойство для теста, потом переделать получение через инвентарь
         public GameObject Arms => arms;
 
         private void Start()
         {
-            _mainCharacterModel.Weapons = new List<WeaponModel> { weapon };
-            _attackController.EquippedWeapons = _mainCharacterModel.Weapons;
+            _attackController.EquippedWeapons.Add(_weaponManager.CreateWeapon(weaponID));
+            foreach (var weaponModel in _mainCharacterModel.Weapons)
+            {
+                _attackController.EquippedWeapons.Add(_weaponManager.CreateWeapon(weaponModel));
+            }
         }
     }
 }

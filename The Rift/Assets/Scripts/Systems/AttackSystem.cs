@@ -38,7 +38,7 @@ namespace Systems
             }
         }
         
-        public void PerformAttack(IAttackProfile profile, WeaponModel weaponProfile,  GameObject sender, Teams team)
+        public void PerformAttack(IAttackProfile profile, Weapon weaponProfile,  GameObject sender, Teams team)
         {
             
             Debug.Log("attack was performed");
@@ -53,12 +53,12 @@ namespace Systems
         }
         
 
-        private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, WeaponModel weaponProfile, GameObject sender, Teams team) 
+        private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, Weapon weaponProfile, GameObject sender, Teams team) 
         {
-            var range = weaponProfile.Range * attackProfile.DistanceMultiplier;
-            var damage = weaponProfile.Damage * attackProfile.DamageMultiplier;
-            var piercing = weaponProfile.Piercing;
-            var swingSpeed = weaponProfile.SwingSpeed; 
+            var range = weaponProfile.Model.Range * attackProfile.DistanceMultiplier;
+            var damage = weaponProfile.Model.Damage * attackProfile.DamageMultiplier;
+            var piercing = weaponProfile.Model.Piercing;
+            var swingSpeed = weaponProfile.Model.SwingSpeed; 
             var totalAngle = attackProfile.Angle;            
             var tilt = attackProfile.Tilt;                    
             var halfAngle = totalAngle * 0.5f;

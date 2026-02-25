@@ -28,6 +28,7 @@ namespace Entity
         
         [SerializeField]
         public List<AttackBind> _attacks = new List<AttackBind>();
+        public IReadOnlyList<AttackBind> Attacks => _attacks;
         
         
         
