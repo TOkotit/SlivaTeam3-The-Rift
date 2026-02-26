@@ -12,7 +12,7 @@ namespace MainCharacter
         [SerializeField] private DamageTypes  damageType;
         [SerializeField] private float damageMultiplier;
         [SerializeField] private float distanceMultiplier;
-        
+        [SerializeField] private float attackUptime;
         private string _name;
         public DamageTypes DamageType => damageType;
         public float Angle => angle;
@@ -20,11 +20,8 @@ namespace MainCharacter
         public float DamageMultiplier => damageMultiplier;
         public float DistanceMultiplier => distanceMultiplier;
 
-
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
+        
+        public string Name { get => _name; set => _name = value; }
+        public float AttackUptime { get => attackUptime; set => attackUptime =  value; }
     }
 }
