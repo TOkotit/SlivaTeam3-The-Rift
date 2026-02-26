@@ -23,7 +23,7 @@ namespace DI
             Debug.Log("MainCharacterScope.Configure called");
             
             builder.RegisterComponentInHierarchy<MainCharacterCamera>();
-            builder.Register<CharacterController>(Lifetime.Scoped);
+            builder.Register<CharacterController>(Lifetime.Singleton);
             
             builder.RegisterComponentInHierarchy<MainCharacter.MainCharacter>()
                 .AsSelf();
@@ -36,12 +36,12 @@ namespace DI
 
             
             builder.RegisterComponentInHierarchy<MainCharacterAttackController>();
-            
-            
+
+
             builder.RegisterEntryPoint<MainCharacterInitializer>();
-            
-            
-            
+
+
+
         }
     }
 }

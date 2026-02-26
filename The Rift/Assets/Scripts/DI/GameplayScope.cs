@@ -38,7 +38,7 @@ namespace DI
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
-            builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
+            builder.RegisterEntryPoint<GameplayEntryPoint>();
         }
       }
 }

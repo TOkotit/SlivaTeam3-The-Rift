@@ -26,7 +26,7 @@ namespace Game.Gameplay.View.UI
             ViewModel.RequestSubText(UpdateHealthText);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _btnGoToMainMenu?.onClick.RemoveListener(OnGoToMainMenuButtonClicked);
 
