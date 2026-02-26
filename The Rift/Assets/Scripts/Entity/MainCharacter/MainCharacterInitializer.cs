@@ -1,5 +1,6 @@
 ﻿using Game.Gameplay.View.UI;
 using UnityEngine;
+using VContainer;
 using VContainer.Unity;
 
 namespace MainCharacter
@@ -12,9 +13,12 @@ namespace MainCharacter
         {
             _gameplayUIManager = gameplayUIManager;
         }
-
+        
+        
+        
         public void Start()
         {
+            Debug.Log("MainCharacterInitializer.Start()");
             _gameplayUIManager.OpenScreenGameplay(); 
         }
     }

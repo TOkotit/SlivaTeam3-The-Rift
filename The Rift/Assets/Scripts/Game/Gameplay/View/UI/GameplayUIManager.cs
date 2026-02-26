@@ -6,13 +6,15 @@ namespace Game.Gameplay.View.UI
 {
     public class GameplayUIManager : UIManager
     {
-        
+        // Доп контейнер чтобы получать инфу именно о персонаже
 
         public GameplayUIManager(IObjectResolver container) : base(container)
         {
-            
+
         }
         
+
+
         public ScreenGameplayViewModel OpenScreenGameplay()
         {
             var viewModel = new ScreenGameplayViewModel(this, Container);

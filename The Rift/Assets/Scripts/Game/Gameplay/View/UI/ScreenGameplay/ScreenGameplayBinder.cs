@@ -9,16 +9,21 @@ namespace Game.Gameplay.View.UI
     public class ScreenGameplayBinder : WindowBinder<ScreenGameplayViewModel>
     {
         [SerializeField] private Button _btnGoToMainMenu;
-        [SerializeField] private Button _btnPopupA;
+        
         [SerializeField] private TextMeshProUGUI _healthText;
 
-        private void OnEnable()
+        public TextMeshProUGUI HealthText
+        {
+            get => _healthText;
+            set => _healthText = value;
+        }
+
+        private void Start()
         {
             _btnGoToMainMenu?.onClick.AddListener(OnGoToMainMenuButtonClicked);
             
-            // ViewModel.inithealthText(UpdateHealthText);
-            // ViewModel.RequestSubText(UpdateHealthText);
-            
+            ViewModel.inithealthText(UpdateHealthText);
+            ViewModel.RequestSubText(UpdateHealthText);
         }
 
         private void OnDisable()
@@ -26,12 +31,12 @@ namespace Game.Gameplay.View.UI
             _btnGoToMainMenu?.onClick.RemoveListener(OnGoToMainMenuButtonClicked);
 
             
-            // ViewModel.RequestUnsubText(UpdateHealthText);
+            ViewModel.RequestUnsubText(UpdateHealthText);
         }
 
         private void UpdateHealthText(int newValue)
         {
-            _healthText.text = newValue.ToString();
+            HealthText.text = newValue.ToString();
         }
         
         private void OnGoToMainMenuButtonClicked()

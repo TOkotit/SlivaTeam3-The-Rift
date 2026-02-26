@@ -36,6 +36,8 @@ namespace DI
 
             
             builder.RegisterComponentInHierarchy<MainCharacterAttackController>();
+            
+            
             builder.RegisterEntryPoint<MainCharacterInitializer>();
             
             
