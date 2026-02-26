@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: DI.RootScope
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 832369986}
@@ -456,8 +456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd375042b9864b9285ccbaf8ff0c8091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arms: {fileID: 0}
-  weapon: {fileID: 0}
+  arms: {fileID: 1944554681}
+  weapon: {fileID: 11400000, guid: b00222a37dd816d47994e238cd6aa4e2, type: 2}
 --- !u!114 &832369988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,6 +862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32d9bb2e88c43dc95119cb747e556a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
   _sensitivity: 1
   _maxPitch: 80
 --- !u!114 &1269169487

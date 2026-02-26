@@ -46,10 +46,6 @@ namespace Game.Gameplay.View.UI
         //     _mainCharacter.Health.OnHealthChanged -= f;
         // }
         
-        public void RequestOpenPopupA()
-        {
-            _uiManager.OpenPopupA();
-        }
         
         public void RequestGoToMainMenu()
         {
