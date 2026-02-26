@@ -22,11 +22,10 @@ namespace MainCharacter
 
         private void Start()
         {
-            _attackController.EquippedWeapons.Add(_weaponManager.CreateWeapon(weaponID));
-            foreach (var weaponModel in _mainCharacterModel.Weapons)
-            {
-                _attackController.EquippedWeapons.Add(_weaponManager.CreateWeapon(weaponModel));
-            }
+            _mainCharacterModel.Weapons.Add(_weaponManager.CreateWeapon(weaponID).Model);
+            Debug.Log(_mainCharacterModel.Weapons.Count + " weapons have been equipped");
+            _attackController.AddWeapon(_weaponManager.CreateWeapon(weaponID));
+            
         }
     }
 }

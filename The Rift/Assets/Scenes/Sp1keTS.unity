@@ -388,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arms: {fileID: 1650911768}
+  weaponID: TestWeapon
 --- !u!1 &241506634
 GameObject:
   m_ObjectHideFlags: 0

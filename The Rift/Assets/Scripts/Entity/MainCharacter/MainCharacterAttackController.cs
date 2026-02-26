@@ -21,7 +21,7 @@ namespace MainCharacter
         [Inject] private IGameInputManager _inputManager;
         [Inject] private AttackSystem _attackSystem;
         [Inject] private ICoroutineRunner _coroutineRunner;
-
+        
         [SerializeField] private float _comboTimeout = 0.5f; 
 
         private LimitedQueue<Key> _inputs = new LimitedQueue<Key>(4);
@@ -51,6 +51,7 @@ namespace MainCharacter
 
         private void Awake()
         {
+            Debug.Log("Awake ===============");
             RebuildComboData();
         }
 
@@ -58,9 +59,11 @@ namespace MainCharacter
         {
             _availableComboKeys.Clear();
             _allCombos.Clear();
-
+            
+            Debug.Log(_equippedWeapons.Count + " weapons have been equipped in controller");
             foreach (var weapon in _equippedWeapons)
             {
+
                 foreach (var kvp in weapon.AttackBinds) 
                 {
                     var keys = kvp.keys.ToArray(); 
@@ -73,7 +76,11 @@ namespace MainCharacter
                 }
             }
         }
-
+        public void AddWeapon(Weapon weapon)
+        {
+            _equippedWeapons.Add(weapon);
+            RebuildComboData();
+        }
         private void Update()
         {
             foreach (var key in _availableComboKeys)

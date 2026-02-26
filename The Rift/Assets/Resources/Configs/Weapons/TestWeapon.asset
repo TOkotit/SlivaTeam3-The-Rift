@@ -17,7 +17,8 @@ MonoBehaviour:
   piercing: 1
   attackSpeed: 1
   swingSpeed: 20
-  name: Test Weapon
+  name: TestWeapon
+  maxDurability: 100
   _attacks:
   - keys: 1f000000
     profile: {fileID: 11400000, guid: 9431ab0a23870e44d8d5a8c447bf0903, type: 2}
