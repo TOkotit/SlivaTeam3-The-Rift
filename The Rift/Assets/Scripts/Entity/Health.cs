@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-namespace MainCharacter
+namespace Entity
 {
     public class Health
     { 
