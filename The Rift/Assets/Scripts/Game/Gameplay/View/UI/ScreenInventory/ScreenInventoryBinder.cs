@@ -1,4 +1,5 @@
-﻿using Game.UI;
+﻿using System.Collections.Generic;
+using Game.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,11 @@ namespace Game.Gameplay.View.UI.ScreenInventory
         [SerializeField] private Button _btnClose;
         
         [SerializeField] private TextMeshProUGUI _healthText;
+        
+        
+        [SerializeField] private List<GameObject> mainWeaponSlots;
+
+        [SerializeField] private GameObject additionalWeaponSlot;
         
         private void Start()
         {
