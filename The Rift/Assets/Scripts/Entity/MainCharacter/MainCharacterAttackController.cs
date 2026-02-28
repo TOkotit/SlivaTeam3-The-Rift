@@ -24,8 +24,8 @@ namespace MainCharacter
         [SerializeField] private float _comboTimeout = 0.1f;
         [SerializeField] private MainCharacter _mainCharacter;
 
-        private LimitedQueue<Key> _inputs = new LimitedQueue<Key>(4);
-        private HashSet<Key> _availableComboKeys = new HashSet<Key>();
+        private LimitedQueue<InputButton> _inputs = new LimitedQueue<InputButton>(4);
+        private HashSet<InputButton> _availableComboKeys = new HashSet<InputButton>();
         private List<Weapon> _equippedWeapons = new List<Weapon>();
         private List<AttackBind> _allBinds = new List<AttackBind>();
 
@@ -79,7 +79,7 @@ namespace MainCharacter
 
             foreach (var key in _availableComboKeys)
             {
-                if (Keyboard.current[key].wasPressedThisFrame)
+                if (key.IsPressed())
                 {
                     TryAddKey(key);
                     break;
@@ -87,7 +87,7 @@ namespace MainCharacter
             }
         }
 
-        private void TryAddKey(Key key)
+        private void TryAddKey(InputButton key)
         {
             var newSequence = _inputs.Concat(new[] { key }).ToArray();
             var isValidPrefix = _allBinds.Any(bind => IsPrefix(newSequence, bind.keys.ToArray()));

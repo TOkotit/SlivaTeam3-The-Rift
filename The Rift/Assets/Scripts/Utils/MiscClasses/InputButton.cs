@@ -4,15 +4,31 @@ using UnityEngine.InputSystem;
 
 namespace Utils.MiscClasses
 {
-    [Serializable]
+    [System.Serializable]
     public struct InputButton
     {
         public enum DeviceType { Keyboard, Mouse }
         public DeviceType device;
         public Key key;          
-        public MouseButton mouse;
-        
-        public static InputButton Keyboard(Key key) => new InputButton { device = DeviceType.Keyboard, key = key }; 
-        public static InputButton Mouse(MouseButton mouse) => new InputButton { device = DeviceType.Mouse, mouse = mouse };
+        public MouseButton mouse; 
+
+        public bool IsPressed()
+        {
+            if (device == DeviceType.Keyboard)
+            {
+                return Keyboard.current[key].wasPressedThisFrame;
+            }
+            else
+            {
+                var mouseDev = Mouse.current;
+                return mouse switch
+                {
+                    MouseButton.Left => mouseDev.leftButton.wasPressedThisFrame,
+                    MouseButton.Right => mouseDev.rightButton.wasPressedThisFrame,
+                    MouseButton.Middle => mouseDev.middleButton.wasPressedThisFrame,
+                    _ => false
+                };
+            }
+        }
     }
 }
