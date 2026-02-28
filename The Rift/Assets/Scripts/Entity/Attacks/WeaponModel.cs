@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,9 +24,17 @@ namespace Entity.Attacks
         public float SwingSpeed => _swingSpeed;
         public string Name => _name;
         public int MaxDurability => _maxDurability;
-        public int CurrentDurability => _currentDurability;
-        
-        
+
+        public int CurrentDurability
+        {
+            get => _currentDurability;
+            set
+            {
+                _currentDurability = Math.Clamp(value, 0, _maxDurability);
+            }
+        }
+
+
         public WeaponModel(WeaponProfile profile)
         {
             _range = profile.Range;

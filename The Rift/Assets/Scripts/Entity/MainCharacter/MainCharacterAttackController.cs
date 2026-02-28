@@ -90,7 +90,7 @@ namespace MainCharacter
         private void TryAddKey(Key key)
         {
             var newSequence = _inputs.Concat(new[] { key }).ToArray();
-            bool isValidPrefix = _allBinds.Any(bind => IsPrefix(newSequence, bind.keys.ToArray()));
+            var isValidPrefix = _allBinds.Any(bind => IsPrefix(newSequence, bind.keys.ToArray()));
 
             if (!isValidPrefix)
             {
@@ -118,7 +118,14 @@ namespace MainCharacter
             if (_bindToPerform != null)
             {
                 _attackSystem.PerformAttack(_bindToPerform.AttackProfile.Value, _bindToPerform.weapon, gameObject, Teams.Player);
-
+                var weapon = _bindToPerform.weapon;
+                weapon.Damage(1);
+                if(weapon.Durability <= 0)
+                {
+                    _mainCharacter.MainCharacterModel.Weapons.Remove(weapon.Model);
+                    _equippedWeapons.Remove(weapon);
+                    RebuildComboData();    
+                }
                 _inputAvailable = false;
                 yield return new WaitForSeconds(_bindToPerform.AttackProfile.Value.Cooldown - _comboTimeout);
                 _inputAvailable = true;
