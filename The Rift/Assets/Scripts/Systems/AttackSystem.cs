@@ -74,7 +74,7 @@ namespace Systems
                 var finalDirection = tiltRotation * directionAfterYaw;
                 var ray = new Ray(sender.transform.position, finalDirection);
                 var hits = Physics.RaycastAll(ray, range);
-                
+                // начало отрисовки
                 Vector3 endPoint = ray.origin + ray.direction * range;
                 GameObject lineObj = new GameObject("AttackRay");
                 LineRenderer lr = lineObj.AddComponent<LineRenderer>();
@@ -87,6 +87,7 @@ namespace Systems
                 lr.startColor = Color.red;
                 lr.endColor = Color.red; 
                 CoroutineRunner.Destroy(lineObj, 0.1f);
+                //конец отрисовки
                 
                 
                 foreach (RaycastHit hit in hits)

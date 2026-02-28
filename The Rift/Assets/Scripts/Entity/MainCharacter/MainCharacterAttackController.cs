@@ -30,13 +30,8 @@ namespace MainCharacter
         private HashSet<Key> _availableComboKeys = new HashSet<Key>();
         private List<Weapon> _equippedWeapons = new List<Weapon>();
 
-        private struct ComboEntry
-        {
-            public Key[] Keys; 
-            public IAttackProfile AttackProfile;
-            public Weapon Weapon; 
-        }
-        private List<ComboEntry> _allCombos = new List<ComboEntry>();
+        
+        private List<AttackBind> _allCombos = new List<AttackBind>();
 
         private Coroutine _timeoutCoroutine;
         private bool _waitingForNextInput;
@@ -69,7 +64,7 @@ namespace MainCharacter
                 foreach (var kvp in weapon.AttackBinds) 
                 {
                     var keys = kvp.keys.ToArray(); 
-                    _allCombos.Add(new ComboEntry{ Keys = keys, AttackProfile = kvp.profile, Weapon = weapon });
+                    _allCombos.Add(kvp);
                     
                     foreach (var key in keys)
                     {
@@ -109,9 +104,9 @@ namespace MainCharacter
             var currentSequence = _inputs.ToArray(); 
             foreach (var combo in _allCombos)
             {
-                if (IsSequenceMatch(currentSequence, combo.Keys))
+                if (IsSequenceMatch(currentSequence, combo.keys.ToArray()))
                 {
-                    _attackSystem.PerformAttack(combo.AttackProfile, combo.Weapon, gameObject,Teams.Player );
+                    _attackSystem.PerformAttack(combo.AttackProfile, combo.weapon, gameObject,Teams.Player );
 
                     _inputs.Clear();
                     if (_timeoutCoroutine != null)
