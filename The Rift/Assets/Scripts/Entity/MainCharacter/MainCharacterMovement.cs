@@ -37,7 +37,7 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
     private Vector3 _velocity;
     private Vector3 _gravity = Vector3.down * 9.832f;
     private int currentWallJumpCount;
-    
+    private bool _canDash = true;
     public Vector3 MoveDirection {get => _moveDirection; set => _moveDirection = value; }
     private void Awake()
     {
@@ -105,7 +105,7 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
     public void Dash()
     {
         Debug.Log("Dash");
-        if (_stamina.SpendStamina(_mainCharacterModel.DashCost))
+        if (_stamina.SpendStamina(_mainCharacterModel.DashCost) && _canDash)
         {
             Debug.Log(_stamina.CurrentStamina);
             Vector3 dashDirection = _moveDirection;
@@ -116,11 +116,12 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
 
     private IEnumerator DashRoutine(Vector3 dashDirection)
     {
+        _canDash = false;
         var dashVector = _mainCharacterModel.DashSpeed * dashDirection;
         _velocity += dashVector;
         yield return new WaitForSeconds(_mainCharacterModel.DashTime); 
         _velocity -= dashVector;
         yield return new WaitForSeconds(_mainCharacterModel.DashCooldown); 
-        
+        _canDash = true;
     }
 }

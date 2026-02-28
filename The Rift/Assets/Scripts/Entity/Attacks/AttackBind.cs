@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AYellowpaper;
 using MainCharacter;
 using UnityEngine.InputSystem;
 
@@ -10,7 +11,7 @@ namespace Entity.Attacks
     public class AttackBind
     {
         public List<Key> keys; 
-        public IAttackProfile AttackProfile;
+        public InterfaceReference<IAttackProfile> AttackProfile;
         public Weapon weapon;
     }
     

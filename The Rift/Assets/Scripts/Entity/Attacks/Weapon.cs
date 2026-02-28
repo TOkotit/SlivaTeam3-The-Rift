@@ -17,6 +17,8 @@ namespace Entity.Attacks
         {
              _model = model;
              _attacks = attacks;
+             foreach (var bind in _attacks)
+                 bind.weapon = this;
         }
     }
 }

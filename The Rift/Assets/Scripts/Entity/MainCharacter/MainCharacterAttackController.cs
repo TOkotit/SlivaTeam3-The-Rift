@@ -106,7 +106,7 @@ namespace MainCharacter
             {
                 if (IsSequenceMatch(currentSequence, combo.keys.ToArray()))
                 {
-                    _attackSystem.PerformAttack(combo.AttackProfile, combo.weapon, gameObject,Teams.Player );
+                    _attackSystem.PerformAttack(combo.AttackProfile.Value, combo.weapon, gameObject,Teams.Player );
 
                     _inputs.Clear();
                     if (_timeoutCoroutine != null)
