@@ -1,38 +1,32 @@
-﻿namespace MainCharacter
+﻿using UnityEngine;
+
+namespace MainCharacter
 {
     public class Stamina
     {
-        private float maxStamina = 100;
+        private float _maxStamina = 100;
         private float _currentStamina;
 
         public float CurrentStamina
         {
             get { return _currentStamina; }
-            set 
+            private set 
             {
-                if (_currentStamina <= 0)
-                {
-                    _currentStamina = 0;
-                }
-
-                if (_currentStamina > maxStamina)
-                {
-                    _currentStamina = value;
-                }
+                _currentStamina = Mathf.Clamp(value, 0, _maxStamina);
             }
         }
 
-        public float SpendStamina( float stamina )
+        public bool SpendStamina( float stamina )
         {
-            if (stamina <= _currentStamina){ return _currentStamina; }
-            _currentStamina -= stamina;
-            return _currentStamina;
+            if (stamina >= CurrentStamina){ return false; }
+            CurrentStamina -= stamina;
+            return true;
         }
 
         public float RestoreStamina(float stamina)
         {
-            _currentStamina += stamina;
-            return _currentStamina;
+            CurrentStamina += stamina;
+            return CurrentStamina;
         }
     }
 }

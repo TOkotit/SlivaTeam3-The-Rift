@@ -10,10 +10,16 @@ namespace MainCharacter
 {
     public class MainCharacter : Character
     {
-        [Inject] private MainCharacterModel _mainCharacterModel;
+        private MainCharacterModel _mainCharacterModel;
         [Inject] private CharacterController _characterController;
         [Inject] private MainCharacterAttackController _attackController;
         [Inject] private WeaponManager _weaponManager;
+
+        [Inject]
+        private void SetupModel(Stamina stamina, Health health)
+        {
+            _mainCharacterModel = new MainCharacterModel(stamina, health);
+        }
         public override DamagableModel Damagable => _mainCharacterModel;
         public MainCharacterModel MainCharacterModel => _mainCharacterModel;
         [SerializeField] private GameObject arms;

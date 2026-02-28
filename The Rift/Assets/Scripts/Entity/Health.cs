@@ -49,9 +49,8 @@ namespace Entity
             //анналогично
             return heal;
         }
-        public Health(int maxHP)
+        public Health()
         {
-            _maxHealth = maxHP;
             _currentHealth = _maxHealth;
         }
         public void SetVulnerability(Enums.DamageTypes damageType, float vulnerability)

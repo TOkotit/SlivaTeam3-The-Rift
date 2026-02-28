@@ -42,20 +42,21 @@ namespace DI
     
                 builder.RegisterComponentInHierarchy<MainCharacter.MainCharacter>()
                     .AsSelf();
-                builder.RegisterComponentInHierarchy<CharacterMovement>()
+                builder.RegisterComponentInHierarchy<MainCharacterMovement>()
                     .As<IControllable>()      
                     .AsSelf();
                 builder.RegisterComponentInHierarchy<MainCharacterMovementController>()
                     .AsSelf();
-                
-                builder.Register<MainCharacterModel>(Lifetime.Singleton)
-                    .WithParameter(typeof(Health), new Health(200));
+
+                builder.Register<Health>(Lifetime.Scoped);
+                builder.Register<Stamina>(Lifetime.Scoped);
                     
                 builder.Register<Inventory>(Lifetime.Singleton);
                 builder.Register<InventoryManager>(Lifetime.Singleton); 
                 
                 builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
-
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
       }
 }

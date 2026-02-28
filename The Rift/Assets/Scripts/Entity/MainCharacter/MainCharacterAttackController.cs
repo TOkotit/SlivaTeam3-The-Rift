@@ -21,10 +21,10 @@ namespace MainCharacter
         [Inject] private IGameInputManager _inputManager;
         [Inject] private AttackSystem _attackSystem;
         [Inject] private ICoroutineRunner _coroutineRunner;
-        [Inject] private MainCharacter  _mainCharacter;
         [Inject] private WeaponManager _weaponManager;
         
         [SerializeField] private float _comboTimeout = 0.5f; 
+        [SerializeField] MainCharacter _mainCharacter;
 
         private LimitedQueue<Key> _inputs = new LimitedQueue<Key>(4);
         private HashSet<Key> _availableComboKeys = new HashSet<Key>();
