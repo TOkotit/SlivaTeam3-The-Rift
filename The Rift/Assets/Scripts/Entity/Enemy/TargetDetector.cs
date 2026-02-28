@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Entity.Enemy
 {
@@ -24,7 +25,7 @@ namespace Entity.Enemy
             var targetsInRadius = new Collider[10];
             var size = Physics.OverlapSphereNonAlloc(transform.position, maxRange, targetsInRadius, _targetLayer);
             
-            if (targetsInRadius.Length > 0)
+            if (size > 0)
             {
                 var target = targetsInRadius[0].transform;
                 var directionToTarget = (target.position - transform.position).normalized;
