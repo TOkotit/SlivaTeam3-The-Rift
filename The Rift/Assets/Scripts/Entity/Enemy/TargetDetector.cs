@@ -48,6 +48,7 @@ namespace Entity.Enemy
 
                 if (inProximity || inSight)
                 {
+                    Debug.Log("Player Detected !!!!!!!!");
                     DetectedTarget = target;
                     DistanceToTarget = distance;
                     IsTargetVisible = true;
