@@ -108,13 +108,15 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
         if (_stamina.SpendStamina(_mainCharacterModel.DashCost))
         {
             Debug.Log(_stamina.CurrentStamina);
-            StartCoroutine(DashRoutine());
+            Vector3 dashDirection = _moveDirection;
+            if (dashDirection == Vector3.zero) dashDirection = transform.forward;
+            StartCoroutine(DashRoutine(dashDirection));
         }
     }
 
-    private IEnumerator DashRoutine()
+    private IEnumerator DashRoutine(Vector3 dashDirection)
     {
-        var dashVector = _mainCharacterModel.DashSpeed * transform.forward;
+        var dashVector = _mainCharacterModel.DashSpeed * dashDirection;
         _velocity += dashVector;
         yield return new WaitForSeconds(_mainCharacterModel.DashTime); 
         _velocity -= dashVector;
