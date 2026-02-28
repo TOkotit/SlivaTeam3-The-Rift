@@ -33,7 +33,7 @@ namespace DI
             builder.RegisterComponentInHierarchy<MainCharacterMovementController>()
                 .AsSelf();
             
-
+            builder.RegisterComponentInHierarchy<InteractionUIManager>();
             
             builder.RegisterComponentInHierarchy<MainCharacterAttackController>();
 

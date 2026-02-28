@@ -968,7 +968,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7823577188012614959}
-  - component: {fileID: 1647108741042986954}
   m_Layer: 5
   m_Name: ScreenInventory
   m_TagString: Untagged
@@ -999,25 +998,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1647108741042986954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4123561396038533146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de8e09a1b8be4a40a9ad80ee06c9c83d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _btnClose: {fileID: 8599504155792711491}
-  _healthText: {fileID: 0}
-  mainWeaponSlots:
-  - {fileID: 1245054876127962545}
-  - {fileID: 2712041842890136419}
-  - {fileID: 1235824261598906799}
-  additionalWeaponSlot: {fileID: 0}
 --- !u!1 &5610382231269018923
 GameObject:
   m_ObjectHideFlags: 0
