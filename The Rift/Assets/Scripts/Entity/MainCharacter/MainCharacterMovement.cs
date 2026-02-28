@@ -92,6 +92,7 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
             if(_stamina.SpendStamina(_mainCharacterModel.WallJumpCost))
             {
                 _velocity.y += _mainCharacterModel.JumpHeight / 2;
+                currentWallJumpCount--;
             }
         }
     }
