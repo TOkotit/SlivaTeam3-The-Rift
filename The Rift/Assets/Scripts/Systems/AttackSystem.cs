@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Entity;
+using Entity.Attacks;
 using Enums;
 using MainCharacter;
 using Unity.VisualScripting;
@@ -37,7 +38,7 @@ namespace Systems
             }
         }
         
-        public void PerformAttack(IAttackProfile profile, WeaponProfile weaponProfile,  GameObject sender, Teams team)
+        public void PerformAttack(IAttackProfile profile, Weapon weaponProfile,  GameObject sender, Teams team)
         {
             
             Debug.Log("attack was performed");
@@ -52,16 +53,16 @@ namespace Systems
         }
         
 
-        private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, WeaponProfile weaponProfile, GameObject sender, Teams team) 
+        private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, Weapon weaponProfile, GameObject sender, Teams team) 
         {
-            var range = weaponProfile.Range * attackProfile.DistanceMultiplier;
-            var damage = weaponProfile.Damage * attackProfile.DamageMultiplier;
-            var piercing = weaponProfile.Piercing;
-            var swingSpeed = weaponProfile.SwingSpeed; 
+            var range = weaponProfile.Model.Range * attackProfile.DistanceMultiplier;
+            var damage = weaponProfile.Model.Damage * attackProfile.DamageMultiplier;
+            var piercing = weaponProfile.Model.Piercing;
+            var swingSpeed = weaponProfile.Model.SwingSpeed; 
             var totalAngle = attackProfile.Angle;            
             var tilt = attackProfile.Tilt;                    
             var halfAngle = totalAngle * 0.5f;
-            var waitTime = (swingSpeed > 0 ? 1f / swingSpeed : 0f) / (totalAngle * 2 );
+            var waitTime = (swingSpeed > 0 ? 1f / swingSpeed : 0f) / totalAngle;
 
             Debug.Log("CastRaysContinuous started");
             for (float angle = -halfAngle; angle <= halfAngle; angle += 1f)
@@ -73,7 +74,7 @@ namespace Systems
                 var finalDirection = tiltRotation * directionAfterYaw;
                 var ray = new Ray(sender.transform.position, finalDirection);
                 var hits = Physics.RaycastAll(ray, range);
-                
+                // начало отрисовки
                 Vector3 endPoint = ray.origin + ray.direction * range;
                 GameObject lineObj = new GameObject("AttackRay");
                 LineRenderer lr = lineObj.AddComponent<LineRenderer>();
@@ -85,7 +86,8 @@ namespace Systems
                 lr.material = new Material(Shader.Find("Sprites/Default")); // или ваш материал
                 lr.startColor = Color.red;
                 lr.endColor = Color.red; 
-                CoroutineRunner.Destroy(lineObj, 0.2f);
+                CoroutineRunner.Destroy(lineObj, 0.1f);
+                //конец отрисовки
                 
                 
                 foreach (RaycastHit hit in hits)

@@ -7,6 +7,5 @@ namespace MainCharacter
     {
         public float Sensitivity = 1f; 
         public float MaxPitch = 80f;  
-        public Vector2 Rotation; 
     }
 }
