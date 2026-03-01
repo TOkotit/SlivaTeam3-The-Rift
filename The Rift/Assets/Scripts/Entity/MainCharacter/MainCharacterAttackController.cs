@@ -2,12 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Entity;
 using Entity.Attacks;
 using Enums;
 using Systems;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Utils;
 using Utils.MiscClasses;
 using VContainer;
@@ -28,6 +26,8 @@ namespace MainCharacter
         private HashSet<InputButton> _availableComboKeys = new HashSet<InputButton>();
         private List<Weapon> _equippedWeapons = new List<Weapon>();
         private List<AttackBind> _allBinds = new List<AttackBind>();
+        private Dictionary<InputButton, float> _holdStartTimes = new Dictionary<InputButton, float>();
+        private HashSet<InputButton> _holdEventsFired = new HashSet<InputButton>();
 
         private Coroutine _timeoutCoroutine;
         private bool _inputAvailable = true;
@@ -73,16 +73,46 @@ namespace MainCharacter
             RebuildComboData();
         }
 
+        
+
         private void Update()
         {
             if (!_inputAvailable) return;
-
-            foreach (var key in _availableComboKeys)
+            
+            foreach (var button in _availableComboKeys)
             {
-                if (key.IsPressed())
+                if (button.hold)
                 {
-                    TryAddKey(key);
-                    break;
+                    var isHeld = button.IsHeld();
+                    
+                    if (isHeld)
+                    {
+                        if (!_holdStartTimes.ContainsKey(button))
+                        {
+                            _holdStartTimes[button] = Time.time;
+                        }
+                        else
+                        {
+                            float elapsed = Time.time - _holdStartTimes[button];
+                            if (elapsed >= button.treshold && !_holdEventsFired.Contains(button))
+                            {
+                                TryAddKey(button);
+                                _holdEventsFired.Add(button);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (_holdStartTimes.ContainsKey(button))
+                        {
+                            _holdStartTimes.Remove(button);
+                            _holdEventsFired.Remove(button);
+                        }
+                    }
+                }
+                else if (button.IsPressed() && !button.IsHeld())
+                {
+                    TryAddKey(button);
                 }
             }
         }
@@ -127,7 +157,7 @@ namespace MainCharacter
                     RebuildComboData();    
                 }
                 _inputAvailable = false;
-                yield return new WaitForSeconds(_bindToPerform.AttackProfile.Value.Cooldown - _comboTimeout);
+                yield return new WaitForSeconds(Math.Max(0,_bindToPerform.AttackProfile.Value.Cooldown - _comboTimeout));
                 _inputAvailable = true;
             }
 
