@@ -23,6 +23,9 @@ namespace Systems
 
         public Weapon CreateWeapon(string name)
         {
+            var keysAsString = string.Join(", ", _profilesRegistry.Keys);
+            Debug.Log(keysAsString);
+
             var model = new WeaponModel(_profilesRegistry[name]);
             var attacks = _profilesRegistry[name].Attacks.ToList();
             var weapon = new Weapon(model, attacks);
