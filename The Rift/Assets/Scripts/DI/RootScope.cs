@@ -33,7 +33,7 @@ namespace DI
         
         protected override void Configure(IContainerBuilder builder)
         {
-            
+            Debug.Log("RootScope.Configure called");
             
             var coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>();
             DontDestroyOnLoad(coroutines.gameObject);
@@ -43,9 +43,11 @@ namespace DI
             DontDestroyOnLoad(uiRoot.gameObject);
             var uiRootView = uiRoot.GetComponent<UIRootView>();
             builder.RegisterInstance<UIRootView>(uiRootView);
+            
+            
             builder.Register<IGameInputManager, GameInputManager>(Lifetime.Singleton);
 
-            Debug.Log("GameplayScope.Configure called");
+            
             builder.Register<IGameManager, GameManager>(Lifetime.Singleton);
             
             

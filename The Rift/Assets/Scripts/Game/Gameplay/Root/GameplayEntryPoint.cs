@@ -42,11 +42,7 @@ namespace Game.Gameplay.Root
             // Запрашиваем рутовую вью модель и пихаем ее в баиндер, который создали
             var uiSceneRootViewModel = resolver.Resolve<GameplayUIRootViewModel>();
             uiSceneRootBinder.Bind(uiSceneRootViewModel);
-            
-            // // можно открывать окошки
-            // var uiManager = resolver.Resolve<GameplayUIManager>();
-            // uiManager.OpenScreenGameplay();
-            //
+            // можно открывать окошки
         }
 
         

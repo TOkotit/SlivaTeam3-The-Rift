@@ -8,7 +8,7 @@ namespace MainCharacter
     [RequireComponent(typeof(Camera))]
     public class MainCharacterCamera : MonoBehaviour
     {
-        private Camera _camera;
+        public Camera _camera;
         private GameInput _gameInput;
         private IControllable _controllable;
         private bool _initialized;

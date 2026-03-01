@@ -9,30 +9,34 @@ namespace Game.Gameplay.View.UI
     public class ScreenGameplayBinder : WindowBinder<ScreenGameplayViewModel>
     {
         [SerializeField] private Button _btnGoToMainMenu;
-        [SerializeField] private Button _btnPopupA;
+        
         [SerializeField] private TextMeshProUGUI _healthText;
 
-        private void OnEnable()
+        public TextMeshProUGUI HealthText
         {
-            _btnGoToMainMenu?.onClick.AddListener(OnGoToMainMenuButtonClicked);
-            _btnPopupA?.onClick.AddListener(OnPopupAButtonClicked);
-            
-            // ViewModel.inithealthText(UpdateHealthText);
-            // ViewModel.RequestSubText(UpdateHealthText);
-            
+            get => _healthText;
+            set => _healthText = value;
         }
 
-        private void OnDisable()
+        private void Start()
+        {
+            _btnGoToMainMenu?.onClick.AddListener(OnGoToMainMenuButtonClicked);
+            
+            ViewModel.inithealthText(UpdateHealthText);
+            ViewModel.RequestSubText(UpdateHealthText);
+        }
+
+        private void OnDestroy()
         {
             _btnGoToMainMenu?.onClick.RemoveListener(OnGoToMainMenuButtonClicked);
-            _btnPopupA?.onClick.RemoveListener(OnPopupAButtonClicked);
+
             
-            // ViewModel.RequestUnsubText(UpdateHealthText);
+            ViewModel.RequestUnsubText(UpdateHealthText);
         }
 
         private void UpdateHealthText(int newValue)
         {
-            _healthText.text = newValue.ToString();
+            HealthText.text = newValue.ToString();
         }
         
         private void OnGoToMainMenuButtonClicked()
@@ -40,9 +44,5 @@ namespace Game.Gameplay.View.UI
             ViewModel.RequestGoToMainMenu();
         }
         
-        private void OnPopupAButtonClicked()
-        {
-            ViewModel.RequestOpenPopupA();
-        }
     }
 }

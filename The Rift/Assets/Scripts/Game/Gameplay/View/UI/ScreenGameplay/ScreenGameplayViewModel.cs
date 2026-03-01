@@ -14,6 +14,7 @@ namespace Game.Gameplay.View.UI
         private readonly GameplayUIManager _uiManager;
         private readonly IGameManager _gameManager;
         private readonly ICoroutineRunner _coroutines;
+        private readonly IGameInputManager _gameInputManager;
         
         private readonly MainCharacterModel  _mainCharacter;
         
@@ -25,29 +26,27 @@ namespace Game.Gameplay.View.UI
             _gameManager =  container.Resolve<IGameManager>();
             _coroutines = container.Resolve<ICoroutineRunner>();
             _mainCharacter = container.Resolve<MainCharacterModel>();
+            _gameInputManager = container.Resolve<IGameInputManager>();
         }
 
-        // public void inithealthText(Action<int> f)
-        // {
-        //     Debug.Log("inithealthText");
-        //     f(_mainCharacter.Health.CurrentHealth);
-        // }
-        //
-        // public void RequestSubText(Action<int> f)
-        // {
-        //     Debug.Log("RequestSubText");
-        //     _mainCharacter.Health.OnHealthChanged += f;
-        // }
-        //
-        // public void RequestUnsubText(Action<int> f)
-        // {
-        //     _mainCharacter.Health.OnHealthChanged -= f;
-        // }
-        
-        public void RequestOpenPopupA()
+        public void inithealthText(Action<int> f)
         {
-            _uiManager.OpenPopupA();
+            Debug.Log("inithealthText");
+            f(_mainCharacter.Health.CurrentHealth);
         }
+        
+        public void RequestSubText(Action<int> f)
+        {
+            Debug.Log($"RequestSubText {_mainCharacter.Health == null}");
+            _mainCharacter.Health.OnHealthChanged += f;
+        }
+        
+        public void RequestUnsubText(Action<int> f)
+        {
+            Debug.Log($"RequestUnsubText {_mainCharacter.Health == null}");
+            _mainCharacter.Health.OnHealthChanged -= f;
+        }
+        
         
         public void RequestGoToMainMenu()
         {
