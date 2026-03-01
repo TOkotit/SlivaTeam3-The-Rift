@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entity;
+using Entity.Attacks;
 using MainCharacter;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,19 +17,19 @@ namespace Entity
         [SerializeField] private float attackSpeed;
         [SerializeField] private float swingSpeed;
         [SerializeField] private string name;
+        [SerializeField] private int maxDurability;
         public float Range => range;
         public int Damage => damage;
         public bool Piercing => piercing; 
         public float SwingSpeed => swingSpeed;
-        [SerializeField]
-        public List<Attack> _attacks = new List<Attack>();
+        public int MaxDurability => maxDurability;
+        public string Name => name;
+        public float AttackSpeed => attackSpeed;
         
-        [System.Serializable]
-        public class Attack
-        {
-            public List<Key> keys;
-            public RaycastAttackProfile profile; 
-        }
+        [SerializeField]
+        public List<AttackBind> _attacks = new List<AttackBind>();
+        public IReadOnlyList<AttackBind> Attacks => _attacks;
+        
         
         
     }

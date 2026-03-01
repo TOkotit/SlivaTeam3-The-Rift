@@ -2,13 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Entity;
+using Entity.Attacks;
 using Enums;
-using Game.Gameplay.View.UI;
 using Systems;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Utils;
 using Utils.MiscClasses;
 using VContainer;
@@ -20,25 +17,23 @@ namespace MainCharacter
         [Inject] private IGameInputManager _inputManager;
         [Inject] private AttackSystem _attackSystem;
         [Inject] private ICoroutineRunner _coroutineRunner;
+        [Inject] private WeaponManager _weaponManager;
 
-        [SerializeField] private float _comboTimeout = 0.5f; 
+        [SerializeField] private float _comboTimeout = 0.1f;
+        [SerializeField] private MainCharacter _mainCharacter;
 
-        private LimitedQueue<Key> _inputs = new LimitedQueue<Key>(4);
-        private HashSet<Key> _availableComboKeys = new HashSet<Key>();
-        private List<WeaponProfile> _equippedWeapons = new List<WeaponProfile>();
-
-        private struct ComboEntry
-        {
-            public Key[] Keys; 
-            public IAttackProfile AttackProfile;
-            public WeaponProfile Weapon; 
-        }
-        private List<ComboEntry> _allCombos = new List<ComboEntry>();
+        private LimitedQueue<InputButton> _inputs = new LimitedQueue<InputButton>(4);
+        private HashSet<InputButton> _availableComboKeys = new HashSet<InputButton>();
+        private List<Weapon> _equippedWeapons = new List<Weapon>();
+        private List<AttackBind> _allBinds = new List<AttackBind>();
+        private Dictionary<InputButton, float> _holdStartTimes = new Dictionary<InputButton, float>();
+        private HashSet<InputButton> _holdEventsFired = new HashSet<InputButton>();
 
         private Coroutine _timeoutCoroutine;
-        private bool _waitingForNextInput;
+        private bool _inputAvailable = true;
+        private AttackBind _bindToPerform;
 
-        public List<WeaponProfile> EquippedWeapons
+        public List<Weapon> EquippedWeapons
         {
             get => _equippedWeapons;
             set
@@ -56,16 +51,14 @@ namespace MainCharacter
         private void RebuildComboData()
         {
             _availableComboKeys.Clear();
-            _allCombos.Clear();
+            _allBinds.Clear();
 
             foreach (var weapon in _equippedWeapons)
             {
-                foreach (var kvp in weapon._attacks) 
+                foreach (var bind in weapon.AttackBinds)
                 {
-                    var keys = kvp.keys.ToArray(); 
-                    _allCombos.Add(new ComboEntry{ Keys = keys, AttackProfile = kvp.profile, Weapon = weapon });
-                    
-                    foreach (var key in keys)
+                    _allBinds.Add(bind);
+                    foreach (var key in bind.keys)
                     {
                         _availableComboKeys.Add(key);
                     }
@@ -73,64 +66,128 @@ namespace MainCharacter
             }
         }
 
+        public void AddWeapon(Weapon weapon)
+        {
+            _equippedWeapons.Add(weapon);
+            _mainCharacter.MainCharacterModel.Weapons.Add(weapon.Model);
+            RebuildComboData();
+        }
+
+        
+
         private void Update()
         {
-            foreach (var key in _availableComboKeys)
+            if (!_inputAvailable) return;
+            
+            foreach (var button in _availableComboKeys)
             {
-                if (Keyboard.current[key].wasPressedThisFrame)
+                if (button.hold)
                 {
-                    _inputs.Enqueue(key);
-
-                    if (_timeoutCoroutine != null)
-                        _coroutineRunner.StopRoutine(_timeoutCoroutine);
-
-                    _timeoutCoroutine = _coroutineRunner.StartRoutine(InputTimeout());
-
-                    CheckForCombo();
-
-                    break;
-                }
-            }
-        }
-
-        private void CheckForCombo()
-        {
-            var currentSequence = _inputs.ToArray(); 
-            foreach (var combo in _allCombos)
-            {
-                if (IsSequenceMatch(currentSequence, combo.Keys))
-                {
-                    _attackSystem.PerformAttack(combo.AttackProfile, combo.Weapon, gameObject,Teams.Player );
-
-                    _inputs.Clear();
-                    if (_timeoutCoroutine != null)
+                    var isHeld = button.IsHeld();
+                    
+                    if (isHeld)
                     {
-                        _coroutineRunner.StopRoutine(_timeoutCoroutine);
-                        _timeoutCoroutine = null;
+                        if (!_holdStartTimes.ContainsKey(button))
+                        {
+                            _holdStartTimes[button] = Time.time;
+                        }
+                        else
+                        {
+                            float elapsed = Time.time - _holdStartTimes[button];
+                            if (elapsed >= button.treshold && !_holdEventsFired.Contains(button))
+                            {
+                                TryAddKey(button);
+                                _holdEventsFired.Add(button);
+                            }
+                        }
                     }
-                    return; 
+                    else
+                    {
+                        if (_holdStartTimes.ContainsKey(button))
+                        {
+                            _holdStartTimes.Remove(button);
+                            _holdEventsFired.Remove(button);
+                        }
+                    }
+                }
+                else if (button.IsPressed())
+                {
+                    TryAddKey(button);
                 }
             }
         }
 
-        private bool IsSequenceMatch(Key[] actual, Key[] expected)
+        private void TryAddKey(InputButton key)
         {
-            if (actual.Length != expected.Length)
-                return false;
+            var newSequence = _inputs.Concat(new[] { key }).ToArray();
+            var isValidPrefix = _allBinds.Any(bind => IsPrefix(newSequence, bind.keys.ToArray()));
 
-            for (var i = 0; i < actual.Length; i++)
+            if (!isValidPrefix)
             {
-                if (actual[i] != expected[i])
-                    return false;
+                return;
             }
-            return true;
+
+            _inputs.Enqueue(key);
+
+            var exactMatch = _allBinds.FirstOrDefault(bind => bind.keys.SequenceEqual(_inputs));
+            if (exactMatch != null)
+            {
+                _bindToPerform = exactMatch;
+            }
+
+            if (_timeoutCoroutine == null)
+            {
+                _timeoutCoroutine = _coroutineRunner.StartRoutine(InputTimeout());
+            }
         }
 
         private IEnumerator InputTimeout()
         {
             yield return new WaitForSeconds(_comboTimeout);
+
+            if (_bindToPerform != null)
+            {
+                _attackSystem.PerformAttack(_bindToPerform.AttackProfile.Value, _bindToPerform.weapon, gameObject, Teams.Player);
+                var weapon = _bindToPerform.weapon;
+                weapon.Damage(1);
+                Debug.Log(weapon.Durability);
+                if(weapon.Durability <= 0)
+                {
+                    _mainCharacter.MainCharacterModel.Weapons.Remove(weapon.Model);
+                    _equippedWeapons.Remove(weapon);
+                    RebuildComboData();    
+                }
+                _inputAvailable = false;
+                yield return new WaitForSeconds(Math.Max(0,_bindToPerform.AttackProfile.Value.Cooldown - _comboTimeout));
+                _inputAvailable = true;
+            }
+
+            ResetInput();
+        }
+
+        private void ResetInput()
+        {
             _inputs.Clear();
-            _timeoutCoroutine = null;
+            _bindToPerform = null;
+
+            if (_timeoutCoroutine != null)
+            {
+                _coroutineRunner.StopRoutine(_timeoutCoroutine);
+                _timeoutCoroutine = null;
+            }
+        }
+
+        private static bool IsPrefix<T>(IEnumerable<T> prefix, IEnumerable<T> full)
+        {
+            using var prefixEnum = prefix.GetEnumerator();
+            using var fullEnum = full.GetEnumerator();
+
+            while (prefixEnum.MoveNext())
+            {
+                if (!fullEnum.MoveNext()) return false;
+                if (!Equals(prefixEnum.Current, fullEnum.Current)) return false;
+            }
+            return true;
         }
     }
 }

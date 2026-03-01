@@ -24,21 +24,45 @@ namespace DI
             builder.Register<DamagableRegistry>(Lifetime.Singleton);
             builder.Register<AttackSystem>(Lifetime.Singleton);
             
+            builder.Register<DamagableRegistry>(Lifetime.Singleton);
+            builder.Register<AttackSystem>(Lifetime.Singleton);
+            builder.Register<WeaponManager>(Lifetime.Singleton);
+            
+            
+            
+            builder.RegisterComponentInHierarchy<MainCharacterAttackController>();
+            
+            
+            builder.RegisterComponentInHierarchy<MainCharacterCamera>();
+            builder.Register<CharacterController>(Lifetime.Scoped);
+            
             builder.Register<GameData>(Lifetime.Singleton);
 
             builder.Register<IGameInputManager, GameInputManager>(Lifetime.Singleton);
-            
+
+            builder.RegisterComponentInHierarchy<MainCharacter.MainCharacter>()
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacterMovement>()
+                .As<IControllable>()      
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacterMovementController>()
+                .AsSelf();
+
+            builder.Register<Health>(Lifetime.Scoped);
+            builder.Register<Stamina>(Lifetime.Scoped);
+                
             builder.Register<Inventory>(Lifetime.Singleton);
             builder.Register<InventoryManager>(Lifetime.Singleton); 
-            
+
             builder.Register<MainCharacterModel>(Lifetime.Singleton)
                 .WithParameter(typeof(Health), new Health(200));
-            
-            
+                
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
-            builder.RegisterEntryPoint<GameplayEntryPoint>();
+            builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
-      }
+    }
 }

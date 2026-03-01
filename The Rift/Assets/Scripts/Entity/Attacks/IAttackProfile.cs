@@ -2,6 +2,8 @@
 {
     public interface IAttackProfile
     {
-        protected string Name { get; set; }
+        string Name { get; set; }
+        float  AttackUptime {get; set;}
+        float  Cooldown {get; set;}
     }
 }

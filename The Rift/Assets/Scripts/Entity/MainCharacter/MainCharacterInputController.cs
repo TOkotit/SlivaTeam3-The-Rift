@@ -50,6 +50,7 @@ namespace MainCharacter
             if (_gameInput.Gameplay.Jump == null) return;
 
             _gameInput.Gameplay.Jump.performed += OnJumpPerformed;
+            _gameInput.Gameplay.Dash.performed += OnDashPerformed;
             _subscribed = true;
         }
         
@@ -73,6 +74,11 @@ namespace MainCharacter
         private void OnJumpPerformed(InputAction.CallbackContext context)
         {
             _controllable.Jump();
+        }
+
+        private void OnDashPerformed(InputAction.CallbackContext context)
+        {
+            _controllable.Dash();
         }
 
         private void Update()
