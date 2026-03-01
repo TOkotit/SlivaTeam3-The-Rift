@@ -9,8 +9,6 @@ using VContainer.Unity;
 public class MainCharacterMovement : MonoBehaviour, IControllable
 {
     //TODO всё что можно перенести в статы в scriptableObject надо бы перенести
-    //TODO RE: Прямое указание параметров в данном скрипте через ScriptableObject было бы нарушением архитектуры
-    //Надо будет сделать фабрику чтобы использовать scriptableObject
     
     private CharacterController _controller;
     
