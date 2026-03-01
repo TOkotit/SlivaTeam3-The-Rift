@@ -110,7 +110,7 @@ namespace MainCharacter
                         }
                     }
                 }
-                else if (button.IsPressed() && !button.IsHeld())
+                else if (button.IsPressed())
                 {
                     TryAddKey(button);
                 }
@@ -150,6 +150,7 @@ namespace MainCharacter
                 _attackSystem.PerformAttack(_bindToPerform.AttackProfile.Value, _bindToPerform.weapon, gameObject, Teams.Player);
                 var weapon = _bindToPerform.weapon;
                 weapon.Damage(1);
+                Debug.Log(weapon.Durability);
                 if(weapon.Durability <= 0)
                 {
                     _mainCharacter.MainCharacterModel.Weapons.Remove(weapon.Model);

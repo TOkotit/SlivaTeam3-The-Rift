@@ -10,12 +10,17 @@ namespace Entity.Attacks
         private WeaponModel _model;
            
         private List<AttackBind> _attacks = new List<AttackBind>();
+        public Action<Weapon> OnWeaponBroken;
         public int Durability
         {
             get => _model.CurrentDurability;
             private set
             {
                 _model.CurrentDurability = value;
+                if (_model.CurrentDurability <= 0)
+                {
+                    OnWeaponBroken.Invoke(this);
+                }
             }
         }
 
