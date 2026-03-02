@@ -83,7 +83,6 @@ namespace Systems
                 lr.SetPosition(1, endPoint);
                 lr.startWidth = 0.1f;
                 lr.endWidth = 0.1f;
-                lr.material = new Material(Shader.Find("Sprites/Default")); // или ваш материал
                 lr.startColor = Color.red;
                 lr.endColor = Color.red; 
                 CoroutineRunner.Destroy(lineObj, 0.1f);
