@@ -2,11 +2,12 @@
 
 namespace Entity.Attacks
 {
+    [CreateAssetMenu(fileName = "ProjectileAttack", menuName = "Attacks/Projectile attack")]
     public class ProjectileAttackProfile : AttackProfile
     {
         [SerializeField] private GameObject projectile;
-        public GameObject Projectile => projectile;
         [SerializeField] private float power;
+        public GameObject Projectile => projectile; 
         public float Power => power;
     }
 }

@@ -1,4 +1,6 @@
-﻿using Enums;
+﻿using System.Collections.Generic;
+using AYellowpaper;
+using Enums;
 using UnityEngine;
 
 namespace Entity.Attacks
@@ -14,12 +16,14 @@ namespace Entity.Attacks
         [SerializeField] private bool randomizeOffsetInBounds;
         [SerializeField] private Vector2 angularOffset;
         [SerializeField] private bool randomizeAngularOffset;
+        [SerializeField] private List<InterfaceReference<IAttackEvent>> events;
         
         public float DamageMultiplier => damageMultiplier;
         public DamageTypes DamageType => damageType;
-        
         public string Name => _name;
         public float Cooldown => cooldown;
+        public List<InterfaceReference<IAttackEvent>> Events => events;
+
         public Vector2 AngularOffset
         {
             get
