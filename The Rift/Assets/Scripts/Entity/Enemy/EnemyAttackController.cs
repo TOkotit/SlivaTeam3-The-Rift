@@ -1,4 +1,5 @@
 using Entity;
+using Entity.Attacks;
 using Enums;
 using MainCharacter;
 using Systems;
@@ -9,7 +10,7 @@ public class EnemyAttackController : MonoBehaviour
 {
     [SerializeField] private RaycastAttackProfile _attackProfile;
     
-    [SerializeField] private WeaponProfile _weaponProfile;
+    [SerializeField] private Weapon _weaponProfile;
     
     
     [Inject] private AttackSystem _attackSystem;

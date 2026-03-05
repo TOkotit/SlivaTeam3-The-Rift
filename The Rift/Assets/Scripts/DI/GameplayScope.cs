@@ -24,7 +24,6 @@ namespace DI
             builder.Register<DamagableRegistry>(Lifetime.Singleton);
             builder.Register<AttackSystem>(Lifetime.Singleton);
             builder.Register<GameData>(Lifetime.Singleton);
-            builder.Register<IGameInputManager, GameInputManager>(Lifetime.Singleton);
                 
             builder.Register<Inventory>(Lifetime.Singleton);
             builder.Register<InventoryManager>(Lifetime.Singleton);
