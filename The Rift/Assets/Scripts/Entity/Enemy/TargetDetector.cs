@@ -5,11 +5,11 @@ namespace Entity.Enemy
 {
     public class TargetDetector : MonoBehaviour
     { 
-        [Header("Proximity Settings (360 degrees)")]
+        [Header("Proximity Settings")]
         [SerializeField] private Transform _proximityAreaCenter;
         [SerializeField] private float _proximityAreaRadius;
 
-        [Header("Sight Settings (Field of View)")]
+        [Header("Sight Settings")]
         [SerializeField] private float _sightDistance;
         [SerializeField] private float _sightAngle; 
         [SerializeField] private LayerMask _targetLayer;   
@@ -48,7 +48,6 @@ namespace Entity.Enemy
 
                 if (inProximity || inSight)
                 {
-                    Debug.Log("Player Detected !!!!!!!!");
                     DetectedTarget = target;
                     DistanceToTarget = distance;
                     IsTargetVisible = true;

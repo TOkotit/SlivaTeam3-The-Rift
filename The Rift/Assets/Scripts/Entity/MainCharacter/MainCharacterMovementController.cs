@@ -95,7 +95,7 @@ namespace MainCharacter
             
             
             var inputDirection = _gameInput.Gameplay.Movement.ReadValue<Vector2>();
-
+            
             if (!_mainCamera)
             {
                 Debug.LogWarning("MainCamera is null in MainCharacterInputController.ReadMovement");

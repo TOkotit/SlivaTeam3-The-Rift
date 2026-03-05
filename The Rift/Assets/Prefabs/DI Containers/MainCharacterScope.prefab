@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: DI.GameplayScope
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 2583732118245975436, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}

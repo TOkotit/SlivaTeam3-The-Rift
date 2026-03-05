@@ -1,4 +1,5 @@
 ﻿using DI;
+using Entity;
 using Game;
 using Game.Gameplay.View.UI;
 using Game.MainMenu.View.UI;
@@ -21,21 +22,27 @@ namespace DI
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.Log("MainCharacterScope.Configure called");
-            
+            builder.Register<WeaponManager>(Lifetime.Singleton);
+
             builder.RegisterComponentInHierarchy<MainCharacterCamera>();
-            builder.Register<CharacterController>(Lifetime.Singleton);
-            
+
+
+            builder.RegisterComponentInHierarchy<CharacterController>()
+                .AsSelf();
             builder.RegisterComponentInHierarchy<MainCharacter.MainCharacter>()
                 .AsSelf();
-            builder.RegisterComponentInHierarchy<CharacterMovement>()
+            builder.RegisterComponentInHierarchy<MainCharacterMovement>()
                 .As<IControllable>()      
                 .AsSelf();
             builder.RegisterComponentInHierarchy<MainCharacterMovementController>()
                 .AsSelf();
-            
+            builder.RegisterComponentInHierarchy<MainCharacterAttackController>()
+                .AsSelf();
+
             builder.RegisterComponentInHierarchy<InteractionUIManager>();
             
-            builder.RegisterComponentInHierarchy<MainCharacterAttackController>();
+
+            
 
 
             builder.RegisterEntryPoint<MainCharacterInitializer>();
