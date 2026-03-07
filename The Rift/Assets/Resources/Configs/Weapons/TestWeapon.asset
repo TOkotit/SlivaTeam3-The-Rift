@@ -20,9 +20,19 @@ MonoBehaviour:
   name: TestWeapon
   maxDurability: 100
   _attacks:
-  - keys: 1f000000
+  - keys:
+    - device: 1
+      key: 0
+      mouse: 0
+      hold: 0
+      treshold: 0
     AttackProfile:
       _underlyingValue: {fileID: 11400000, guid: 9431ab0a23870e44d8d5a8c447bf0903, type: 2}
-  - keys: 330000001f000000
+  - keys:
+    - device: 1
+      key: 0
+      mouse: 0
+      hold: 1
+      treshold: 1
     AttackProfile:
       _underlyingValue: {fileID: 11400000, guid: 11e24a81b104dc24394fdbaa0ccd0bd8, type: 2}

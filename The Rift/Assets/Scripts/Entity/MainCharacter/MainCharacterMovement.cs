@@ -8,9 +8,6 @@ using VContainer.Unity;
 [RequireComponent(typeof(CharacterController))]
 public class MainCharacterMovement : MonoBehaviour, IControllable
 {
-    //TODO всё что можно перенести в статы в scriptableObject надо бы перенести
-    //TODO RE: Прямое указание параметров в данном скрипте через ScriptableObject было бы нарушением архитектуры
-    //Надо будет сделать фабрику чтобы использовать scriptableObject
     
     private CharacterController _controller;
     
@@ -29,6 +26,7 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
     [Inject]
     private void Construct(MainCharacter.MainCharacter mainCharacter)
     {
+        Debug.Log(mainCharacter + "=====");
         _mainCharacterModel =  mainCharacter.MainCharacterModel;
         _stamina =  _mainCharacterModel.Stamina;
     }

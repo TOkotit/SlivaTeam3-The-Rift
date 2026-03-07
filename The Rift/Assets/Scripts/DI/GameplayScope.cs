@@ -1,5 +1,4 @@
 using Entity;
-using Game;
 using Game.Gameplay;
 using Game.Gameplay.Root;
 using VContainer;
@@ -18,6 +17,9 @@ namespace DI
 {
     public class GameplayScope: LifetimeScope
     {
+        [SerializeField] private MovementStatsSO stats;
+
+
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.Log("GameplayScope.Configure called");
@@ -59,7 +61,7 @@ namespace DI
 
             builder.RegisterEntryPoint<MainCharacterInitializer>();
             
-            
+             builder.RegisterInstance(stats); 
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
 
 

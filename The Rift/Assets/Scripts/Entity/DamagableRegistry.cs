@@ -5,34 +5,30 @@ namespace Entity
 {
     public class DamagableRegistry
     {
-        private Dictionary<Collider, DamagableModel> _damagableObjects = new Dictionary<Collider, DamagableModel>();
+        private Dictionary<GameObject, DamagableModel> _damagableObjects = new Dictionary<GameObject, DamagableModel>();
         
         public void Register(Character character)
         {
-            var colliders = character.GetComponentsInChildren<Collider>();
-            foreach (var col in colliders)
-            {
-                if (!_damagableObjects.ContainsKey(col))
-                    _damagableObjects.Add(col, character.Damagable); 
-            }
+            var damagable = character.gameObject;
+            if (!_damagableObjects.ContainsKey(damagable))
+                _damagableObjects.Add(damagable, character.Damagable); 
+            
         }
         
         
         public void Unregister(Character character)
         {
-            var colliders = character.GetComponentsInChildren<Collider>();
-            foreach (var col in colliders)
-            {
-                if (_damagableObjects.ContainsKey(col))
-                    _damagableObjects.Remove(col);
-            }
+            var damagable = character.gameObject;
+            if (_damagableObjects.ContainsKey(damagable))
+                _damagableObjects.Remove(damagable);
+            
         }
 
-        public DamagableModel TryGetCharacter(Collider collider)
+        public DamagableModel TryGetCharacter(GameObject character)
         {
-            if (_damagableObjects.ContainsKey(collider))
+            if (_damagableObjects.ContainsKey(character))
             {
-                return _damagableObjects[collider];
+                return _damagableObjects[character];
             }
             return null;
         }
