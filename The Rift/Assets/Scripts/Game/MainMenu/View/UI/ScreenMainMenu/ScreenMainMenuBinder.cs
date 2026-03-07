@@ -12,7 +12,7 @@ namespace Game.MainMenu.View.UI.ScreenMainMenu
         [SerializeField] private Button _btnExit;
 
 
-        private void OnEnable()
+        private void Start()
         {
             _btnPlay?.onClick.AddListener(OnPlayButtonClicked);
             _btnContinue?.onClick.AddListener(OnContinueButtonClicked);
@@ -20,7 +20,7 @@ namespace Game.MainMenu.View.UI.ScreenMainMenu
             _btnExit?.onClick.AddListener(OnExitButtonClicked);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _btnPlay?.onClick.RemoveListener(OnPlayButtonClicked);
             _btnContinue?.onClick.RemoveListener(OnContinueButtonClicked);

@@ -1,5 +1,4 @@
 ﻿using Game.Gameplay.View.UI;
-using Game.Gameplay.View.UI.PopupA;
 using Game.MainMenu.View.UI.ScreenMainMenu;
 using Game.UI;
 using R3;

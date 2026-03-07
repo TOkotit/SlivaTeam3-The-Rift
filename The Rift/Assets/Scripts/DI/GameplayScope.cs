@@ -15,48 +15,31 @@ using UIRoot;
 
 namespace DI
 {
-        public class GameplayScope: LifetimeScope
+    public class GameplayScope: LifetimeScope
+    {
+        protected override void Configure(IContainerBuilder builder)
         {
-            protected override void Configure(IContainerBuilder builder)
-            {
-                Debug.Log("GameplayScope.Configure called");
+            Debug.Log("GameplayScope.Configure called");
+        
+            builder.Register<DamagableRegistry>(Lifetime.Singleton);
+            builder.Register<AttackSystem>(Lifetime.Singleton);
+            builder.Register<GameData>(Lifetime.Singleton);
+                
+            builder.Register<Inventory>(Lifetime.Singleton);
+            builder.Register<InventoryManager>(Lifetime.Singleton);
             
-                builder.Register<DamagableRegistry>(Lifetime.Singleton);
-                builder.Register<AttackSystem>(Lifetime.Singleton);
-                builder.Register<WeaponManager>(Lifetime.Singleton);
-                
-                var coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>(); //удалить потом
-                DontDestroyOnLoad(coroutines.gameObject);
-                builder.RegisterInstance<ICoroutineRunner>(coroutines);
-                
-                builder.RegisterComponentInHierarchy<MainCharacterAttackController>();
-                builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
-                builder.Register<GameplayUIManager>(Lifetime.Singleton);
-                
-                builder.RegisterComponentInHierarchy<MainCharacterCamera>();
-                builder.Register<CharacterController>(Lifetime.Scoped);
-                
-                builder.Register<GameData>(Lifetime.Singleton);
-    
-                builder.Register<IGameInputManager, GameInputManager>(Lifetime.Singleton);
-    
-                builder.RegisterComponentInHierarchy<MainCharacter.MainCharacter>()
-                    .AsSelf();
-                builder.RegisterComponentInHierarchy<MainCharacterMovement>()
-                    .As<IControllable>()      
-                    .AsSelf();
-                builder.RegisterComponentInHierarchy<MainCharacterMovementController>()
-                    .AsSelf();
+            
+            builder.Register<Health>(Lifetime.Scoped);
+            builder.Register<Stamina>(Lifetime.Scoped);
+            builder.Register<MainCharacterModel>(Lifetime.Singleton);
 
-                builder.Register<Health>(Lifetime.Scoped);
-                builder.Register<Stamina>(Lifetime.Scoped);
-                    
-                builder.Register<Inventory>(Lifetime.Singleton);
-                builder.Register<InventoryManager>(Lifetime.Singleton); 
                 
-                builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-      }
+            builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
+            builder.Register<GameplayUIManager>(Lifetime.Singleton);
+            
+            builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
+            // Cursor.visible = false;
+            // Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
 }

@@ -45,7 +45,9 @@ namespace Game.UI
             
             var prefabPath = GetPrefabPath(viewModel);
             var prefab = Resources.Load<GameObject>(prefabPath);
+
             var createdScreen = Instantiate(prefab, _screensContainer);
+
             var binder = createdScreen.GetComponent<IWindowBinder>();
             
             binder.Bind(viewModel);
