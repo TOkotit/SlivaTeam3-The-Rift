@@ -1,4 +1,5 @@
 using Entity;
+using Game;
 using Game.Gameplay;
 using Game.Gameplay.Root;
 using VContainer;
@@ -28,18 +29,40 @@ namespace DI
             builder.Register<Inventory>(Lifetime.Singleton);
             builder.Register<InventoryManager>(Lifetime.Singleton);
             
-            
             builder.Register<Health>(Lifetime.Scoped);
             builder.Register<Stamina>(Lifetime.Scoped);
             builder.Register<MainCharacterModel>(Lifetime.Singleton);
-
                 
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
+            builder.Register<CraftTable>(Lifetime.Singleton);
+            
+            builder.Register<WeaponManager>(Lifetime.Singleton);
+
+            builder.RegisterComponentInHierarchy<MainCharacterCamera>();
+            builder.RegisterComponentInHierarchy<MainCharacterInteractionController>();
+
+            builder.RegisterComponentInHierarchy<CharacterController>()
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacter.MainCharacter>()
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacterMovement>()
+                .As<IControllable>()      
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacterMovementController>()
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacterAttackController>()
+                .AsSelf();
+
+            builder.RegisterComponentInHierarchy<InteractionUIManager>();
+
+            builder.RegisterEntryPoint<MainCharacterInitializer>();
+            
+            
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
-            // Cursor.visible = false;
-            // Cursor.lockState = CursorLockMode.Locked;
+
+
         }
     }
 }

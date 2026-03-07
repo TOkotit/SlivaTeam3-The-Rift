@@ -14,11 +14,22 @@ namespace MainCharacter
         private bool _initialized;
         [SerializeField] private float _sensitivity = 1f; 
         [SerializeField] private float _maxPitch = 80f;  
-        private Vector2 _rotation; 
+        private Vector2 _rotation;
+        private bool isCameraRotating = false;
+
+        public bool IsCameraRotating
+        {
+            get => isCameraRotating;
+            set => isCameraRotating = value;
+        }
 
         private void Awake()
         { 
             _camera = GetComponent<Camera>();
+        }
+        void Start()
+        {
+            isCameraRotating = true;
         }
         
         [Inject]
@@ -29,10 +40,12 @@ namespace MainCharacter
             _initialized = true;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             if (!_initialized) return;
-            ReadRotation();
+
+            if (isCameraRotating)
+                ReadRotation();
         }
 
         private void ReadRotation()
@@ -46,8 +59,9 @@ namespace MainCharacter
 
         private void RotateInternal(Vector2 inputDelta)
         {
-            _rotation.x -= inputDelta.y * _sensitivity; 
-            _rotation.y += inputDelta.x * _sensitivity; 
+            _rotation.x -= inputDelta.y * _sensitivity * 0.01f; 
+            _rotation.y += inputDelta.x * _sensitivity * 0.01f; 
+
             _rotation.x = Mathf.Clamp(_rotation.x, -_maxPitch, _maxPitch);
             transform.rotation = Quaternion.Euler(_rotation.x, _rotation.y, 0f);
         }
