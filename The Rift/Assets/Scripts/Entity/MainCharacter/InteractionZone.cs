@@ -11,7 +11,7 @@ namespace MainCharacter
         public List<IInteractable> InRange => _inRange;
         public IInteractable CurrentTarget => _inRange.Count > 0 ? _inRange[0] : null;
         private void OnTriggerEnter(Collider other) => TryAddInteractable(other);
-        private void OnTriggerStay(Collider other) => TryAddInteractable(other);
+        // private void OnTriggerStay(Collider other) => TryAddInteractable(other);
         private void TryAddInteractable(Collider other)
         {
             if (other.CompareTag("Interactable"))

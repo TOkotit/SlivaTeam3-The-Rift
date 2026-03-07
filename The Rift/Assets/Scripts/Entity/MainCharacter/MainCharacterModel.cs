@@ -2,13 +2,28 @@
 using Entity;
 using Entity.Attacks;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace MainCharacter
 {
     public class MainCharacterModel : DamagableModel
     {
         private List<WeaponModel>  _weapons;
-        public List<WeaponModel> Weapons {get => _weapons; set => _weapons = value; }
+        public List<WeaponModel> Weapons
+        {
+            get
+            {
+                Debug.Log($"<color=green> Weapons count = {_weapons.Count}</color>");
+                return _weapons;
+                
+            }
+            set
+            {
+               
+                _weapons = value;  
+            } 
+            
+        }
         private Stamina _stamina;
         public Stamina  Stamina => _stamina;
         
