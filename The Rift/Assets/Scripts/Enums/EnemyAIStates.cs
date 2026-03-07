@@ -4,9 +4,11 @@ using Unity.Behavior;
 [BlackboardEnum]
 public enum EnemyAIStates
 {
+	Idle,
 	Patrol,
 	Chase,
+	WaitingForAttack,
 	Attack,
-	Idle,
-	SpecialAbility
+	SpecialAbility1,
+	SpecialAbility2
 }
