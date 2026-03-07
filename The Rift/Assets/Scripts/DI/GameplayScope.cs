@@ -29,20 +29,40 @@ namespace DI
             builder.Register<Inventory>(Lifetime.Singleton);
             builder.Register<InventoryManager>(Lifetime.Singleton);
             
-            
             builder.Register<Health>(Lifetime.Scoped);
             builder.Register<Stamina>(Lifetime.Scoped);
             builder.Register<MainCharacterModel>(Lifetime.Singleton);
-
                 
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
-            builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
-            
             builder.Register<CraftTable>(Lifetime.Singleton);
             
-            // блокировка перенесена в MainCharacterCamera.Start()
+            builder.Register<WeaponManager>(Lifetime.Singleton);
+
+            builder.RegisterComponentInHierarchy<MainCharacterCamera>();
+            builder.RegisterComponentInHierarchy<MainCharacterInteractionController>();
+
+            builder.RegisterComponentInHierarchy<CharacterController>()
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacter.MainCharacter>()
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacterMovement>()
+                .As<IControllable>()      
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacterMovementController>()
+                .AsSelf();
+            builder.RegisterComponentInHierarchy<MainCharacterAttackController>()
+                .AsSelf();
+
+            builder.RegisterComponentInHierarchy<InteractionUIManager>();
+
+            builder.RegisterEntryPoint<MainCharacterInitializer>();
+            
+            
+            builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
+
+
         }
     }
 }

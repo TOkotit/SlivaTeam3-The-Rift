@@ -14,7 +14,14 @@ namespace MainCharacter
         private bool _initialized;
         [SerializeField] private float _sensitivity = 1f; 
         [SerializeField] private float _maxPitch = 80f;  
-        private Vector2 _rotation; 
+        private Vector2 _rotation;
+        private bool isCameraRotating = false;
+
+        public bool IsCameraRotating
+        {
+            get => isCameraRotating;
+            set => isCameraRotating = value;
+        }
 
         private void Awake()
         { 
@@ -22,8 +29,7 @@ namespace MainCharacter
         }
         void Start()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            isCameraRotating = true;
         }
         
         [Inject]
@@ -37,7 +43,9 @@ namespace MainCharacter
         private void LateUpdate()
         {
             if (!_initialized) return;
-            ReadRotation();
+
+            if (isCameraRotating)
+                ReadRotation();
         }
 
         private void ReadRotation()

@@ -27,8 +27,6 @@ namespace Game.Gameplay.View.UI.ScreenForge
             _coroutines = container.Resolve<ICoroutineRunner>();
             _mainCharacter = container.Resolve<MainCharacterModel>();
             _gameInputManager = container.Resolve<IGameInputManager>();
-            
-            
         }
         
         
