@@ -69,6 +69,7 @@ namespace MainCharacter
         public void AddWeapon(Weapon weapon)
         {
             _equippedWeapons.Add(weapon);
+            Debug.Log($"<color=green>Пытаюсь добавить вот эту хуйню</color>");
             _mainCharacter.MainCharacterModel.Weapons.Add(weapon.Model);
             RebuildComboData();
         }

@@ -38,7 +38,8 @@ namespace DI
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
-            builder.Register<CraftTable>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<CraftTable>(); 
+            builder.RegisterComponentInHierarchy<TestInteract>();
             
             builder.Register<WeaponManager>(Lifetime.Singleton);
 
