@@ -19,6 +19,9 @@ namespace DI
 {
     public class GameplayScope: LifetimeScope
     {
+        [SerializeField] private MovementStatsSO stats;
+
+
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.Log("GameplayScope.Configure called");
@@ -37,7 +40,8 @@ namespace DI
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
-            builder.Register<CraftTable>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<CraftTable>(); 
+            builder.RegisterComponentInHierarchy<TestInteract>();
             
             builder.Register<WeaponManager>(Lifetime.Singleton);
 
@@ -62,6 +66,8 @@ namespace DI
 
             builder.Register<EnemyAttackQueue>(Lifetime.Singleton);
             
+            
+             builder.RegisterInstance(stats); 
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
 
 

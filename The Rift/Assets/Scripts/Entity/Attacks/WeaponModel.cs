@@ -15,7 +15,7 @@ namespace Entity.Attacks
         private float _swingSpeed;
         private string _name;
         private int _maxDurability;
-        private int _currentDurability;
+        private float _currentDurability;
         private Dictionary<Key,string> _attackIDs;
         
         //----TOkotit: Добавляю руны и кэш с рунами
@@ -27,16 +27,16 @@ namespace Entity.Attacks
 
         
         public float Range => _range;
-        public int Damage => Mathf.RoundToInt(_damage * GetMultiplier(Influence.Damage));
+        public float Damage => _damage * GetMultiplier(Influence.Damage);
         public bool Piercing => _piercing;
         public float AttackSpeed => _attackSpeed;
         public float SwingSpeed => _swingSpeed;
         public string Name => _name;
         public int MaxDurability => _maxDurability;
 
-        public int CurrentDurability
+        public float CurrentDurability
         {
-            get => Math.Clamp(_currentDurability *  (int)GetMultiplier(Influence.Durability), 0, _maxDurability);
+            get => Math.Clamp(_currentDurability *  GetMultiplier(Influence.Durability), 0, _maxDurability);
             set
             {
                 _currentDurability = Math.Clamp(value, 0, _maxDurability);

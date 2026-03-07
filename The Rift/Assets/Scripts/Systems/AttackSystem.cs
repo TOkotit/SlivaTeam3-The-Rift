@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Entity;
 using Entity.Attacks;
@@ -40,16 +41,40 @@ namespace Systems
         
         public void PerformAttack(IAttackProfile profile, Weapon weaponProfile,  GameObject sender, Teams team)
         {
+            profile.Events.ForEach(e => e.Value.Act());
             
-            Debug.Log("attack was performed");
             if (profile is RaycastAttackProfile raycastProfile)
             {
-                Debug.Log("Starting coroutine");
                 _coroutineRunner.StartRoutine(
                     CastRaysContinuous(raycastProfile, weaponProfile, sender, team)
                 );
             }
-            
+
+            if (profile is CompositeAttackProfile compositeProfile)
+            {
+                foreach (var timing in compositeProfile.AttackTimings)
+                {
+                    PerformAttack(timing.Attack.Value, weaponProfile, sender, team);
+                    WaitForSec(timing.Timing);
+                }
+            }
+
+            if (profile is AttackSwitch attackSwitch)
+            {
+                PerformAttack(attackSwitch.GetNextAttack(), weaponProfile, sender, team);
+            }
+
+            if (profile is ObjectAttackProfile objectAttackProfile)
+            {
+                GameObject.Instantiate(objectAttackProfile.Object,  sender.transform.position + objectAttackProfile.Offset, sender.transform.rotation);
+            }
+
+            if (profile is ProjectileAttackProfile  projectileProfile)
+            {
+                var proj = GameObject.Instantiate(projectileProfile.Projectile.gameObject, sender.transform.position + projectileProfile.Offset, sender.transform.rotation);
+                
+                
+            }
         }
         
 
@@ -74,6 +99,8 @@ namespace Systems
                 var finalDirection = tiltRotation * directionAfterYaw;
                 var ray = new Ray(sender.transform.position, finalDirection);
                 var hits = Physics.RaycastAll(ray, range);
+                #region DrawRays 
+                
                 // начало отрисовки
                 Vector3 endPoint = ray.origin + ray.direction * range;
                 GameObject lineObj = new GameObject("AttackRay");
@@ -83,35 +110,30 @@ namespace Systems
                 lr.SetPosition(1, endPoint);
                 lr.startWidth = 0.1f;
                 lr.endWidth = 0.1f;
-                lr.material = new Material(Shader.Find("Sprites/Default")); // или ваш материал
                 lr.startColor = Color.red;
                 lr.endColor = Color.red; 
                 CoroutineRunner.Destroy(lineObj, 0.1f);
                 //конец отрисовки
-                
-                
+                #endregion
                 foreach (RaycastHit hit in hits)
                 {
-                    var targetModel = _registry.TryGetCharacter(hit.collider);
+                    var targetModel = _registry.TryGetCharacter(hit.collider.gameObject);
                     if (targetModel == null) continue;
                     if (targetModel.Team == team) continue;
-
                     targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);
-
                     if (!piercing)
                         yield break; 
                         
                 }
 
-
-                if (waitTime > 0f)
-                {
-                    yield return new WaitForSeconds(waitTime);
-                }
+                if (waitTime > 0f)  yield return new WaitForSeconds(waitTime); 
             }
-            
             Debug.Log("CastRaysContinuous finished" );
         }
-        
+
+        private IEnumerator WaitForSec(float sec)
+        {
+            yield return new WaitForSeconds(sec);
+        }
     }
 }
