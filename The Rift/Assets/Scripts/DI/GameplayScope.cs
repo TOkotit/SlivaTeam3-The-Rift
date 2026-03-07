@@ -37,8 +37,7 @@ namespace DI
             builder.Register<Stamina>(Lifetime.Scoped);
             builder.Register<MainCharacterModel>(Lifetime.Singleton);
                 
-            builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
-            builder.Register<GameplayUIManager>(Lifetime.Singleton);
+            
             
             builder.RegisterComponentInHierarchy<CraftTable>(); 
             builder.RegisterComponentInHierarchy<TestInteract>();
@@ -61,14 +60,20 @@ namespace DI
                 .AsSelf();
 
             builder.RegisterComponentInHierarchy<InteractionUIManager>();
-
-            builder.RegisterEntryPoint<MainCharacterInitializer>();
+            
+            builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
+            builder.Register<GameplayUIManager>(Lifetime.Singleton);
+            
+            
 
             builder.Register<EnemyAttackQueue>(Lifetime.Singleton);
             
             
-             builder.RegisterInstance(stats); 
-            builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
+            builder.RegisterInstance(stats); 
+            
+            builder.RegisterEntryPoint<MainCharacterInitializer>(Lifetime.Singleton);
+            
+            builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Singleton);
 
 
         }
