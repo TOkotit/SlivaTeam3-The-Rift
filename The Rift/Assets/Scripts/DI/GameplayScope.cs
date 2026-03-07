@@ -1,4 +1,5 @@
 using Entity;
+using Entity.Enemy;
 using Game;
 using Game.Gameplay;
 using Game.Gameplay.Root;
@@ -58,7 +59,8 @@ namespace DI
             builder.RegisterComponentInHierarchy<InteractionUIManager>();
 
             builder.RegisterEntryPoint<MainCharacterInitializer>();
-            
+
+            builder.Register<EnemyAttackQueue>(Lifetime.Singleton);
             
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
 

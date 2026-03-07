@@ -5,10 +5,11 @@ using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Enemy Attack", story: "Enemy attacks with [EnemyAttackController]", category: "Action", id: "629c9a2ab6cab8c4d9b7a60484765308")]
-public partial class EnemyAttackAction : Action
+[NodeDescription(name: "Enemy gets ready", story: "Enemy starts charging an attack with [EnemyAttackController]", category: "Action", id: "80c122425480169fff375a88f4dad404")]
+public partial class EnemyGetsReadyAction : Action
 {
     [SerializeReference] public BlackboardVariable<EnemyAttackController> EnemyAttackController;
+
     protected override Status OnStart()
     {
         return Status.Running;
@@ -16,9 +17,6 @@ public partial class EnemyAttackAction : Action
 
     protected override Status OnUpdate()
     {
-        EnemyAttackController.Value.Attack();
-        
-        EnemyAttackController.Value.AttackQueue.FinishAttack();
         return Status.Success;
     }
 

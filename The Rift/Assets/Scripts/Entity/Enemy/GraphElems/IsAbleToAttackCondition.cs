@@ -10,7 +10,7 @@ public partial class IsAbleToAttackCondition : Condition
 
     public override bool IsTrue()
     {
-        return Enemy.Value.IsAbleToAttack;
+        return Enemy.Value.AttackQueue.CanAttack(Enemy.Value);
     }
 
     public override void OnStart()
