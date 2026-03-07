@@ -1,9 +1,7 @@
 ﻿using System;
-using Unity.Behavior;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Entity.Enemy.Warrior
+namespace Entity.Enemy.WarriorEnemy
 {
     public class Warrior : Enemy
     {

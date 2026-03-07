@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _proximityAreaCenter: {fileID: 25100086755056799}
   _proximityAreaRadius: 1
-  _sightDistance: 3
+  _sightDistance: 5.52
   _sightAngle: 90
   _targetLayer:
     serializedVersion: 2
@@ -199,7 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackProfile: {fileID: 11400000, guid: 9431ab0a23870e44d8d5a8c447bf0903, type: 2}
-  IsAbleToAttack: 0
 --- !u!195 &1325253078982403747
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -243,6 +242,8 @@ MonoBehaviour:
   - rid: 2634737755876491926
   - rid: 2634737757089431905
   - rid: 2634737893910774712
+  - rid: 2634737901234291240
+  - rid: 2634737901646119056
   m_OriginalGraph: {fileID: -4214591065027035826, guid: 05d89fa5e77fca54cb6aed1708251478, type: 2}
   m_IsInitialised: 0
   m_IsStarted: 0
@@ -281,6 +282,22 @@ MonoBehaviour:
           m_Value1: 1293373874729971862
         Name: CurrentState
         m_Value: 0
+    - rid: 2634737901234291240
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 5712609619565267378
+          m_Value1: 3425561221690673051
+        Name: AttackDistance
+        m_Value: 5
+    - rid: 2634737901646119056
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 16671505176583519837
+          m_Value1: 18088896671502396849
+        Name: ChasingToDistance
+        m_Value: 4
     - rid: 2855442237276029173
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
