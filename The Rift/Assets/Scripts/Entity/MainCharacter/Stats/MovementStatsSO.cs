@@ -14,10 +14,13 @@ namespace MainCharacter
     [CreateAssetMenu(fileName = "MovementStats", menuName = "MainCharacter/MovementStatsSO")]
     public class MovementStatsSO : ScriptableObject
     {
-        public float _speed;
-        public LayerMask _groundMask;
-        public Transform _groundCheck;
-        public float _groundCheckRadius;
-        public float _jumpHeight;
+        public readonly float _speed = 10;
+        public readonly float _jumpHeight = 7;
+        public readonly int _wallJumpCost = 10;
+        public readonly int _dashCost = 20;
+        public readonly float _dashSpeed = 50;
+        public readonly float _dashTime = 0.1f;
+        public readonly float _dashCooldown = 1f;
+        public readonly int _wallJumpCount = 1;
     }
 }

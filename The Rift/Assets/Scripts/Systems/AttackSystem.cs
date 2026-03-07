@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Entity;
 using Entity.Attacks;
@@ -40,7 +41,7 @@ namespace Systems
         
         public void PerformAttack(IAttackProfile profile, Weapon weaponProfile,  GameObject sender, Teams team)
         {
-            
+            profile.Events.ForEach(e => e.Value.Act());
             Debug.Log("attack was performed");
             if (profile is RaycastAttackProfile raycastProfile)
             {
@@ -74,6 +75,8 @@ namespace Systems
                 var finalDirection = tiltRotation * directionAfterYaw;
                 var ray = new Ray(sender.transform.position, finalDirection);
                 var hits = Physics.RaycastAll(ray, range);
+                #region DrawRays 
+                
                 // начало отрисовки
                 Vector3 endPoint = ray.origin + ray.direction * range;
                 GameObject lineObj = new GameObject("AttackRay");
@@ -87,28 +90,20 @@ namespace Systems
                 lr.endColor = Color.red; 
                 CoroutineRunner.Destroy(lineObj, 0.1f);
                 //конец отрисовки
-                
-                
+                #endregion
                 foreach (RaycastHit hit in hits)
                 {
                     var targetModel = _registry.TryGetCharacter(hit.collider);
                     if (targetModel == null) continue;
                     if (targetModel.Team == team) continue;
-
                     targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);
-
                     if (!piercing)
                         yield break; 
                         
                 }
 
-
-                if (waitTime > 0f)
-                {
-                    yield return new WaitForSeconds(waitTime);
-                }
+                if (waitTime > 0f)  yield return new WaitForSeconds(waitTime); 
             }
-            
             Debug.Log("CastRaysContinuous finished" );
         }
         
