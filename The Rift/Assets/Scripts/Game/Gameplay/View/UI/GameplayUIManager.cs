@@ -1,4 +1,5 @@
-﻿using Game.UI;
+﻿using Game.Gameplay.View.UI.ScreenForge;
+using Game.UI;
 using R3;
 using VContainer;
 
@@ -13,11 +14,21 @@ namespace Game.Gameplay.View.UI
 
         }
         
-
+        
 
         public ScreenGameplayViewModel OpenScreenGameplay()
         {
             var viewModel = new ScreenGameplayViewModel(this, Container);
+            var rootUI = Container.Resolve<GameplayUIRootViewModel>();
+
+            rootUI.OpenScreen(viewModel);
+
+            return viewModel;
+        }
+        
+        public ScreenForgeViewModel OpenScreenForge()
+        {
+            var viewModel = new ScreenForgeViewModel(this, Container);
             var rootUI = Container.Resolve<GameplayUIRootViewModel>();
 
             rootUI.OpenScreen(viewModel);

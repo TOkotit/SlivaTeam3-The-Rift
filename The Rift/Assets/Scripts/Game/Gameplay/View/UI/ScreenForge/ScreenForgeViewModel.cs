@@ -1,9 +1,54 @@
-﻿using Game.UI;
+﻿using System;
+using Game.UI;
+using MainCharacter;
+using Systems;
+using UnityEngine;
+using Utils;
+using VContainer;
 
 namespace Game.Gameplay.View.UI.ScreenForge
 {
     public class ScreenForgeViewModel : WindowViewModel
     {
+        
+        private readonly GameplayUIManager _uiManager;
+        private readonly IGameManager _gameManager;
+        private readonly ICoroutineRunner _coroutines;
+        private readonly IGameInputManager _gameInputManager;
+        
+        private readonly MainCharacterModel  _mainCharacter;
         public override string Id => "ScreenForge";
+        
+        
+        public ScreenForgeViewModel(GameplayUIManager uiManager, IObjectResolver container)
+        {
+            _uiManager = uiManager;
+            _gameManager =  container.Resolve<IGameManager>();
+            _coroutines = container.Resolve<ICoroutineRunner>();
+            _mainCharacter = container.Resolve<MainCharacterModel>();
+            _gameInputManager = container.Resolve<IGameInputManager>();
+            
+            
+        }
+        
+        
+        public void RequestSubText(Action<int> f)
+        {
+            Debug.Log($"RequestSubText {_mainCharacter.Health == null}");
+            _mainCharacter.Health.OnHealthChanged += f;
+        }
+        
+        public void RequestUnsubText(Action<int> f)
+        {
+            Debug.Log($"RequestUnsubText {_mainCharacter.Health == null}");
+            _mainCharacter.Health.OnHealthChanged -= f;
+        }
+
+
+        public void RequestGoToScreenGameplay()
+        {
+            _uiManager.OpenScreenGameplay();
+        }
+        
     }
 }
