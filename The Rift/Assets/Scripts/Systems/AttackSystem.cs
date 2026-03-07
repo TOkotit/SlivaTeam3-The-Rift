@@ -93,7 +93,7 @@ namespace Systems
                 #endregion
                 foreach (RaycastHit hit in hits)
                 {
-                    var targetModel = _registry.TryGetCharacter(hit.collider);
+                    var targetModel = _registry.TryGetCharacter(hit.collider.gameObject);
                     if (targetModel == null) continue;
                     if (targetModel.Team == team) continue;
                     targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);

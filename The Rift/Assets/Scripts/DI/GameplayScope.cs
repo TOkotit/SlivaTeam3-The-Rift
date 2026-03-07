@@ -38,8 +38,6 @@ namespace DI
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
-            // Cursor.visible = false;
-            // Cursor.lockState = CursorLockMode.Locked;
         }
     }
 }

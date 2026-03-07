@@ -16,9 +16,18 @@ namespace MainCharacter
         [Inject] private WeaponManager _weaponManager;
 
         [Inject]
-        private void SetupModel(Stamina stamina, Health health)
+        private void SetupModel(Stamina stamina, Health health, MovementStatsSO stats)
         {
             _mainCharacterModel = new MainCharacterModel(stamina, health);
+            
+            _mainCharacterModel.DashCooldown = stats.DashCooldown;
+            _mainCharacterModel.DashSpeed = stats.DashSpeed;
+            _mainCharacterModel.DashTime = stats.DashTime;
+            _mainCharacterModel.DashCost = stats.DashCost;
+            _mainCharacterModel.WallJumpCount = stats.WallJumpCount;
+            _mainCharacterModel.WallJumpCost = stats.@WallJumpCost;
+            _mainCharacterModel.Speed = stats.Speed;
+            _mainCharacterModel.JumpHeight = stats.JumpHeight;
         }
         public override DamagableModel Damagable => _mainCharacterModel;
         public MainCharacterModel MainCharacterModel => _mainCharacterModel;

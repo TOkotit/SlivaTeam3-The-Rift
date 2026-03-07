@@ -861,6 +861,10 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 73327502}
+    - target: {fileID: 824426963458588017, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
+      propertyPath: _sensitivity
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1371705520859279070, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
       propertyPath: _targetCanvas
       value: 

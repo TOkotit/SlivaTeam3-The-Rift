@@ -14,13 +14,22 @@ namespace MainCharacter
     [CreateAssetMenu(fileName = "MovementStats", menuName = "MainCharacter/MovementStatsSO")]
     public class MovementStatsSO : ScriptableObject
     {
-        public readonly float _speed = 10;
-        public readonly float _jumpHeight = 7;
-        public readonly int _wallJumpCost = 10;
-        public readonly int _dashCost = 20;
-        public readonly float _dashSpeed = 50;
-        public readonly float _dashTime = 0.1f;
-        public readonly float _dashCooldown = 1f;
-        public readonly int _wallJumpCount = 1;
+        [SerializeField] private float _speed = 10;
+        [SerializeField] private float _jumpHeight = 7;
+        [SerializeField] private int _wallJumpCost = 10;
+        [SerializeField] private int _dashCost = 20;
+        [SerializeField] private float _dashSpeed = 50;
+        [SerializeField] private float _dashTime = 0.1f;
+        [SerializeField] private float _dashCooldown = 1f;
+        [SerializeField] private int _wallJumpCount = 1;
+        
+        public float Speed => _speed;
+        public float JumpHeight => _jumpHeight;
+        public int WallJumpCost => _wallJumpCost;
+        public int DashCost => _dashCost;
+        public float DashSpeed => _dashSpeed;
+        public float DashTime => _dashTime;
+        public float DashCooldown => _dashCooldown;
+        public int WallJumpCount => _wallJumpCount;
     }
 }
