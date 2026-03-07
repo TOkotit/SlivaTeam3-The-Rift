@@ -20,7 +20,12 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
     
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private float wallCheckRadius;
-
+    
+    // флаг для того, чтобы отключать перемещение когда нужно
+    private bool isCharacterCanMove = false;
+    
+    
+    
     [Inject]
     private void Construct(MainCharacter.MainCharacter mainCharacter)
     {
@@ -46,9 +51,20 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
 
     public void Move(Vector3 direction)
     {
-        _moveDirection = direction;
+        if (isCharacterCanMove) _moveDirection = direction;
     }
 
+
+    public void LockUpMovement()
+    {
+        isCharacterCanMove = false;
+    }
+
+    public void UnlockMovement()
+    {
+        isCharacterCanMove = true;
+    }
+    
     public void Rotate(Quaternion rotation)
     {
         transform.rotation = rotation;
