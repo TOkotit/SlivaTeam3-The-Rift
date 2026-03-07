@@ -41,8 +41,8 @@ namespace DI
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
             
             builder.Register<CraftTable>(Lifetime.Singleton);
-            // Cursor.visible = false;
-            // Cursor.lockState = CursorLockMode.Locked;
+            
+            // блокировка перенесена в MainCharacterCamera.Start()
         }
     }
 }

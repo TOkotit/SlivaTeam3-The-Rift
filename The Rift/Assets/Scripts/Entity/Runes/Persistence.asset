@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7467d29f9f104b62ba69d8580e4015c1, type: 3}
   m_Name: Persistence
   m_EditorClassIdentifier: 
-  runeName: 
+  runeName: Persistence
   icon: {fileID: 0}
   Rune: 0
-  Modifiers: []
+  Modifiers:
+  - Parameter: 0
+    Coefficient: 1.2
