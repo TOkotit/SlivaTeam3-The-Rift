@@ -10,7 +10,7 @@ namespace MainCharacter
         private List<WeaponModel>  _weapons;
         public List<WeaponModel> Weapons {get => _weapons; set => _weapons = value; }
         private Stamina _stamina;
-        public Stamina  Stamina => _stamina;
+        public Stamina  Stamina { get => _stamina; set => _stamina = value; }
         
         private float _speed = 10;
         private float _jumpHeight = 7;

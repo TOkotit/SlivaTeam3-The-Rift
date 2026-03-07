@@ -16,9 +16,11 @@ namespace MainCharacter
         [Inject] private WeaponManager _weaponManager;
 
         [Inject]
-        private void SetupModel(Stamina stamina, Health health, MovementStatsSO stats)
+        private void SetupModel(Stamina stamina, Health health, MovementStatsSO stats, MainCharacterModel mainCharacterModel)
         {
-            _mainCharacterModel = new MainCharacterModel(stamina, health);
+            _mainCharacterModel = mainCharacterModel;
+            mainCharacterModel.Stamina = stamina;
+            mainCharacterModel.Health = health;
             
             _mainCharacterModel.DashCooldown = stats.DashCooldown;
             _mainCharacterModel.DashSpeed = stats.DashSpeed;

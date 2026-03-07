@@ -42,14 +42,7 @@ namespace DI
 
             builder.RegisterComponentInHierarchy<InteractionUIManager>();
             
-
-            
-
-
             builder.RegisterEntryPoint<MainCharacterInitializer>();
-
-
-
         }
     }
 }

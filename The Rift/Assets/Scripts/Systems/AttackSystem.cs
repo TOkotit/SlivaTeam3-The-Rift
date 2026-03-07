@@ -42,15 +42,39 @@ namespace Systems
         public void PerformAttack(IAttackProfile profile, Weapon weaponProfile,  GameObject sender, Teams team)
         {
             profile.Events.ForEach(e => e.Value.Act());
-            Debug.Log("attack was performed");
+            
             if (profile is RaycastAttackProfile raycastProfile)
             {
-                Debug.Log("Starting coroutine");
                 _coroutineRunner.StartRoutine(
                     CastRaysContinuous(raycastProfile, weaponProfile, sender, team)
                 );
             }
-            
+
+            if (profile is CompositeAttackProfile compositeProfile)
+            {
+                foreach (var timing in compositeProfile.AttackTimings)
+                {
+                    PerformAttack(timing.Attack.Value, weaponProfile, sender, team);
+                    WaitForSec(timing.Timing);
+                }
+            }
+
+            if (profile is AttackSwitch attackSwitch)
+            {
+                PerformAttack(attackSwitch.GetNextAttack(), weaponProfile, sender, team);
+            }
+
+            if (profile is ObjectAttackProfile objectAttackProfile)
+            {
+                GameObject.Instantiate(objectAttackProfile.Object,  sender.transform.position + objectAttackProfile.Offset, sender.transform.rotation);
+            }
+
+            if (profile is ProjectileAttackProfile  projectileProfile)
+            {
+                var proj = GameObject.Instantiate(projectileProfile.Projectile.gameObject, sender.transform.position + projectileProfile.Offset, sender.transform.rotation);
+                
+                
+            }
         }
         
 
@@ -106,6 +130,10 @@ namespace Systems
             }
             Debug.Log("CastRaysContinuous finished" );
         }
-        
+
+        private IEnumerator WaitForSec(float sec)
+        {
+            yield return new WaitForSeconds(sec);
+        }
     }
 }
