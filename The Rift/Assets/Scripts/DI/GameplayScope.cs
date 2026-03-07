@@ -1,4 +1,5 @@
 using Entity;
+using Game;
 using Game.Gameplay;
 using Game.Gameplay.Root;
 using VContainer;
@@ -38,6 +39,8 @@ namespace DI
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
+            
+            builder.Register<CraftTable>(Lifetime.Singleton);
             // Cursor.visible = false;
             // Cursor.lockState = CursorLockMode.Locked;
         }
