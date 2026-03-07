@@ -8,9 +8,6 @@ using VContainer.Unity;
 [RequireComponent(typeof(CharacterController))]
 public class MainCharacterMovement : MonoBehaviour, IControllable
 {
-    //TODO всё что можно перенести в статы в scriptableObject надо бы перенести
-    //TODO RE: Прямое указание параметров в данном скрипте через ScriptableObject было бы нарушением архитектуры
-    //Надо будет сделать фабрику чтобы использовать scriptableObject
     
     private CharacterController _controller;
     
@@ -20,10 +17,16 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
     
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private float wallCheckRadius;
-
+    
+    // флаг для того, чтобы отключать перемещение когда нужно
+    private bool isCharacterCanMove = false;
+    
+    
+    
     [Inject]
     private void Construct(MainCharacter.MainCharacter mainCharacter)
     {
+        Debug.Log(mainCharacter + "=====");
         _mainCharacterModel =  mainCharacter.MainCharacterModel;
         _stamina =  _mainCharacterModel.Stamina;
     }
@@ -46,9 +49,20 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
 
     public void Move(Vector3 direction)
     {
-        _moveDirection = direction;
+        if (isCharacterCanMove) _moveDirection = direction;
     }
 
+
+    public void LockUpMovement()
+    {
+        isCharacterCanMove = false;
+    }
+
+    public void UnlockMovement()
+    {
+        isCharacterCanMove = true;
+    }
+    
     public void Rotate(Quaternion rotation)
     {
         transform.rotation = rotation;

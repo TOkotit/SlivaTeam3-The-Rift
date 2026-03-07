@@ -13,9 +13,11 @@ namespace Game.Gameplay.View.UI
         // Доп контейнер чтобы получать инфу именно о персонаже
         
         private MainCharacterCamera _mainCharacterCamera;
+        private MainCharacterMovement _mainCharacterMovement;
         public GameplayUIManager(IObjectResolver container) : base(container)
         {
             _mainCharacterCamera = Container.Resolve<MainCharacterCamera>();
+            _mainCharacterMovement = Container.Resolve<MainCharacterMovement>();
         }
         
         
@@ -24,6 +26,7 @@ namespace Game.Gameplay.View.UI
         {
             var viewModel = new ScreenGameplayViewModel(this, Container);
             var rootUI = Container.Resolve<GameplayUIRootViewModel>();
+            _mainCharacterMovement.UnlockMovement();
             LockUpCursor();
             UnlockCamera();
             rootUI.OpenScreen(viewModel);
@@ -35,13 +38,14 @@ namespace Game.Gameplay.View.UI
         {
             var viewModel = new ScreenForgeViewModel(this, Container);
             var rootUI = Container.Resolve<GameplayUIRootViewModel>();
+            _mainCharacterMovement.LockUpMovement();
             UnlockCursor();
             LockUpCamera();
             rootUI.OpenScreen(viewModel);
 
             return viewModel;
         }
-
+        
         
         // блокировка камеры
         public void LockUpCamera()

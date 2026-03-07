@@ -25,7 +25,7 @@ namespace MainCharacter
             
         }
         private Stamina _stamina;
-        public Stamina  Stamina => _stamina;
+        public Stamina  Stamina { get => _stamina; set => _stamina = value; }
         
         private float _speed = 10;
         private float _jumpHeight = 7;
@@ -35,15 +35,15 @@ namespace MainCharacter
         private float _dashTime = 0.1f;
         private float _dashCooldown = 1f;
         private int _wallJumpCount = 1;
-        
-        public float Speed => _speed;
-        public float JumpHeight => _jumpHeight;
-        public int WallJumpCost => _wallJumpCost;
-        public int DashCost => _dashCost;
-        public float DashSpeed => _dashSpeed;
-        public float DashTime => _dashTime;
-        public float DashCooldown => _dashCooldown;
-        public int WallJumpCount => _wallJumpCount;
+
+        public float Speed {get => _speed; set => _speed = value; }
+        public float JumpHeight {get => _jumpHeight; set => _jumpHeight = value; }
+        public int WallJumpCost {get  => _wallJumpCost; set => _wallJumpCost = value; }
+        public int DashCost { get => _dashCost; set => _dashCost = value; }
+        public float DashSpeed {get  => _dashSpeed; set => _dashSpeed = value; }
+        public float DashTime {get   => _dashTime; set => _dashTime = value; }
+        public float DashCooldown {get  => _dashCooldown; set => _dashCooldown = value; }
+        public int WallJumpCount { get => _wallJumpCount; set => _wallJumpCount = value; }
         public MainCharacterModel(Stamina stamina, Health health)
         {
             Weapons = new List<WeaponModel>();

@@ -13,23 +13,25 @@ public partial class DetectTargetsAction : Action
     [SerializeReference] public BlackboardVariable<Transform> DetectedTarget;
     [SerializeReference] public BlackboardVariable<float> DistanceToTarget;
     [SerializeReference] public BlackboardVariable<bool> IsTargetVisible;
+    
     protected override Status OnStart()
     {
-        
+
         return Status.Running;
     }
 
     protected override Status OnUpdate()
     {
-        TargetDetector.Value.DetectPlayer();
         IsTargetVisible.Value = TargetDetector.Value.IsTargetVisible;
-        
+    
         if (IsTargetVisible.Value) {
             DetectedTarget.Value = TargetDetector.Value.DetectedTarget;
             DistanceToTarget.Value = TargetDetector.Value.DistanceToTarget;
         }
+        
+        TargetDetector.Value.DetectPlayer();
 
-
+        
         return Status.Success;
     }
 
