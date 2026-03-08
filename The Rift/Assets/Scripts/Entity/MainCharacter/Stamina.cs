@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace MainCharacter
 {
@@ -6,13 +7,15 @@ namespace MainCharacter
     {
         private float _maxStamina = 100;
         private float _currentStamina;
-
+        public event Action<float> OnStaminaChanged;
+        
         public float CurrentStamina
         {
             get { return _currentStamina; }
             private set 
             {
                 _currentStamina = Mathf.Clamp(value, 0, _maxStamina);
+                OnStaminaChanged?.Invoke(_currentStamina);
             }
         }
 
