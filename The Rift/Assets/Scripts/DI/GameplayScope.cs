@@ -37,7 +37,7 @@ namespace DI
             builder.Register<Stamina>(Lifetime.Scoped);
             builder.Register<MainCharacterModel>(Lifetime.Singleton);
                 
-            
+            builder.Register<EnemyModel>(Lifetime.Transient);
             
             builder.RegisterComponentInHierarchy<CraftTable>(); 
             builder.RegisterComponentInHierarchy<TestInteract>();

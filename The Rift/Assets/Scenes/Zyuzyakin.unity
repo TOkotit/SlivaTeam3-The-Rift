@@ -2157,6 +2157,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!4 &1875697265 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1544669943351111732, guid: 0019fa005e5fc0946b7edf909eb9a07f, type: 3}
+  m_PrefabInstance: {fileID: 7411483871060070626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1993977370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,6 +2546,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5329587515868470275, guid: 0019fa005e5fc0946b7edf909eb9a07f, type: 3}
+      propertyPath: _canvas
+      value: 
+      objectReference: {fileID: 1481676801}
+    - target: {fileID: 5329587515868470275, guid: 0019fa005e5fc0946b7edf909eb9a07f, type: 3}
+      propertyPath: _object
+      value: 
+      objectReference: {fileID: 1875697265}
+    - target: {fileID: 5329587515868470275, guid: 0019fa005e5fc0946b7edf909eb9a07f, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 749541566}
     - target: {fileID: 7081418972836305008, guid: 0019fa005e5fc0946b7edf909eb9a07f, type: 3}
       propertyPath: managedReferences[2634737901234291240].m_Value
       value: 5
