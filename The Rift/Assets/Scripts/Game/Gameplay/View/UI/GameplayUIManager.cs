@@ -10,8 +10,6 @@ namespace Game.Gameplay.View.UI
 {
     public class GameplayUIManager : UIManager
     {
-        // Доп контейнер чтобы получать инфу именно о персонаже
-        
         private MainCharacterCamera _mainCharacterCamera;
         private MainCharacterMovement _mainCharacterMovement;
         public GameplayUIManager(IObjectResolver container) : base(container)

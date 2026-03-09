@@ -29,24 +29,38 @@ namespace Game.Gameplay.View.UI
             _gameInputManager = container.Resolve<IGameInputManager>();
         }
 
-        public void inithealthText(Action<int> f)
+        public void InitHealthText(Action<int> f)
         {
             Debug.Log("inithealthText");
             f(_mainCharacter.Health.CurrentHealth);
         }
         
-        public void RequestSubText(Action<int> f)
+        public void RequestSubHealthText(Action<int> f)
         {
             Debug.Log($"RequestSubText {_mainCharacter.Health == null}");
             _mainCharacter.Health.OnHealthChanged += f;
         }
         
-        public void RequestUnsubText(Action<int> f)
+        public void RequestUnsubHealthText(Action<int> f)
         {
             Debug.Log($"RequestUnsubText {_mainCharacter.Health == null}");
             _mainCharacter.Health.OnHealthChanged -= f;
         }
         
+        public void InitStaminaText(Action<float> f)
+        {
+            f(_mainCharacter.Stamina.CurrentStamina);
+        }
+        
+        public void RequestSubStaminaText(Action<float> f)
+        {
+            _mainCharacter.Stamina.OnStaminaChanged += f;
+        }
+        
+        public void RequestUnsubStaminaText(Action<float> f)
+        {
+            _mainCharacter.Stamina.OnStaminaChanged -= f;
+        }
         
         public void RequestGoToMainMenu()
         {
