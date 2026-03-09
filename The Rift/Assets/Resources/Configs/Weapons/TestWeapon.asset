@@ -27,7 +27,7 @@ MonoBehaviour:
       hold: 0
       treshold: 0
     AttackProfile:
-      _underlyingValue: {fileID: 11400000, guid: 9431ab0a23870e44d8d5a8c447bf0903, type: 2}
+      _underlyingValue: {fileID: 11400000, guid: 01c6a2b6ce0b1474b9eb0cd8940fb02c, type: 2}
   - keys:
     - device: 1
       key: 0
@@ -36,3 +36,19 @@ MonoBehaviour:
       treshold: 1
     AttackProfile:
       _underlyingValue: {fileID: 11400000, guid: 11e24a81b104dc24394fdbaa0ccd0bd8, type: 2}
+  - keys:
+    - device: 1
+      key: 0
+      mouse: 1
+      hold: 1
+      treshold: 1
+    AttackProfile:
+      _underlyingValue: {fileID: 11400000, guid: 8e2fbd2e73522a841a62e00105e41164, type: 2}
+  - keys:
+    - device: 0
+      key: 31
+      mouse: 1
+      hold: 0
+      treshold: 1
+    AttackProfile:
+      _underlyingValue: {fileID: 11400000, guid: 6d021c9440631184fb4cfaca4f7d3a35, type: 2}

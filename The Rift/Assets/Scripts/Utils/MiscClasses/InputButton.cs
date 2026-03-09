@@ -19,34 +19,44 @@ namespace Utils.MiscClasses
         {
             if (device == DeviceType.Keyboard)
                 return Keyboard.current[key].wasPressedThisFrame;
-            else
+            var mouseDev = Mouse.current;
+            return mouse switch
             {
-                var mouseDev = Mouse.current;
-                return mouse switch
-                {
-                    MouseButton.Left => mouseDev.leftButton.wasPressedThisFrame,
-                    MouseButton.Right => mouseDev.rightButton.wasPressedThisFrame,
-                    MouseButton.Middle => mouseDev.middleButton.wasPressedThisFrame,
-                    _ => false
-                };
-            }
+                MouseButton.Left => mouseDev.leftButton.wasPressedThisFrame,
+                MouseButton.Right => mouseDev.rightButton.wasPressedThisFrame,
+                MouseButton.Middle => mouseDev.middleButton.wasPressedThisFrame,
+                _ => false
+            };
+        }
+
+        public bool IsReleased()
+        {
+            if (device == DeviceType.Keyboard)
+                return Keyboard.current[key].wasReleasedThisFrame;
+            
+            var mouseDev = Mouse.current;
+            return mouse switch
+            {
+                MouseButton.Left => mouseDev.leftButton.wasReleasedThisFrame,
+                MouseButton.Right => mouseDev.rightButton.wasReleasedThisFrame,
+                MouseButton.Middle => mouseDev.middleButton.wasReleasedThisFrame,
+                _ => false
+            };
         }
 
         public bool IsHeld()
         {
-            if (device == DeviceType.Keyboard)
+            if (device == DeviceType.Keyboard) 
                 return Keyboard.current[key].isPressed;
-            else
+                
+            var mouseDev = Mouse.current;
+            return mouse switch
             {
-                var mouseDev = Mouse.current;
-                return mouse switch
-                {
-                    MouseButton.Left => mouseDev.leftButton.isPressed,
-                    MouseButton.Right => mouseDev.rightButton.isPressed,
-                    MouseButton.Middle => mouseDev.middleButton.isPressed,
-                    _ => false
-                };
-            }
+                MouseButton.Left => mouseDev.leftButton.isPressed,
+                MouseButton.Right => mouseDev.rightButton.isPressed,
+                MouseButton.Middle => mouseDev.middleButton.isPressed,
+                _ => false
+            };
         }
     }
 }

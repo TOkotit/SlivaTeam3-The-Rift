@@ -10,8 +10,11 @@ namespace Entity.Attacks
     public class CircularAttackProfile  : AttackProfile
     {
         [SerializeField] private float tilt;
-        [SerializeField] private float radiusMultiplyer;
+        [SerializeField] private Vector2 metrics;
+        [SerializeField] private bool piercing;
         public float Tilt => tilt;
-        public float RadiusMultiplyer => radiusMultiplyer;
+        public Vector2 Metrics => metrics;
+        
+        public bool Piercing => piercing;
     }
 }

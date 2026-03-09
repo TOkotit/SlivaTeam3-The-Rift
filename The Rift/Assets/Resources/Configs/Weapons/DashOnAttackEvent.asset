@@ -9,14 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85ea482e2462439dbb9a3f5e6c3a9437, type: 3}
-  m_Name: MovementStats
+  m_Script: {fileID: 11500000, guid: 5a25aa84f70244dc81b1ac9c2015da85, type: 3}
+  m_Name: DashOnAttackEvent
   m_EditorClassIdentifier: 
-  _speed: 10
-  _jumpHeight: 7
-  _wallJumpCost: 10
-  _dashCost: 20
-  _dashSpeed: 50
-  _dashTime: 0.1
-  _dashCooldown: 1
-  _wallJumpCount: 1
