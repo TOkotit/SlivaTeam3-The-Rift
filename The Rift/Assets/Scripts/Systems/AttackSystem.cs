@@ -1,16 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using Entity;
 using Entity.Attacks;
 using Enums;
 using MainCharacter;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Utils;
+using Utils.MiscClasses;
 using VContainer;
+using VContainer.Unity;
 
 namespace Systems
 {
@@ -22,6 +20,9 @@ namespace Systems
         private readonly DamagableRegistry _registry;
         [Inject]
         private ICoroutineRunner _coroutineRunner;
+        
+        [Inject] 
+        private readonly IObjectResolver _container;
         
         public AttackSystem Instance
         {
@@ -39,43 +40,88 @@ namespace Systems
             }
         }
         
-        public void PerformAttack(IAttackProfile profile, Weapon weaponProfile,  GameObject sender, Teams team)
+        public void PerformAttack(IAttackProfile profile, Weapon weaponProfile, GameObject sender, Teams team)
+{
+    profile.Events.ForEach(e => e.Value.Act());
+
+    if (profile is RaycastAttackProfile raycastProfile)
+    {
+        Vector3 rayOrigin = sender.transform.position + sender.transform.rotation * raycastProfile.Offset;
+        _coroutineRunner.StartRoutine(
+            CastRaysContinuous(raycastProfile, weaponProfile, sender, team)
+        );
+    }
+
+    if (profile is CompositeAttackProfile compositeProfile)
+    {
+        foreach (var timing in compositeProfile.AttackTimings)
         {
-            profile.Events.ForEach(e => e.Value.Act());
-            
-            if (profile is RaycastAttackProfile raycastProfile)
-            {
-                _coroutineRunner.StartRoutine(
-                    CastRaysContinuous(raycastProfile, weaponProfile, sender, team)
-                );
-            }
-
-            if (profile is CompositeAttackProfile compositeProfile)
-            {
-                foreach (var timing in compositeProfile.AttackTimings)
-                {
-                    PerformAttack(timing.Attack.Value, weaponProfile, sender, team);
-                    WaitForSec(timing.Timing);
-                }
-            }
-
-            if (profile is AttackSwitch attackSwitch)
-            {
-                PerformAttack(attackSwitch.GetNextAttack(), weaponProfile, sender, team);
-            }
-
-            if (profile is ObjectAttackProfile objectAttackProfile)
-            {
-                GameObject.Instantiate(objectAttackProfile.Object,  sender.transform.position + objectAttackProfile.Offset, sender.transform.rotation);
-            }
-
-            if (profile is ProjectileAttackProfile  projectileProfile)
-            {
-                var proj = GameObject.Instantiate(projectileProfile.Projectile.gameObject, sender.transform.position + projectileProfile.Offset, sender.transform.rotation);
-                
-                
-            }
+            PerformAttack(timing.Attack.Value, weaponProfile, sender, team);
+            Waiter.WaitForSec(timing.Timing);
         }
+    }
+
+    if (profile is AttackSwitch attackSwitch)
+    {
+        PerformAttack(attackSwitch.GetNextAttack(), weaponProfile, sender, team);
+    }
+
+    if (profile is ObjectAttackProfile objectAttackProfile)
+    {
+        Vector3 worldOffset = sender.transform.rotation * objectAttackProfile.Offset;
+        GameObject.Instantiate(
+            objectAttackProfile.Object,
+            sender.transform.position + worldOffset,
+            sender.transform.rotation
+        );
+    }
+
+    if (profile is ProjectileAttackProfile projectileProfile)
+    {
+        Vector3 worldOffset = sender.transform.rotation * projectileProfile.Offset;
+        Projectile projectile = _container.Instantiate(
+            projectileProfile.Projectile,
+            sender.transform.position + worldOffset,
+            sender.transform.rotation
+        );
+        projectile.Launch(sender.transform.forward, projectileProfile.Power);
+    }
+
+    if (profile is CircularAttackProfile circularProfile)
+    {
+        Vector3 center = sender.transform.position + sender.transform.rotation * circularProfile.Offset;
+        float halfHeight = circularProfile.Metrics.y * 0.5f;
+
+        Vector3 axis = sender.transform.forward;                 
+        Quaternion tiltRotation = Quaternion.AngleAxis(circularProfile.Tilt, axis);
+        Vector3 worldAxis = tiltRotation * sender.transform.up; 
+
+        Vector3 point1 = center + worldAxis * halfHeight;
+        Vector3 point2 = center - worldAxis * halfHeight;
+
+        Collider[] colliders = Physics.OverlapCapsule(point1, point2, circularProfile.Metrics.x);
+
+        #region DrawCapsule (временная)
+        GameObject capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+        Object.Destroy(capsule.GetComponent<Collider>());
+        capsule.transform.position = (point1 + point2) * 0.5f;
+        capsule.transform.rotation = Quaternion.LookRotation(worldAxis, Vector3.up);
+        float height = Vector3.Distance(point1, point2);
+        capsule.transform.localScale = new Vector3(circularProfile.Metrics.x * 2f, height * 0.5f, circularProfile.Metrics.x * 2f);
+        capsule.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0.5f);
+        GameObject.Destroy(capsule, 0.1f);
+        #endregion
+
+        foreach (Collider col in colliders)
+        {
+            var target = _registry.TryGetCharacter(col.gameObject);
+            if (target == null) continue;
+            if (target.Team == team) continue;
+            target.Health.TakeDamage(weaponProfile.Model.Damage, circularProfile.DamageType);
+            if (!circularProfile.Piercing) break;
+        }
+    }
+}
         
 
         private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, Weapon weaponProfile, GameObject sender, Teams team) 
@@ -100,7 +146,6 @@ namespace Systems
                 var ray = new Ray(sender.transform.position, finalDirection);
                 var hits = Physics.RaycastAll(ray, range);
                 #region DrawRays 
-                
                 // начало отрисовки
                 Vector3 endPoint = ray.origin + ray.direction * range;
                 GameObject lineObj = new GameObject("AttackRay");
@@ -129,11 +174,6 @@ namespace Systems
                 if (waitTime > 0f)  yield return new WaitForSeconds(waitTime); 
             }
             Debug.Log("CastRaysContinuous finished" );
-        }
-
-        private IEnumerator WaitForSec(float sec)
-        {
-            yield return new WaitForSeconds(sec);
         }
     }
 }

@@ -111,7 +111,7 @@ namespace MainCharacter
                         }
                     }
                 }
-                else if (button.IsPressed())
+                else if (button.IsReleased())
                 {
                     TryAddKey(button);
                 }
