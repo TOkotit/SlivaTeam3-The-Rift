@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Entity;
 using Entity.Attacks;
+using Entity.Runes;
 using NUnit.Framework;
+using R3;
 using UnityEngine;
 
 namespace MainCharacter
@@ -13,7 +15,6 @@ namespace MainCharacter
         {
             get
             {
-                Debug.Log($"<color=green> Weapons count = {_weapons.Count}</color>");
                 return _weapons;
                 
             }

@@ -9,9 +9,11 @@ namespace Entity.Runes
     {
         public string runeName;
         public Sprite icon;
-        public RunesEnum Rune;
+        public RuneType Rune;
         [Tooltip("Список всех параметров, которые меняет эта руна")]
         public List<RuneModifier> Modifiers = new();
+        
+        
     }
     
     [Serializable] 

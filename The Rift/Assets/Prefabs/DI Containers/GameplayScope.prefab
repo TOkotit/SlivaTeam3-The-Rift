@@ -50,3 +50,5 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 0}
   - {fileID: 0}
+  stats: {fileID: 0}
+  _runeDatabase: {fileID: 11400000, guid: 11a3e2c60b0667b40bf071d53f35ae94, type: 2}

@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7467d29f9f104b62ba69d8580e4015c1, type: 3}
-  m_Name: Catalyst
+  m_Script: {fileID: 11500000, guid: 8f4e38113dd248de851a0557d505f0bc, type: 3}
+  m_Name: RuneDatabase
   m_EditorClassIdentifier: 
-  runeName: 
-  icon: {fileID: 0}
-  Rune: 0
-  Modifiers: []
+  allRunes:
+  - {fileID: 11400000, guid: d7ea7c7afa2ae6c4493318d7db385b93, type: 2}
+  - {fileID: 11400000, guid: 894773a8b65c10449b44bd74255e5322, type: 2}

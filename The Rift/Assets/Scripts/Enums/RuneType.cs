@@ -1,6 +1,6 @@
 ﻿namespace Entity.Runes
 {
-    public enum RunesEnum
+    public enum RuneType
     {
         Persistence,
         Durability,
