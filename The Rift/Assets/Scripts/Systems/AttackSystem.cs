@@ -103,6 +103,7 @@ namespace Systems
 
         #region DrawCapsule (временная)
         GameObject capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+        Object.Destroy(capsule.GetComponent<Collider>());
         capsule.transform.position = (point1 + point2) * 0.5f;
         capsule.transform.rotation = Quaternion.LookRotation(worldAxis, Vector3.up);
         float height = Vector3.Distance(point1, point2);
