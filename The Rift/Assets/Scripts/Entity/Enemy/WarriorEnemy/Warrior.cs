@@ -31,14 +31,14 @@ namespace Entity.Enemy.WarriorEnemy
         public new void Start()
         {
             base.Start();
-            
-            // Damagable.Health.OnHealthChanged += UpdateHealthText;
+            UpdateHealthText(Damagable.Health.CurrentHealth);
+            Damagable.Health.OnHealthChanged += UpdateHealthText;
         }
 
         public new void OnDestroy()
         {
 
-            // Damagable.Health.OnHealthChanged -= UpdateHealthText;
+            Damagable.Health.OnHealthChanged -= UpdateHealthText;
             
             base.OnDestroy();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Entity
 {
@@ -66,9 +67,10 @@ namespace Entity
                 _vulnerabilities[damageType] = 1f + vulnerability;
         }
 
-        public void SetMaxHealth(int newMaxHealth)
+        public void SetMaxHealth(int newMaxHealth, bool isFullHealNeeded)
         {
             _maxHealth = newMaxHealth;
+            if (isFullHealNeeded) CurrentHealth = _maxHealth;
         }
         
     }

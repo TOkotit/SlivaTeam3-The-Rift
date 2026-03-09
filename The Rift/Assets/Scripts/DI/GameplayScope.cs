@@ -22,6 +22,7 @@ namespace DI
     {
         [SerializeField] private MovementStatsSO stats;
         [SerializeField] private RuneDatabase _runeDatabase;
+        [SerializeField] private WarriorStats warriorStats;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -74,6 +75,8 @@ namespace DI
             
             
             builder.RegisterInstance(stats); 
+            
+            builder.RegisterInstance(warriorStats);
             
             builder.RegisterEntryPoint<MainCharacterInitializer>(Lifetime.Singleton);
             
