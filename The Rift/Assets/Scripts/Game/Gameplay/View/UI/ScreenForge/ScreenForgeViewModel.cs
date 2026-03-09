@@ -1,6 +1,9 @@
 ﻿using System;
+using Entity.Runes;
+using Game.Inventory.Runes;
 using Game.UI;
 using MainCharacter;
+using R3;
 using Systems;
 using UnityEngine;
 using Utils;
@@ -10,7 +13,8 @@ namespace Game.Gameplay.View.UI.ScreenForge
 {
     public class ScreenForgeViewModel : WindowViewModel
     {
-        
+        public RuneType SelectedRune { get; private set; }
+        public readonly Subject<RuneType> OnRuneSelectedEvent = new();
         private readonly GameplayUIManager _uiManager;
         private readonly IGameManager _gameManager;
         private readonly ICoroutineRunner _coroutines;
@@ -18,6 +22,8 @@ namespace Game.Gameplay.View.UI.ScreenForge
         
         private readonly MainCharacterModel  _mainCharacter;
         public override string Id => "ScreenForge";
+        
+        public readonly RuneManager RuneManager;
         
         
         public ScreenForgeViewModel(GameplayUIManager uiManager, IObjectResolver container)
@@ -27,6 +33,7 @@ namespace Game.Gameplay.View.UI.ScreenForge
             _coroutines = container.Resolve<ICoroutineRunner>();
             _mainCharacter = container.Resolve<MainCharacterModel>();
             _gameInputManager = container.Resolve<IGameInputManager>();
+            RuneManager = container.Resolve<RuneManager>();
         }
         
         
@@ -46,6 +53,13 @@ namespace Game.Gameplay.View.UI.ScreenForge
         public void RequestGoToScreenGameplay()
         {
             _uiManager.OpenScreenGameplay();
+        }
+        
+        public void OnRuneSelected(RuneType type)
+        {
+            SelectedRune = type; // Записываем руну
+            OnRuneSelectedEvent.OnNext(type); // Уведомляем UI
+            Debug.Log($"Rune {type} is now active");
         }
         
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Game.UI;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Game.Gameplay.View.UI
         [SerializeField] private Button _btnGoToMainMenu;
         
         [SerializeField] private TextMeshProUGUI _healthText;
+        
+        [SerializeField] private TextMeshProUGUI _staminaText;
 
         public TextMeshProUGUI HealthText
         {
@@ -18,12 +21,21 @@ namespace Game.Gameplay.View.UI
             set => _healthText = value;
         }
 
+        public TextMeshProUGUI StaminaText
+        {
+            get => _staminaText;
+            set => _staminaText = value;
+        }
+
         private void Start()
         {
             _btnGoToMainMenu?.onClick.AddListener(OnGoToMainMenuButtonClicked);
             
-            ViewModel.inithealthText(UpdateHealthText);
-            ViewModel.RequestSubText(UpdateHealthText);
+            ViewModel.InitHealthText(UpdateHealthText);
+            ViewModel.RequestSubHealthText(UpdateHealthText);
+            
+            ViewModel.InitStaminaText(UpdateStaminaText);
+            ViewModel.RequestSubStaminaText(UpdateStaminaText);
         }
 
         private void OnDestroy()
@@ -31,12 +43,19 @@ namespace Game.Gameplay.View.UI
             _btnGoToMainMenu?.onClick.RemoveListener(OnGoToMainMenuButtonClicked);
 
             
-            ViewModel.RequestUnsubText(UpdateHealthText);
+            ViewModel.RequestUnsubHealthText(UpdateHealthText);
+            
+            ViewModel.RequestUnsubStaminaText(UpdateStaminaText);
         }
 
         private void UpdateHealthText(int newValue)
         {
             HealthText.text = newValue.ToString();
+        }
+        
+        private void UpdateStaminaText(float newValue)
+        {
+            StaminaText.text = newValue.ToString(CultureInfo.InvariantCulture);
         }
         
         private void OnGoToMainMenuButtonClicked()

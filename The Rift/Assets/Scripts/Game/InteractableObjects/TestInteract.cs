@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Entity.Runes;
 using Game.Gameplay.View.UI;
+using Game.Inventory.Runes;
 using MainCharacter;
 using UnityEngine;
 using VContainer;
@@ -9,34 +10,21 @@ namespace Game
 {
     public class TestInteract: MonoBehaviour, IInteractable
     {
+        [Inject] private RuneManager  _runesManager;
         [SerializeField] RuneData Persistence;
         [SerializeField] RuneData Catalyst;
-        [Inject] private MainCharacter.MainCharacter _mainCharacter;
         public void Interact()
         {
-            var characterWeapons = _mainCharacter.MainCharacterModel.Weapons;
-            Debug.Log($"<color=green> weapons count = {characterWeapons.Count}</color>");
-            foreach (var weapon  in characterWeapons )
+            Debug.Log("Interact");
+            _runesManager.UnlockRune(RuneType.Persistence);
+            _runesManager.UnlockRune(RuneType.Catalyst);
+            foreach (var rune in _runesManager.UnlockedRunes)
             {
-                Debug.Log($"<color=green>Weapon name:</color> {weapon.Name}\n" +
-                          $"<color=green>Damage: {weapon.Damage}</color>\n" +
-                          $"<color=green>CurrentDurability: {weapon.CurrentDurability}</color>\n" +
-                          $"<color=green>AttackSpeed: {weapon.AttackSpeed}</color>\n");
-                weapon.AddRune(Persistence);
-                weapon.AddRune(Catalyst);
+                Debug.Log(rune);
             }
-            
-            foreach (var weapon  in characterWeapons )
-            {
-                Debug.Log($"After adding rune\n" +
-                          $"<color=green>Weapon name:</color> {weapon.Name}\n" +
-                          $"<color=green>Damage: {weapon.Damage}</color>\n" +
-                          $"<color=green>CurrentDurability: {weapon.CurrentDurability}</color>\n" +
-                          $"<color=green>AttackSpeed: {weapon.AttackSpeed}</color>\n");
-            }
-            
         }
 
         public Transform InteractionPoint => transform;
+        
     }
 }

@@ -1,4 +1,6 @@
 using Entity;
+using Entity.Enemy;
+using Game;
 using Game.Gameplay;
 using Game.Gameplay.Root;
 using VContainer;
@@ -11,6 +13,7 @@ using R3;
 using Unity.VisualScripting;
 using Utils;
 using Game.Inventory;
+using Game.Inventory.Runes;
 using UIRoot;
 
 namespace DI
@@ -18,7 +21,8 @@ namespace DI
     public class GameplayScope: LifetimeScope
     {
         [SerializeField] private MovementStatsSO stats;
-
+        [SerializeField] private RuneDatabase _runeDatabase;
+        [SerializeField] private WarriorStats warriorStats;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -34,9 +38,11 @@ namespace DI
             builder.Register<Health>(Lifetime.Scoped);
             builder.Register<Stamina>(Lifetime.Scoped);
             builder.Register<MainCharacterModel>(Lifetime.Singleton);
-                
-            builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
-            builder.Register<GameplayUIManager>(Lifetime.Singleton);
+
+            builder.RegisterInstance(_runeDatabase);
+            builder.Register<RuneManager>(Lifetime.Singleton);
+            
+            builder.Register<EnemyModel>(Lifetime.Transient);
             
             builder.RegisterComponentInHierarchy<CraftTable>(); 
             builder.RegisterComponentInHierarchy<TestInteract>();
@@ -59,11 +65,22 @@ namespace DI
                 .AsSelf();
 
             builder.RegisterComponentInHierarchy<InteractionUIManager>();
-
-            builder.RegisterEntryPoint<MainCharacterInitializer>();
             
-             builder.RegisterInstance(stats); 
-            builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Scoped);
+            builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
+            builder.Register<GameplayUIManager>(Lifetime.Singleton);
+            
+            
+
+            builder.Register<EnemyAttackQueue>(Lifetime.Singleton);
+            
+            
+            builder.RegisterInstance(stats); 
+            
+            builder.RegisterInstance(warriorStats);
+            
+            builder.RegisterEntryPoint<MainCharacterInitializer>(Lifetime.Singleton);
+            
+            builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Singleton);
 
 
         }
