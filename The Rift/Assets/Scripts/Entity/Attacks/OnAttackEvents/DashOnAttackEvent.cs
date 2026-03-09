@@ -5,7 +5,7 @@ using VContainer;
 namespace Entity
 {
     [CreateAssetMenu(fileName = "DashOnAttackEvent", menuName = "AttackEvents/DashOnAttackEvent")]
-    public class DashOnAttackEvent : IAttackEvent
+    public class DashOnAttackEvent : ScriptableObject, IAttackEvent
     {
         [Inject]
         private MainCharacterMovement _controller;
