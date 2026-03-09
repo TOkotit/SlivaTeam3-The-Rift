@@ -5,11 +5,11 @@
     /// </summary>
     public static class BC
     {
-        public static float Damage = 20;
-        public static float Health = 200;
-        public static float Speed = 5;
+        public static int Damage = 20;
+        public static int Health = 200;
+        public static int Speed = 5;
         
-        public static float CD = 1;
-        public static float AtkSpeed = 1;
+        public static int CD = 1;
+        public static int AtkSpeed = 1;
     }
 }

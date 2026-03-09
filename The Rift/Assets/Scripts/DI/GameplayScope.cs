@@ -22,6 +22,7 @@ namespace DI
     {
         [SerializeField] private MovementStatsSO stats;
         [SerializeField] private RuneDatabase _runeDatabase;
+        [SerializeField] private WarriorStats warriorStats;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -41,8 +42,6 @@ namespace DI
             builder.RegisterInstance(_runeDatabase);
             builder.Register<RuneManager>(Lifetime.Singleton);
             
-            builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
-            builder.Register<GameplayUIManager>(Lifetime.Singleton);
                 
             builder.Register<EnemyModel>(Lifetime.Transient);
             
@@ -77,6 +76,8 @@ namespace DI
             
             
             builder.RegisterInstance(stats); 
+            
+            builder.RegisterInstance(warriorStats);
             
             builder.RegisterEntryPoint<MainCharacterInitializer>(Lifetime.Singleton);
             

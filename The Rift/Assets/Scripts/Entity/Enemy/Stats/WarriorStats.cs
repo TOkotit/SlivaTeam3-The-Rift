@@ -2,14 +2,14 @@ using Entity;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WarriorStats", menuName = "Scriptable Objects/WarriorStats")]
-public class EnemyStats : ScriptableObject
+public class WarriorStats : ScriptableObject
 {
     [Header("Значения зависят от у.е. (класс BC)")]
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpHeight;
     [SerializeField] private float _damage;
     [SerializeField] private float _attackSpeed;
-    [SerializeField] private float _health;
+    [SerializeField] private int _health;
     [SerializeField] private float _skill1Cooldown;
     [SerializeField] private float _skill2Cooldown;
     
@@ -19,7 +19,7 @@ public class EnemyStats : ScriptableObject
     
     public float Damage => _damage * BC.Damage;
     public float AttackSpeed => _attackSpeed *  BC.AtkSpeed;
-    public float Health => _health * BC.Health;
+    public int Health => _health * BC.Health;
     
     public float Skill1Cooldown => _skill1Cooldown * BC.CD;
     public float Skill2Cooldown => _skill2Cooldown * BC.CD;
