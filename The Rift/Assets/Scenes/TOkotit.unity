@@ -863,6 +863,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d824d402bd1f0c047b625be19748e084, type: 2}
     - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
+      propertyPath: warriorStats
+      value: 
+      objectReference: {fileID: 11400000, guid: a1d2c2f221dd54543a5af2974ae7bba1, type: 2}
+    - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
       propertyPath: _runeDatabase
       value: 
       objectReference: {fileID: 11400000, guid: 11a3e2c60b0667b40bf071d53f35ae94, type: 2}

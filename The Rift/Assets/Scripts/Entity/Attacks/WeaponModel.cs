@@ -9,7 +9,7 @@ namespace Entity.Attacks
     public class WeaponModel
     {
         private float _range;
-        private int _damage;
+        private float _damage;
         private bool _piercing; 
         private float _attackSpeed;
         private float _swingSpeed;
