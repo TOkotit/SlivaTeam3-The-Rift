@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entity.Runes;
 using Game.Inventory.Runes;
 using Game.UI;
@@ -16,7 +17,7 @@ namespace Game.Gameplay.View.UI.ScreenForge
         [SerializeField] public Button _btnUpgradePage;
         [SerializeField] public Button _btnGain;
         
-        
+        private readonly List<RuneSlotView> _spawnedSlots = new();
         [SerializeField] private RuneSlotView _runeSlotPrefab;
         [SerializeField] private Transform _runesContainer;
         
@@ -42,8 +43,19 @@ namespace Game.Gameplay.View.UI.ScreenForge
             var data = ViewModel.RuneManager.GetRuneData(type);
             var slot = Instantiate(_runeSlotPrefab, _runesContainer);
             
-            slot.Setup(data, () => ViewModel.OnRuneSelected(type));
+            slot.Setup(data, () => {
+                ViewModel.OnRuneSelected(type);
+                UpdateVisualSelection(type);
+            });
             LayoutRebuilder.ForceRebuildLayoutImmediate(_runesContainer as RectTransform);
+            
+            _spawnedSlots.Add(slot);
+        }
+        
+        private void UpdateVisualSelection(RuneType selectedType)
+        {
+            foreach (var slot in _spawnedSlots)
+                slot.SetSelected(slot.SlotType == selectedType);
         }
         
         private void OnDestroy()

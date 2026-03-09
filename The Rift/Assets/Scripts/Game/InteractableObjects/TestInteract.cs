@@ -17,6 +17,7 @@ namespace Game
         {
             Debug.Log("Interact");
             _runesManager.UnlockRune(RuneType.Persistence);
+            _runesManager.UnlockRune(RuneType.Catalyst);
             foreach (var rune in _runesManager.UnlockedRunes)
             {
                 Debug.Log(rune);
@@ -24,5 +25,6 @@ namespace Game
         }
 
         public Transform InteractionPoint => transform;
+        
     }
 }

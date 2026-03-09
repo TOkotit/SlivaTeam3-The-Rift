@@ -12,8 +12,6 @@ namespace Entity.Runes
         public RuneType Rune;
         [Tooltip("Список всех параметров, которые меняет эта руна")]
         public List<RuneModifier> Modifiers = new();
-        
-        
     }
     
     [Serializable] 

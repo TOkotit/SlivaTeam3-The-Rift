@@ -12,13 +12,21 @@ namespace Game.Gameplay.View.UI.ScreenForge
     {
         [SerializeField] private Image iconImage;
         [SerializeField] private Button button;
-    
+        [SerializeField] private GameObject outline;
+        public RuneType SlotType { get; private set; }
+        
         public void Setup(RuneData data, Action onClick)
         {
             iconImage.sprite = data.icon;
             button.onClick.RemoveAllListeners();
+            SlotType = data.Rune;
             button.onClick.AddListener(() => onClick?.Invoke());
+            SetSelected(false);
         }
-        
+        public void SetSelected(bool isSelected)
+        {
+            Debug.Log($"<color=red> Ну я пытаюсь конечно</color>>");
+            if (outline != null) outline.SetActive(isSelected);
+        }        
     }
 }

@@ -41,9 +41,6 @@ namespace DI
             builder.RegisterInstance(_runeDatabase);
             builder.Register<RuneManager>(Lifetime.Singleton);
             
-            builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
-            builder.Register<GameplayUIManager>(Lifetime.Singleton);
-                
             builder.Register<EnemyModel>(Lifetime.Transient);
             
             builder.RegisterComponentInHierarchy<CraftTable>(); 
