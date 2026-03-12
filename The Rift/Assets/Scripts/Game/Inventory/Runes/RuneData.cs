@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.Inventory.Runes;
 using UnityEngine;
 
 namespace Entity.Runes
@@ -19,5 +20,8 @@ namespace Entity.Runes
     {
         public Influence Parameter; 
         public float Coefficient;
+        
+        // условия для наложения бафа если есть
+        public List<RuneCondition> Conditions;
     }
 }

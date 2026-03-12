@@ -151,6 +151,7 @@ namespace MainCharacter
                 var weapon = _bindToPerform.weapon;
                 weapon.Damage(1);
                 Debug.Log(weapon.Durability);
+                Debug.Log(weapon.Model.Damage);
                 if(weapon.Durability <= 0)
                 {
                     _mainCharacter.MainCharacterModel.Weapons.Remove(weapon.Model);

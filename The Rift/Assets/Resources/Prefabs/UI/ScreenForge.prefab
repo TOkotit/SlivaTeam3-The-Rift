@@ -849,7 +849,7 @@ MonoBehaviour:
   _btnCloseForgeScreen: {fileID: 8599504155792711491}
   _btnCreatePage: {fileID: 0}
   _btnUpgradePage: {fileID: 0}
-  _btnGain: {fileID: 0}
+  _btnGain: {fileID: 3422326227361909883}
   _runeSlotPrefab: {fileID: 4003941277498667076, guid: b288513ff2b30e641a83ba9075afe1c1, type: 3}
   _runesContainer: {fileID: 5545426695851584345}
 --- !u!1 &4321374920350912771

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entity.Runes;
+using Game.Inventory.Runes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,7 +20,6 @@ namespace Entity.Attacks
         private Dictionary<Key,string> _attackIDs;
         
         //----TOkotit: Добавляю руны и кэш с рунами
-        private readonly Dictionary<Influence, float> _multipliersCache = new();
         private bool _isDirty = true;
         // Руны, по хорошему потом будем сохранять их
         private readonly List<RuneData> _runes = new();
@@ -36,11 +36,8 @@ namespace Entity.Attacks
 
         public float CurrentDurability
         {
-            get => Math.Clamp(_currentDurability *  GetMultiplier(Influence.Durability), 0, _maxDurability);
-            set
-            {
-                _currentDurability = Math.Clamp(value, 0, _maxDurability);
-            }
+            get => Math.Clamp(_currentDurability * GetMultiplier(Influence.Durability), 0, _maxDurability);
+            set => _currentDurability = Math.Clamp(value, 0, _maxDurability);
         }
         
         
@@ -61,27 +58,16 @@ namespace Entity.Attacks
             }
         }
         
-        // Должно работать, но я не проверял потому что хз как
-        public void AddRune(RuneData rune)
-        {
-            _runes.Add(rune);
-            _isDirty = true;
-        }
+        public void AddRune(RuneData rune) => _runes.Add(rune);
 
         private float GetMultiplier(Influence influence)
         {
-            if (_isDirty) RefreshCache();
-            return _multipliersCache.GetValueOrDefault(influence, 1f);
+            var context = new RuneContext 
+            { 
+                CurrentDurabilityPercent = _currentDurability / _maxDurability 
+            };
+    
+            return RuneCalculator.GetTotalMultiplier(_runes, influence, context);
         }
-
-        private void RefreshCache()
-        {
-            _multipliersCache.Clear();
-            foreach (Influence influence in Enum.GetValues(typeof(Influence)))
-                _multipliersCache[influence] = RuneCalculator.GetTotalMultiplier(_runes, influence);
-            
-            _isDirty = false;
-        }
-        
     }
 }
