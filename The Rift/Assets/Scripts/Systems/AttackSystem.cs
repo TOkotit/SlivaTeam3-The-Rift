@@ -163,6 +163,7 @@ namespace Systems
                 foreach (RaycastHit hit in hits)
                 {
                     var targetModel = _registry.TryGetCharacter(hit.collider.gameObject);
+                    weaponProfile.Model.RegisterHit(); // регестрирую попадание чтобы руна сработала
                     if (targetModel == null) continue;
                     if (targetModel.Team == team) continue;
                     targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);

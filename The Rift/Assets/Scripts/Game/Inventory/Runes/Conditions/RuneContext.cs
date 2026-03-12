@@ -6,5 +6,6 @@
         //тут будет добавляться по мере необходимости
         public float CurrentDurabilityPercent; 
         public float HealthPercent;
+        public float TimeSinceLastHit;
     }
 }

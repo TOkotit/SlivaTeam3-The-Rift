@@ -16,6 +16,7 @@ namespace Game
         {
             Debug.Log("Interact");
             _mainCharacter.MainCharacterModel.Weapons[0].AddRune(runeData);
+            Debug.Log($"Rune: {runeData.runeName}");
         }
 
         public Transform InteractionPoint => transform;

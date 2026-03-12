@@ -694,6 +694,10 @@ PrefabInstance:
       propertyPath: _sensitivity
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1371705520859279070, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
+      propertyPath: _targetCanvas
+      value: 
+      objectReference: {fileID: 1481676804}
     - target: {fileID: 2106680347264906908, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
       propertyPath: autoRun
       value: 1
@@ -785,6 +789,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2583732118245975436, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 749541571}
+    - targetCorrespondingSourceObject: {fileID: 2333950107903687634, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 749541570}
   m_SourcePrefab: {fileID: 100100000, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
 --- !u!1 &749541564 stripped
 GameObject:
@@ -806,11 +813,43 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7605691890173840822, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
   m_PrefabInstance: {fileID: 749541563}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &749541568 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2333950107903687634, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
+  m_PrefabInstance: {fileID: 749541563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &749541569 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2583732118245975436, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
   m_PrefabInstance: {fileID: 749541563}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &749541570
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749541568}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &749541571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1617,8 +1656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a08bc4225ec348c5a21a941271620650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Persistence: {fileID: 11400000, guid: d7ea7c7afa2ae6c4493318d7db385b93, type: 2}
-  Catalyst: {fileID: 11400000, guid: 894773a8b65c10449b44bd74255e5322, type: 2}
+  runeData: {fileID: 11400000, guid: 0da18bea29788e74fa46b5998dce5f8b, type: 2}
 --- !u!65 &1258767890
 BoxCollider:
   m_ObjectHideFlags: 0

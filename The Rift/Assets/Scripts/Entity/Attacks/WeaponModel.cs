@@ -9,6 +9,8 @@ namespace Entity.Attacks
 {
     public class WeaponModel
     {
+        
+        private float _lastHitTime = -9999f; // отслеживание времени с попадания, нужно для эффекта от руны временного
         private float _range;
         private float _damage;
         private bool _piercing; 
@@ -29,7 +31,12 @@ namespace Entity.Attacks
         public float Range => _range;
         public float Damage => _damage * GetMultiplier(Influence.Damage);
         public bool Piercing => _piercing;
-        public float AttackSpeed => _attackSpeed;
+
+        public float AttackSpeed
+        {
+            get => _attackSpeed * GetMultiplier(Influence.Cooldown);
+            set => _attackSpeed = value;
+        }
         public float SwingSpeed => _swingSpeed;
         public string Name => _name;
         public int MaxDurability => _maxDurability;
@@ -58,13 +65,20 @@ namespace Entity.Attacks
             }
         }
         
+        
+        public void RegisterHit()
+        {
+            _lastHitTime = Time.time;
+        }
+        
         public void AddRune(RuneData rune) => _runes.Add(rune);
 
         private float GetMultiplier(Influence influence)
         {
             var context = new RuneContext 
             { 
-                CurrentDurabilityPercent = _currentDurability / _maxDurability 
+                CurrentDurabilityPercent = _maxDurability > 0 ? _currentDurability / _maxDurability : 0,
+                TimeSinceLastHit = Time.time - _lastHitTime
             };
     
             return RuneCalculator.GetTotalMultiplier(_runes, influence, context);

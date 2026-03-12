@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7467d29f9f104b62ba69d8580e4015c1, type: 3}
+  m_Name: Persistence
+  m_EditorClassIdentifier: 
+  runeName: Persistence
+  icon: {fileID: 21300000, guid: d9929ac3bce00724abf072db9ec99443, type: 3}
+  Rune: 0
+  Modifiers:
+  - Parameter: 0
+    Coefficient: 1.2
+    Conditions:
+    - {fileID: 11400000, guid: 4edfe9188b81b2b47a152444b602a7d7, type: 2}
