@@ -33,6 +33,8 @@ namespace MainCharacter
         private bool _inputAvailable = true;
         private AttackBind _bindToPerform;
 
+
+        
         public List<Weapon> EquippedWeapons
         {
             get => _equippedWeapons;
@@ -78,7 +80,6 @@ namespace MainCharacter
         private void Update()
         {
             if (!_inputAvailable) return;
-            
             foreach (var button in _availableComboKeys)
             {
                 if (button.hold)

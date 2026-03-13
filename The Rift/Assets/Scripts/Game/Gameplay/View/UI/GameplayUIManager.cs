@@ -1,8 +1,10 @@
 ﻿using System.Runtime.InteropServices;
+using Enums;
 using Game.Gameplay.View.UI.ScreenForge;
 using Game.UI;
 using MainCharacter;
 using R3;
+using Systems;
 using VContainer;
 using UnityEngine;
 
@@ -12,10 +14,14 @@ namespace Game.Gameplay.View.UI
     {
         private MainCharacterCamera _mainCharacterCamera;
         private MainCharacterMovement _mainCharacterMovement;
+        private IGameInputManager _gameInputManager;
+        private MainCharacterAttackController _attackController;
         public GameplayUIManager(IObjectResolver container) : base(container)
         {
             _mainCharacterCamera = Container.Resolve<MainCharacterCamera>();
             _mainCharacterMovement = Container.Resolve<MainCharacterMovement>();
+            _gameInputManager = Container.Resolve<IGameInputManager>();
+            _attackController = Container.Resolve<MainCharacterAttackController>();
         }
         
         
@@ -28,7 +34,9 @@ namespace Game.Gameplay.View.UI
             LockUpCursor();
             UnlockCamera();
             rootUI.OpenScreen(viewModel);
-
+            
+            _gameInputManager.ToggleMap(MapsInput.Gameplay);
+            
             return viewModel;
         }
         
@@ -36,10 +44,13 @@ namespace Game.Gameplay.View.UI
         {
             var viewModel = new ScreenForgeViewModel(this, Container);
             var rootUI = Container.Resolve<GameplayUIRootViewModel>();
+            
+            
             _mainCharacterMovement.LockUpMovement();
             UnlockCursor();
             LockUpCamera();
             rootUI.OpenScreen(viewModel);
+            _gameInputManager.ToggleMap(MapsInput.UI);
 
             return viewModel;
         }
