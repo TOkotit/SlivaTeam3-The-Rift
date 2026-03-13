@@ -41,6 +41,13 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
     private Vector3 _gravity = Vector3.down * 9.832f;
     private int currentWallJumpCount;
     private bool _canDash = true;
+
+
+    public Vector3 Velocity
+    {
+        get => _velocity;
+        set => _velocity = value;
+    }
     public Vector3 MoveDirection {get => _moveDirection; set => _moveDirection = value; }
     private void Awake()
     {

@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7467d29f9f104b62ba69d8580e4015c1, type: 3}
-  m_Name: Durability
+  m_Script: {fileID: 11500000, guid: b5e6d5cef5b64e31875d6c3b6adf0339, type: 3}
+  m_Name: Armore Equipment Condition 1
   m_EditorClassIdentifier: 
-  runeName: Durability
-  icon: {fileID: 21300000, guid: 7b67a9fad32d20f4ab2889290be19fbe, type: 3}
-  Rune: 1
-  Modifiers:
-  - Parameter: 1
-    Coefficient: 1.5
-    Conditions: []
+  RequiredType: 1

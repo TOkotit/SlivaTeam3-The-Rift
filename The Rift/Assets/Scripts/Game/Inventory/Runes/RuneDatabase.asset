@@ -15,3 +15,5 @@ MonoBehaviour:
   allRunes:
   - {fileID: 11400000, guid: d7ea7c7afa2ae6c4493318d7db385b93, type: 2}
   - {fileID: 11400000, guid: 894773a8b65c10449b44bd74255e5322, type: 2}
+  - {fileID: 11400000, guid: 06aac9233c544fa41b83fe9b46293959, type: 2}
+  - {fileID: 11400000, guid: ad6b8c0b225b6bd44b3b97b40b8c1308, type: 2}

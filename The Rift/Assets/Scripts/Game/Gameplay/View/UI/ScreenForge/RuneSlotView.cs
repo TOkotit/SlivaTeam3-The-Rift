@@ -25,7 +25,6 @@ namespace Game.Gameplay.View.UI.ScreenForge
         }
         public void SetSelected(bool isSelected)
         {
-            Debug.Log($"<color=red> Ну я пытаюсь конечно</color>>");
             if (outline != null) outline.SetActive(isSelected);
         }        
     }

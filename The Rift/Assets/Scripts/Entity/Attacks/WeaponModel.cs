@@ -24,7 +24,7 @@ namespace Entity.Attacks
         //----TOkotit: Добавляю руны и кэш с рунами
         private bool _isDirty = true;
         // Руны, по хорошему потом будем сохранять их
-        private readonly List<RuneData> _runes = new();
+        public readonly List<RuneData> _runes = new();
         //---------
 
         
@@ -71,14 +71,24 @@ namespace Entity.Attacks
             _lastHitTime = Time.time;
         }
         
-        public void AddRune(RuneData rune) => _runes.Add(rune);
+        public void AddRune(RuneData rune)
+        {
+            if (_runes.Contains(rune)) 
+            {
+                Debug.LogWarning($"Руна {rune.runeName} уже установлена на это оружие!");
+                return;
+            }
+            
+            _runes.Add(rune);
+        }
 
         private float GetMultiplier(Influence influence)
         {
             var context = new RuneContext 
             { 
                 CurrentDurabilityPercent = _maxDurability > 0 ? _currentDurability / _maxDurability : 0,
-                TimeSinceLastHit = Time.time - _lastHitTime
+                TimeSinceLastHit = Time.time - _lastHitTime,
+                EquipType = EquipmentType.Weapon
             };
     
             return RuneCalculator.GetTotalMultiplier(_runes, influence, context);

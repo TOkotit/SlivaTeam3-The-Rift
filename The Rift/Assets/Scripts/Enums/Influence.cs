@@ -5,7 +5,7 @@
         Damage,
         Durability,
         Cooldown,
-        Speed,
+        Velocity,
         OtherRunes
     }
 }

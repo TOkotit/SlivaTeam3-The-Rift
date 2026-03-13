@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Entity.Runes;
 using Game.Inventory.Runes;
 using Game.UI;
@@ -26,7 +27,7 @@ namespace Game.Gameplay.View.UI.ScreenForge
         private void Start()
         {
             _btnCloseForgeScreen?.onClick.AddListener(CloseForgeScreenButtonClicked);
-            
+            _btnGain?.onClick.AddListener(GainItem);
             foreach (var runeType in ViewModel.RuneManager.UnlockedRunes)
             {
                 CreateRuneSlot(runeType);
@@ -63,7 +64,15 @@ namespace Game.Gameplay.View.UI.ScreenForge
             _btnCloseForgeScreen?.onClick.RemoveListener(CloseForgeScreenButtonClicked);
             _disposables.Dispose();
         }
-        
+
+        private void GainItem()
+        {
+            var weaponModel = ViewModel._mainCharacter.Weapons.First();
+            var selectedRuneData = ViewModel.RuneManager.GetRuneData(ViewModel.SelectedRune);
+            
+            weaponModel.AddRune(selectedRuneData);
+            Debug.Log($"<color=green>Add rune {selectedRuneData.runeName}</color>");
+        }
         private void CloseForgeScreenButtonClicked()
         {
             ViewModel.RequestGoToScreenGameplay();
