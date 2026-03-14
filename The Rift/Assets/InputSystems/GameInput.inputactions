@@ -42,9 +42,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "LeftMouse",
                     "type": "Button",
-                    "id": "813f4dd2-9c54-4461-8124-5194958a1113",
+                    "id": "4cf17cc8-03f5-4ce6-9c60-090fdba09735",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightMouse",
+                    "type": "Button",
+                    "id": "780577d8-473c-4798-a8de-5bad831a0f7c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -153,60 +162,23 @@
                 },
                 {
                     "name": "",
-                    "id": "80f5cf28-a9d2-4eb6-98a5-e661566f7b19",
-                    "path": "<Keyboard>/e",
+                    "id": "4d9885df-d9d9-47db-b768-50c9c933516b",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "UI",
-            "id": "b2a67c67-39d8-46cb-afc2-39d4927bdd9b",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "4256c32e-0441-4525-b0bd-edc411a27582",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "New action1",
-                    "type": "Button",
-                    "id": "ee6c7ace-a0f9-4479-838e-5ba0c2974e9a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "975e8c9a-f196-4843-aa16-8afc471cdbf1",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "action": "LeftMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "037b5b18-973a-4801-bfa3-c97a467066fc",
-                    "path": "",
+                    "id": "4d9b3d65-1e02-4f9d-9dd7-d842bcc95315",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action1",
+                    "action": "RightMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
