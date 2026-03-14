@@ -1,30 +1,81 @@
-﻿using Game;
+﻿using System;
+using System.Runtime.InteropServices;
+using Game;
+using Systems;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using VContainer;
 
 namespace MainCharacter
 {
     public class MainCharacterInteractionController : MonoBehaviour
     {
-        [Inject] private MainCharacterCamera _mainCharacterCamera;
-        [Inject] private InteractionUIManager _uiManager;
+        private MainCharacterCamera _mainCharacterCamera;
+        private InteractionUIManager _uiManager; 
+        private IGameInputManager inputManager;
+        private GameInput gameInput;
+        private bool _subscribed = false;
         
-        
-        [Header("Ссылки")]
         [SerializeField] private InteractionZone _zone; 
-
-        [Header("Настройки")]
         [SerializeField] private float _sphereRadius = 0.3f;
         [SerializeField] private float _rayDistance = 4f; 
         [SerializeField] private string _interactableTag = "Interactable";
 
         private IInteractable _currentInteractable;
+
+        [Inject] 
+        private void Construct(IGameInputManager gameInputManager, MainCharacterCamera mainCharacterCamera, InteractionUIManager interactableUIManager)
+        {
+            Debug.Log("MainCharacterInteractionController.Construct called");
+            inputManager = gameInputManager;
+            gameInput = gameInputManager.GameInput;
+            
+            _mainCharacterCamera =  mainCharacterCamera;
+            _uiManager = interactableUIManager;
+            Debug.Log($"_gameInput is null? {gameInput == null}");
+            TrySubscribe();
+        }
         
+        private void OnEnable()
+        {
+            TrySubscribe();
+        }
         
+        private void OnDisable()
+        {
+            TryUnsubscribe();
+        }
+        
+        private void TrySubscribe()
+        {
+            if (_subscribed) return;
+            if (gameInput == null) return;
+            if (gameInput.Gameplay.Interact == null) return;
+            
+            gameInput.Gameplay.Interact.performed += OnInteractPerformed;
+            _subscribed = true;
+        }
+        
+        private void TryUnsubscribe()
+        {
+            if (!_subscribed) return;
+            if (gameInput == null) return;
+
+            try
+            {
+                gameInput.Gameplay.Interact.performed -= OnInteractPerformed;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"Failed to unsubscribe safely: {ex}");
+            }
+
+            _subscribed = false;
+        }
+
         private void Update()
         {
             CheckForInteractable();
-            HandleInput();
         }
 
         private void CheckForInteractable()
@@ -60,12 +111,10 @@ namespace MainCharacter
             ResetInteraction();
         }
 
-        private void HandleInput()
+        private void OnInteractPerformed(InputAction.CallbackContext context)
         {
-            if (_currentInteractable != null && Input.GetKeyDown(KeyCode.E))
-            {
+            if (_currentInteractable != null)
                 _currentInteractable.Interact();
-            }
         }
 
         private void ResetInteraction()

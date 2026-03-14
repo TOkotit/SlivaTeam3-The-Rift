@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Entity
 {
@@ -29,7 +30,7 @@ namespace Entity
         public event Action<int> OnHealthChanged;
         public event Action OnDeath;
         
-        public int TakeDamage(int damage, Enums.DamageTypes damageType)
+        public float TakeDamage(float damage, Enums.DamageTypes damageType)
         {
             if (damage <= 0) return 0;
             if (!_vulnerabilities.TryGetValue(damageType, out float coefficient))
@@ -66,9 +67,10 @@ namespace Entity
                 _vulnerabilities[damageType] = 1f + vulnerability;
         }
 
-        public void SetMaxHealth(int newMaxHealth)
+        public void SetMaxHealth(int newMaxHealth, bool isFullHealNeeded)
         {
             _maxHealth = newMaxHealth;
+            if (isFullHealNeeded) CurrentHealth = _maxHealth;
         }
         
     }

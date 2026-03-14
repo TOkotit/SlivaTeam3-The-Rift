@@ -11,7 +11,7 @@ namespace Entity.Attacks
            
         private List<AttackBind> _attacks = new List<AttackBind>();
         public Action<Weapon> OnWeaponBroken;
-        public int Durability
+        public float Durability
         {
             get => _model.CurrentDurability;
             private set

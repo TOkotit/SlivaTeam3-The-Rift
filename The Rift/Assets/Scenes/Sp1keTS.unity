@@ -372,7 +372,9 @@ MonoBehaviour:
   parentReference:
     TypeName: DI.RootScope
   autoRun: 1
-  autoInjectGameObjects: []
+  autoInjectGameObjects:
+  - {fileID: 419271080}
+  - {fileID: 1318721008}
 --- !u!4 &320739171
 Transform:
   m_ObjectHideFlags: 0
@@ -1046,13 +1048,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1801330373576002253, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3444770192775061093, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 774166011146295028, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 957818968}
   m_SourcePrefab: {fileID: 100100000, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
+--- !u!1 &1318721008 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5476191235061111673, guid: bbacc89b3b5628d4db4d7c42dbcddffd, type: 3}
+  m_PrefabInstance: {fileID: 1318721007}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1329644562
 GameObject:
   m_ObjectHideFlags: 0

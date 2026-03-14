@@ -13,9 +13,7 @@ namespace MainCharacter
         {
             _gameplayUIManager = gameplayUIManager;
         }
-        
-        
-        
+
         public void Start()
         {
             Debug.Log("MainCharacterInitializer.Start()");

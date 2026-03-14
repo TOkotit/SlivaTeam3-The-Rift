@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entity.Runes;
+using Game.Inventory.Runes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,39 +9,42 @@ namespace Entity.Attacks
 {
     public class WeaponModel
     {
+        
+        private float _lastHitTime = -9999f; // отслеживание времени с попадания, нужно для эффекта от руны временного
         private float _range;
-        private int _damage;
+        private float _damage;
         private bool _piercing; 
         private float _attackSpeed;
         private float _swingSpeed;
         private string _name;
         private int _maxDurability;
-        private int _currentDurability;
+        private float _currentDurability;
         private Dictionary<Key,string> _attackIDs;
         
         //----TOkotit: Добавляю руны и кэш с рунами
-        private readonly Dictionary<Influence, float> _multipliersCache = new();
         private bool _isDirty = true;
         // Руны, по хорошему потом будем сохранять их
-        private readonly List<RuneData> _runes = new();
+        public readonly List<RuneData> _runes = new();
         //---------
 
         
         public float Range => _range;
-        public int Damage => Mathf.RoundToInt(_damage * GetMultiplier(Influence.Damage));
+        public float Damage => _damage * GetMultiplier(Influence.Damage);
         public bool Piercing => _piercing;
-        public float AttackSpeed => _attackSpeed;
+
+        public float AttackSpeed
+        {
+            get => _attackSpeed * GetMultiplier(Influence.Cooldown);
+            set => _attackSpeed = value;
+        }
         public float SwingSpeed => _swingSpeed;
         public string Name => _name;
         public int MaxDurability => _maxDurability;
 
-        public int CurrentDurability
+        public float CurrentDurability
         {
-            get => Math.Clamp(_currentDurability *  (int)GetMultiplier(Influence.Durability), 0, _maxDurability);
-            set
-            {
-                _currentDurability = Math.Clamp(value, 0, _maxDurability);
-            }
+            get => Math.Clamp(_currentDurability * GetMultiplier(Influence.Durability), 0, _maxDurability);
+            set => _currentDurability = Math.Clamp(value, 0, _maxDurability);
         }
         
         
@@ -61,27 +65,33 @@ namespace Entity.Attacks
             }
         }
         
-        // Должно работать, но я не проверял потому что хз как
+        
+        public void RegisterHit()
+        {
+            _lastHitTime = Time.time;
+        }
+        
         public void AddRune(RuneData rune)
         {
+            if (_runes.Contains(rune)) 
+            {
+                Debug.LogWarning($"Руна {rune.runeName} уже установлена на это оружие!");
+                return;
+            }
+            
             _runes.Add(rune);
-            _isDirty = true;
         }
 
         private float GetMultiplier(Influence influence)
         {
-            if (_isDirty) RefreshCache();
-            return _multipliersCache.GetValueOrDefault(influence, 1f);
+            var context = new RuneContext 
+            { 
+                CurrentDurabilityPercent = _maxDurability > 0 ? _currentDurability / _maxDurability : 0,
+                TimeSinceLastHit = Time.time - _lastHitTime,
+                EquipType = EquipmentType.Weapon
+            };
+    
+            return RuneCalculator.GetTotalMultiplier(_runes, influence, context);
         }
-
-        private void RefreshCache()
-        {
-            _multipliersCache.Clear();
-            foreach (Influence influence in Enum.GetValues(typeof(Influence)))
-                _multipliersCache[influence] = RuneCalculator.GetTotalMultiplier(_runes, influence);
-            
-            _isDirty = false;
-        }
-        
     }
 }

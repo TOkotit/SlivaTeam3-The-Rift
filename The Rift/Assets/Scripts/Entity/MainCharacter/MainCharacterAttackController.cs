@@ -34,6 +34,8 @@ namespace MainCharacter
         private bool _inputAvailable = true;
         private AttackBind _bindToPerform;
 
+
+        
         public List<Weapon> EquippedWeapons
         {
             get => _equippedWeapons;

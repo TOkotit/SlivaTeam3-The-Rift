@@ -1,14 +1,30 @@
 ﻿using System.Collections.Generic;
 using Entity;
 using Entity.Attacks;
+using Entity.Runes;
 using NUnit.Framework;
+using R3;
+using UnityEngine;
 
 namespace MainCharacter
 {
     public class MainCharacterModel : DamagableModel
     {
         private List<WeaponModel>  _weapons;
-        public List<WeaponModel> Weapons {get => _weapons; set => _weapons = value; }
+        public List<WeaponModel> Weapons
+        {
+            get
+            {
+                return _weapons;
+                
+            }
+            set
+            {
+               
+                _weapons = value;  
+            } 
+            
+        }
         private Stamina _stamina;
         public Stamina  Stamina { get => _stamina; set => _stamina = value; }
         

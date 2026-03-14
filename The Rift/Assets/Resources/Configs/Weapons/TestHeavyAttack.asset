@@ -20,8 +20,7 @@ MonoBehaviour:
   randomizeOffsetInBounds: 0
   angularOffset: {x: 0, y: 0}
   randomizeAngularOffset: 0
-  events:
-  - _underlyingValue: {fileID: 11400000, guid: 7c06307d6b04ee540af2ad69cea6cdc9, type: 2}
+  events: []
   angle: 90
   tilt: -45
   damageMultiplier: 1
