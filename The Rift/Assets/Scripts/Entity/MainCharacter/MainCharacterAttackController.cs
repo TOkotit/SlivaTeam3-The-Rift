@@ -6,6 +6,8 @@ using Entity.Attacks;
 using Enums;
 using Systems;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using Utils;
 using Utils.MiscClasses;
 using VContainer;
@@ -26,8 +28,7 @@ namespace MainCharacter
         private HashSet<InputButton> _availableComboKeys = new HashSet<InputButton>();
         private List<Weapon> _equippedWeapons = new List<Weapon>();
         private List<AttackBind> _allBinds = new List<AttackBind>();
-        private Dictionary<InputButton, float> _holdStartTimes = new Dictionary<InputButton, float>();
-        private HashSet<InputButton> _holdEventsFired = new HashSet<InputButton>();
+        private Dictionary<InputButton, ButtonState> _buttonStates = new Dictionary<InputButton, ButtonState>();
 
         private Coroutine _timeoutCoroutine;
         private bool _inputAvailable = true;
@@ -50,8 +51,33 @@ namespace MainCharacter
             RebuildComboData();
         }
 
+        private void OnEnable()
+        {
+            foreach (var state in _buttonStates.Values)
+                state.Subscribe(OnButtonStarted, OnButtonCanceled);
+        }
+
+        private void OnDisable()
+        {
+            foreach (var state in _buttonStates.Values)
+                state.Unsubscribe();
+            StopAllHoldCoroutines();
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var state in _buttonStates.Values)
+                state.Unsubscribe();
+        }
+
         private void RebuildComboData()
         {
+            foreach (var state in _buttonStates.Values)
+                state.Unsubscribe();
+            _buttonStates.Clear();
+
+            StopAllHoldCoroutines();
+
             _availableComboKeys.Clear();
             _allBinds.Clear();
 
@@ -66,56 +92,95 @@ namespace MainCharacter
                     }
                 }
             }
-        }
 
-        public void AddWeapon(Weapon weapon)
-        {
-            _equippedWeapons.Add(weapon);
-            _mainCharacter.MainCharacterModel.Weapons.Add(weapon.Model);
-            RebuildComboData();
-        }
-
-        
-
-        private void Update()
-        {
-            if (!_inputAvailable) return;
             foreach (var button in _availableComboKeys)
             {
-                if (button.hold)
+                var action = FindInputAction(button);
+                if (action != null)
                 {
-                    var isHeld = button.IsHeld();
-                    
-                    if (isHeld)
-                    {
-                        if (!_holdStartTimes.ContainsKey(button))
-                        {
-                            _holdStartTimes[button] = Time.time;
-                        }
-                        else
-                        {
-                            float elapsed = Time.time - _holdStartTimes[button];
-                            if (elapsed >= button.treshold && !_holdEventsFired.Contains(button))
-                            {
-                                TryAddKey(button);
-                                _holdEventsFired.Add(button);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (_holdStartTimes.ContainsKey(button))
-                        {
-                            _holdStartTimes.Remove(button);
-                            _holdEventsFired.Remove(button);
-                        }
-                    }
+                    var state = new ButtonState(button, action);
+                    state.Subscribe(OnButtonStarted, OnButtonCanceled);
+                    _buttonStates[button] = state;
                 }
-                else if (button.IsReleased())
+                else
                 {
-                    TryAddKey(button);
+                    Debug.LogWarning($"InputAction for button {button} not found.");
                 }
             }
+        }
+
+        private InputAction FindInputAction(InputButton button)
+        {
+            string actionName = button.device == InputButton.DeviceType.Keyboard
+                ? button.key.ToString()
+                : button.mouse == MouseButton.Left ? "LeftMouse" : "RightMouse";
+
+            var gameplayMap = _inputManager.GameInput.asset.FindActionMap("Gameplay");
+            if (gameplayMap == null)
+            {
+                return null;
+            }
+            return gameplayMap.FindAction(actionName);
+        }
+
+        private void StopAllHoldCoroutines()
+        {
+            foreach (var state in _buttonStates.Values)
+            {
+                if (state.HoldCoroutine != null)
+                {
+                    _coroutineRunner.StopRoutine(state.HoldCoroutine);
+                    state.HoldCoroutine = null;
+                }
+                state.HoldTriggered = false;
+            }
+        }
+
+        private void OnButtonStarted(InputButton button)
+        {
+            if (!_inputAvailable) return;
+            if (!_buttonStates.TryGetValue(button, out var state)) return;
+
+            if (button.hold)
+            {
+                if (state.HoldCoroutine == null)
+                {
+                    state.HoldCoroutine = _coroutineRunner.StartRoutine(HoldTimer(state));
+                }
+            }
+        }
+
+        private void OnButtonCanceled(InputButton button)
+        {
+            if (!_inputAvailable) return;
+            if (!_buttonStates.TryGetValue(button, out var state)) return;
+
+            if (button.hold)
+            {
+                if (state.HoldCoroutine != null)
+                {
+                    _coroutineRunner.StopRoutine(state.HoldCoroutine);
+                    state.HoldCoroutine = null;
+                }
+                state.HoldTriggered = false;
+            }
+            else
+            {
+                TryAddKey(button);
+            }
+        }
+
+        private IEnumerator HoldTimer(ButtonState state)
+        {
+            yield return new WaitForSeconds(state.Button.treshold);
+
+            if (state.Action.IsPressed() && !state.HoldTriggered)
+            {
+                state.HoldTriggered = true;
+                TryAddKey(state.Button);
+            }
+
+            state.HoldCoroutine = null;
         }
 
         private void TryAddKey(InputButton key)
@@ -150,28 +215,16 @@ namespace MainCharacter
             {
                 _attackSystem.PerformAttack(_bindToPerform.AttackProfile.Value, _bindToPerform.weapon, gameObject, Teams.Player);
                 var weapon = _bindToPerform.weapon;
-                // убрал повреждение оружия отсюда в attack sysytem
-                Debug.Log("Runes on weapon:");
-                foreach (var rune in weapon.Model._runes)
-                {
-                    Debug.Log(rune.runeName);
-                }
-                Debug.Log($"<color=green>Weapon stats:</color>\n" +
-                          $"Durability: {weapon.Durability}\n" +
-                          $"Damage: {weapon.Model.Damage}\n" +
-                          $"Attack speed: {weapon.Model.AttackSpeed}");
-                if(weapon.Durability <= 0)
+                weapon.Damage(1);
+                Debug.Log(weapon.Durability);
+                if (weapon.Durability <= 0)
                 {
                     _mainCharacter.MainCharacterModel.Weapons.Remove(weapon.Model);
                     _equippedWeapons.Remove(weapon);
-                    RebuildComboData();    
+                    RebuildComboData();
                 }
                 _inputAvailable = false;
-                
-                // костыльно делаю изменение скорости атаки
-                var baseCooldown = _bindToPerform.AttackProfile.Value.Cooldown;
-                var modifiedCooldown = baseCooldown / weapon.Model.AttackSpeed;
-                yield return new WaitForSeconds(Math.Max(0, modifiedCooldown - _comboTimeout));
+                yield return new WaitForSeconds(Math.Max(0, _bindToPerform.AttackProfile.Value.Cooldown - _comboTimeout));
                 _inputAvailable = true;
             }
 
@@ -201,6 +254,13 @@ namespace MainCharacter
                 if (!Equals(prefixEnum.Current, fullEnum.Current)) return false;
             }
             return true;
+        }
+
+        public void AddWeapon(Weapon weapon)
+        {
+            _equippedWeapons.Add(weapon);
+            _mainCharacter.MainCharacterModel.Weapons.Add(weapon.Model);
+            RebuildComboData();
         }
     }
 }
