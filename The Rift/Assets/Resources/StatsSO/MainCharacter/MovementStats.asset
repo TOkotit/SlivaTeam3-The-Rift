@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ea482e2462439dbb9a3f5e6c3a9437, type: 3}
+  m_Name: MovementStats
+  m_EditorClassIdentifier: 
+  _speed: 10
+  _jumpHeight: 7
+  _wallJumpCost: 10
+  _dashCost: 20
+  _dashSpeed: 50
+  _dashTime: 0.1
+  _dashCooldown: 1
+  _wallJumpCount: 1

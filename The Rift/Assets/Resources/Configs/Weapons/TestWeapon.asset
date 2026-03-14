@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb23d10d221c4da0b1b53e89c91bfd0b, type: 3}
+  m_Name: TestWeapon
+  m_EditorClassIdentifier: 
+  range: 2
+  damage: 1
+  piercing: 1
+  attackSpeed: 1
+  swingSpeed: 20
+  name: TestWeapon
+  maxDurability: 100
+  _attacks:
+  - keys:
+    - device: 1
+      key: 0
+      mouse: 0
+      hold: 0
+      treshold: 0
+    AttackProfile:
+      _underlyingValue: {fileID: 11400000, guid: 01c6a2b6ce0b1474b9eb0cd8940fb02c, type: 2}
+  - keys:
+    - device: 1
+      key: 0
+      mouse: 0
+      hold: 1
+      treshold: 1
+    AttackProfile:
+      _underlyingValue: {fileID: 11400000, guid: 11e24a81b104dc24394fdbaa0ccd0bd8, type: 2}
+  - keys:
+    - device: 1
+      key: 0
+      mouse: 1
+      hold: 1
+      treshold: 1
+    AttackProfile:
+      _underlyingValue: {fileID: 11400000, guid: 8e2fbd2e73522a841a62e00105e41164, type: 2}
+  - keys:
+    - device: 0
+      key: 31
+      mouse: 1
+      hold: 0
+      treshold: 1
+    AttackProfile:
+      _underlyingValue: {fileID: 11400000, guid: 6d021c9440631184fb4cfaca4f7d3a35, type: 2}
