@@ -20,7 +20,7 @@ namespace Game.Gameplay.View.UI.ScreenForge
         private readonly ICoroutineRunner _coroutines;
         private readonly IGameInputManager _gameInputManager;
         
-        private readonly MainCharacterModel  _mainCharacter;
+        public readonly MainCharacterModel  _mainCharacter;
         public override string Id => "ScreenForge";
         
         public readonly RuneManager RuneManager;
@@ -34,6 +34,7 @@ namespace Game.Gameplay.View.UI.ScreenForge
             _mainCharacter = container.Resolve<MainCharacterModel>();
             _gameInputManager = container.Resolve<IGameInputManager>();
             RuneManager = container.Resolve<RuneManager>();
+            
         }
         
         

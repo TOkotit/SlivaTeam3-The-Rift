@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7467d29f9f104b62ba69d8580e4015c1, type: 3}
-  m_Name: Catalyst
+  m_Name: Persistence
   m_EditorClassIdentifier: 
-  runeName: Catalyst
-  icon: {fileID: 21300000, guid: e779236123ba6f541a5be60c61ff6733, type: 3}
-  Rune: 3
+  runeName: Persistence
+  icon: {fileID: 21300000, guid: fad4efeb6af48b44ea37b73c558b2121, type: 3}
+  Rune: 0
   Modifiers:
-  - Parameter: 4
+  - Parameter: 0
     Coefficient: 1.2
+    Conditions:
+    - {fileID: 11400000, guid: 4edfe9188b81b2b47a152444b602a7d7, type: 2}

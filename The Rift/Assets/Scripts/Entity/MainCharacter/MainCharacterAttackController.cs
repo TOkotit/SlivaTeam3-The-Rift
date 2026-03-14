@@ -33,6 +33,8 @@ namespace MainCharacter
         private bool _inputAvailable = true;
         private AttackBind _bindToPerform;
 
+
+        
         public List<Weapon> EquippedWeapons
         {
             get => _equippedWeapons;
@@ -78,7 +80,6 @@ namespace MainCharacter
         private void Update()
         {
             if (!_inputAvailable) return;
-            
             foreach (var button in _availableComboKeys)
             {
                 if (button.hold)
@@ -149,8 +150,16 @@ namespace MainCharacter
             {
                 _attackSystem.PerformAttack(_bindToPerform.AttackProfile.Value, _bindToPerform.weapon, gameObject, Teams.Player);
                 var weapon = _bindToPerform.weapon;
-                weapon.Damage(1);
-                Debug.Log(weapon.Durability);
+                // убрал повреждение оружия отсюда в attack sysytem
+                Debug.Log("Runes on weapon:");
+                foreach (var rune in weapon.Model._runes)
+                {
+                    Debug.Log(rune.runeName);
+                }
+                Debug.Log($"<color=green>Weapon stats:</color>\n" +
+                          $"Durability: {weapon.Durability}\n" +
+                          $"Damage: {weapon.Model.Damage}\n" +
+                          $"Attack speed: {weapon.Model.AttackSpeed}");
                 if(weapon.Durability <= 0)
                 {
                     _mainCharacter.MainCharacterModel.Weapons.Remove(weapon.Model);
@@ -158,7 +167,11 @@ namespace MainCharacter
                     RebuildComboData();    
                 }
                 _inputAvailable = false;
-                yield return new WaitForSeconds(Math.Max(0,_bindToPerform.AttackProfile.Value.Cooldown - _comboTimeout));
+                
+                // костыльно делаю изменение скорости атаки
+                var baseCooldown = _bindToPerform.AttackProfile.Value.Cooldown;
+                var modifiedCooldown = baseCooldown / weapon.Model.AttackSpeed;
+                yield return new WaitForSeconds(Math.Max(0, modifiedCooldown - _comboTimeout));
                 _inputAvailable = true;
             }
 

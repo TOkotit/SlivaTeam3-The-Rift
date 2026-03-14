@@ -10,18 +10,19 @@ namespace Game
 {
     public class TestInteract: MonoBehaviour, IInteractable
     {
-        [Inject] private RuneManager  _runesManager;
-        [SerializeField] RuneData Persistence;
-        [SerializeField] RuneData Catalyst;
+        [Inject] RuneManager runeManager;
+        [SerializeField] RuneType rune1;
+        [SerializeField] RuneType rune2;
+        [SerializeField] RuneType rune3;
+        [SerializeField] RuneType rune4;
+        
         public void Interact()
         {
             Debug.Log("Interact");
-            _runesManager.UnlockRune(RuneType.Persistence);
-            _runesManager.UnlockRune(RuneType.Catalyst);
-            foreach (var rune in _runesManager.UnlockedRunes)
-            {
-                Debug.Log(rune);
-            }
+            runeManager.UnlockRune(rune1);
+            runeManager.UnlockRune(rune2);
+            runeManager.UnlockRune(rune3);
+            runeManager.UnlockRune(rune4);
         }
 
         public Transform InteractionPoint => transform;

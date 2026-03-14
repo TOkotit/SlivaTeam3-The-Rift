@@ -13,9 +13,9 @@ namespace MainCharacter
         private GameInput _gameInput;
         [Inject] private MainCharacterCamera _mainCamera;
 
-        
 
-        
+
+        private bool isAbleMove = true;
         private bool _subscribed = false;
         
         
