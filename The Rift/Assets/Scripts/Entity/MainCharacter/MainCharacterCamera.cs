@@ -52,8 +52,8 @@ namespace MainCharacter
         {
             var inputDelta = _gameInput.Gameplay.MouseDrag.ReadValue<Vector2>();
             RotateInternal(inputDelta);
-            var cameraInput = new Vector3(0, inputDelta.x, 0);
-            Quaternion characterRotation = Quaternion.Euler(0f, _rotation.y, 0f);
+            // var cameraInput = new Vector3(0, inputDelta.x, 0);
+            var characterRotation = Quaternion.Euler(0f, _rotation.y, 0f);
             _controllable.Rotate(characterRotation);
         }
 
@@ -63,7 +63,7 @@ namespace MainCharacter
             _rotation.y += inputDelta.x * _sensitivity * 0.01f; 
 
             _rotation.x = Mathf.Clamp(_rotation.x, -_maxPitch, _maxPitch);
-            transform.rotation = Quaternion.Euler(_rotation.x, _rotation.y, 0f);
+            transform.localRotation = Quaternion.Euler(_rotation.x, 0f, 0f);
         }
     }
 }
