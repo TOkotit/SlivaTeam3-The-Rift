@@ -144,6 +144,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b884e41-77fd-47f3-928e-1a4302aefe79"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -267,6 +276,45 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""RightMouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abb9f2f4-b276-4021-9566-724851805041"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""6a89d007-8a71-4109-8d22-ca6a43de9736"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""4cd1c1ae-9750-4892-8e28-a3c783cd03d9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a40339c1-185a-447c-93ca-9d21a95269fa"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -281,6 +329,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
         m_Gameplay_LeftMouse = m_Gameplay.FindAction("LeftMouse", throwIfNotFound: true);
         m_Gameplay_RightMouse = m_Gameplay.FindAction("RightMouse", throwIfNotFound: true);
+        m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
     }
 
     ~@GameInput()
@@ -368,6 +420,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Dash;
     private readonly InputAction m_Gameplay_LeftMouse;
     private readonly InputAction m_Gameplay_RightMouse;
+    private readonly InputAction m_Gameplay_Interact;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -403,6 +456,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/RightMouse".
         /// </summary>
         public InputAction @RightMouse => m_Wrapper.m_Gameplay_RightMouse;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Interact".
+        /// </summary>
+        public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -447,6 +504,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @RightMouse.started += instance.OnRightMouse;
             @RightMouse.performed += instance.OnRightMouse;
             @RightMouse.canceled += instance.OnRightMouse;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         /// <summary>
@@ -476,6 +536,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @RightMouse.started -= instance.OnRightMouse;
             @RightMouse.performed -= instance.OnRightMouse;
             @RightMouse.canceled -= instance.OnRightMouse;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         /// <summary>
@@ -514,7 +577,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Newaction;
-    private readonly InputAction m_UI_Newaction1;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -530,10 +592,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/Newaction".
         /// </summary>
         public InputAction @Newaction => m_Wrapper.m_UI_Newaction;
-        /// <summary>
-        /// Provides access to the underlying input action "UI/Newaction1".
-        /// </summary>
-        public InputAction @Newaction1 => m_Wrapper.m_UI_Newaction1;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -563,9 +621,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Newaction.started += instance.OnNewaction;
             @Newaction.performed += instance.OnNewaction;
             @Newaction.canceled += instance.OnNewaction;
-            @Newaction1.started += instance.OnNewaction1;
-            @Newaction1.performed += instance.OnNewaction1;
-            @Newaction1.canceled += instance.OnNewaction1;
         }
 
         /// <summary>
@@ -580,9 +635,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Newaction.started -= instance.OnNewaction;
             @Newaction.performed -= instance.OnNewaction;
             @Newaction.canceled -= instance.OnNewaction;
-            @Newaction1.started -= instance.OnNewaction1;
-            @Newaction1.performed -= instance.OnNewaction1;
-            @Newaction1.canceled -= instance.OnNewaction1;
         }
 
         /// <summary>
@@ -665,5 +717,27 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRightMouse(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteract(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
+    /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
+    public interface IUIActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }
