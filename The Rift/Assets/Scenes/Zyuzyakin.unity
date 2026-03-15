@@ -700,7 +700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &207416076
 Transform:
   m_ObjectHideFlags: 0
@@ -964,7 +964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &401924283
 Transform:
   m_ObjectHideFlags: 0
@@ -1385,6 +1385,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyArea
       objectReference: {fileID: 0}
+    - target: {fileID: 3347106962314286830, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3622580370814250082, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.46
@@ -1777,7 +1781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1063894204
 Transform:
   m_ObjectHideFlags: 0
@@ -2447,7 +2451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1660019060
 Transform:
   m_ObjectHideFlags: 0

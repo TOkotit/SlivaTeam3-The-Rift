@@ -5,10 +5,18 @@ namespace Entity.Enemy
 {
     public class EnemyModel : DamagableModel
     {
-        private float _speed;
+        private EnemyAIStates _startingState;
+
+        private float _patrolSpeed;
+        private float _chaseSpeed;
         private float _jumpHeight;
+
+        private float _chasingToDistance;
+        private float _attackDistance;
+
         private float _damage;
         private float _attackSpeed;
+        private int _health;
         private float _skill1Cooldown;
         private float _skill2Cooldown;
 
@@ -17,7 +25,8 @@ namespace Entity.Enemy
             _team = Teams.Enemy;
         }
 
-        public float Speed {get => _speed; set => _speed = value; }
+        public float PatrolSpeed {get => _patrolSpeed; set => _patrolSpeed = value; }
+        public float ChaseSpeed {get => _chaseSpeed; set => _chaseSpeed = value; }
         public float JumpHeight {get => _jumpHeight; set => _jumpHeight = value; }
 
         public float Damage
@@ -42,6 +51,18 @@ namespace Entity.Enemy
         {
             get => _skill2Cooldown;
             set => _skill2Cooldown = value;
+        }
+
+        public float ChasingToDistance
+        {
+            get => _chasingToDistance;
+            set => _chasingToDistance = value;
+        }
+
+        public float AttackDistance
+        {
+            get => _attackDistance;
+            set => _attackDistance = value;
         }
     }
 }
