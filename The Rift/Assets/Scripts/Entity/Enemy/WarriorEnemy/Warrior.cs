@@ -44,6 +44,7 @@ namespace Entity.Enemy.WarriorEnemy
             
             _enemyModel.ChasingToDistance = stats.ChasingToDistance;
             _enemyModel.AttackDistance = stats.AttackDistance;
+            _enemyModel.AttackChargeTime = stats.AttackChargeTime;
             
             _enemyModel.Health.SetMaxHealth(stats.Health, true);
             _enemyModel.Damage = stats.Damage;
@@ -56,7 +57,7 @@ namespace Entity.Enemy.WarriorEnemy
         public new void Start()
         {
             base.Start();
-
+            behaviorTree = GetComponent<BehaviorGraphAgent>();
             InitializeBlackboard();
             
             UpdateHealthText(Damagable.Health.CurrentHealth);
@@ -78,8 +79,8 @@ namespace Entity.Enemy.WarriorEnemy
             behaviorTree.SetVariableValue("ChaseSpeed", _enemyModel.ChaseSpeed);
             behaviorTree.SetVariableValue("ChasingToDistance", _enemyModel.ChasingToDistance);
             behaviorTree.SetVariableValue("AttackDistance", _enemyModel.AttackDistance);
-            
-            behaviorTree.SetVariableValue("AttackSpeed", _enemyModel.AttackSpeed);
+            behaviorTree.SetVariableValue("AttackCooldownTime", 1f / _enemyModel.AttackSpeed);
+            behaviorTree.SetVariableValue("AttackChargeTime", _enemyModel.AttackChargeTime);
         }
     }
 }

@@ -13,7 +13,8 @@ using VContainer;
 public class EnemyAttackController : MonoBehaviour
 {
     [SerializeField] private RaycastAttackProfile _attackProfile;
-    [SerializeField] private Weapon _weaponProfile;
+    private Weapon _weaponProfile;
+    [Inject] private WeaponManager _weaponManager;
     [Inject] private AttackSystem _attackSystem;
     [Inject] private EnemyAttackQueue _attackQueue;
     
@@ -25,11 +26,15 @@ public class EnemyAttackController : MonoBehaviour
         set => _attackQueue = value;
     }
 
+    private void Start()
+    {
+        _weaponProfile = _weaponManager.CreateWeapon("TestWeapon");
+    }
 
     public void Attack()
     {
-        // _attackSystem.PerformAttack(_attackProfile, _weaponProfile, gameObject, Teams.Enemy);
-        
+
+        _attackSystem.PerformAttack(_attackProfile, _weaponProfile, gameObject, Teams.Enemy);
     }
     
 }

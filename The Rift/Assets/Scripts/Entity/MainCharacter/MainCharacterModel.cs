@@ -2,6 +2,7 @@
 using Entity;
 using Entity.Attacks;
 using Entity.Runes;
+using Enums;
 using NUnit.Framework;
 using R3;
 using UnityEngine;
@@ -45,7 +46,13 @@ namespace MainCharacter
         public float DashTime {get   => _dashTime; set => _dashTime = value; }
         public float DashCooldown {get  => _dashCooldown; set => _dashCooldown = value; }
         public int WallJumpCount { get => _wallJumpCount; set => _wallJumpCount = value; }
-        public MainCharacterModel(Stamina stamina, Health health)
+        
+        public MainCharacterModel()
+        {
+            _team = Teams.Player;
+        }
+        
+        public MainCharacterModel(Stamina stamina, Health health) : base()
         {
             Weapons = new List<WeaponModel>();
             _stamina = stamina;
