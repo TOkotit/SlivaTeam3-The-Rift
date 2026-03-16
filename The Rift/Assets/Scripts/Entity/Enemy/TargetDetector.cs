@@ -19,7 +19,7 @@ namespace Entity.Enemy
         [SerializeField] private LayerMask _obstacleLayer; 
         
         [Header("Sharing Signal Settings")]
-        [SerializeField] private Transform _sharingAreaCenter;
+        private Transform _sharingAreaCenter => transform;
         [SerializeField] private float _sharingAreaRadius;
         public Transform DetectedTarget { get; private set; }
         public float DistanceToTarget { get; private set; } = -1f;

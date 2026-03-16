@@ -28,6 +28,12 @@ namespace Entity.Enemy.WarriorEnemy
             set => _targetDetector = value;
         }
 
+
+        private void Awake()
+        {
+            
+        }
+
         public void UpdateHealthText(int health)
         {
             healthText.text = $"Health: {health}";
@@ -59,6 +65,8 @@ namespace Entity.Enemy.WarriorEnemy
             base.Start();
             behaviorTree = GetComponent<BehaviorGraphAgent>();
             InitializeBlackboard();
+            _attackController.EnemyModel = _enemyModel;
+            
             
             UpdateHealthText(Damagable.Health.CurrentHealth);
             Damagable.Health.OnHealthChanged += UpdateHealthText;
