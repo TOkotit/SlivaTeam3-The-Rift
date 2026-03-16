@@ -39,6 +39,8 @@ namespace Entity
             CurrentHealth -= total;
             OnHealthChanged?.Invoke(CurrentHealth);
             //Возврат количества здоровья на случай визуализации 
+            
+            if (CurrentHealth <= 0) OnDeath?.Invoke();
             return _currentHealth;
         }
 

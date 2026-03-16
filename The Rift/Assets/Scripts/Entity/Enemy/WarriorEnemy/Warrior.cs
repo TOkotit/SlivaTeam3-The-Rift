@@ -70,11 +70,18 @@ namespace Entity.Enemy.WarriorEnemy
             
             UpdateHealthText(Damagable.Health.CurrentHealth);
             Damagable.Health.OnHealthChanged += UpdateHealthText;
+            Damagable.Health.OnDeath += Die;
         }
 
+        private void Die()
+        {
+            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.Dead);
+            _attackController.AttackQueue.FinishAttack();
+            
+        }
         public new void OnDestroy()
         {
-
+            Damagable.Health.OnDeath -= Die;
             Damagable.Health.OnHealthChanged -= UpdateHealthText;
             
             base.OnDestroy();
