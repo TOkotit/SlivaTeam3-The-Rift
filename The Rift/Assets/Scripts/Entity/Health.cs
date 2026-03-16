@@ -7,7 +7,7 @@ namespace Entity
 {
     public class Health
     { 
-        private int _maxHealth = 100;
+        private int _maxHealth = 100 * BC.Health;
         private int _currentHealth;
         private Dictionary<Enums.DamageTypes, float> _vulnerabilities = new Dictionary<Enums.DamageTypes, float>();
 

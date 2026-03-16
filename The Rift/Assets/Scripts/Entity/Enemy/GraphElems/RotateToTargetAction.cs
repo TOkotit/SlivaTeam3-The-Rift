@@ -11,13 +11,12 @@ public partial class RotateToTargetAction : Action
 {
     [SerializeReference] public BlackboardVariable<Transform> Gameobgect;
     [SerializeReference] public BlackboardVariable<Transform> Target;
-    private float rotationSpeed = 5f;
+    private float rotationSpeed = 15f;
     private NavMeshAgent agent;
     
     protected override Status OnStart()
     {
         agent = Gameobgect.Value.GetComponent<NavMeshAgent>();
-        agent.updateRotation = false; 
 
         return Status.Running;
     }
