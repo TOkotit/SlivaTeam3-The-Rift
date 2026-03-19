@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthText: {fileID: 9196176963525010645}
-  parryArea: {fileID: 1879717413286546231}
+  _parryArea: {fileID: 1879717413286546231}
   _targetDetector: {fileID: 7049032616681864171}
   _attackController: {fileID: 7768642235100415879}
 --- !u!114 &7049032616681864171
