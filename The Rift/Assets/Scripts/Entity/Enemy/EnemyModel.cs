@@ -17,6 +17,7 @@ namespace Entity.Enemy
         private float _damage;
         private float _attackSpeed;
         private float _attackChargeTime;
+        private float _parryTime;
         
         private int _health;
         private float _skill1Cooldown;
@@ -71,6 +72,12 @@ namespace Entity.Enemy
         {
             get => _attackChargeTime;
             set => _attackChargeTime = value;
+        }
+
+        public float ParryTime
+        {
+            get => _parryTime;
+            set => _parryTime = value;
         }
     }
 }

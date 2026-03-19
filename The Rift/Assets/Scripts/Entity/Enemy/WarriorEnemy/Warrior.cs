@@ -10,7 +10,7 @@ namespace Entity.Enemy.WarriorEnemy
     public class Warrior : Enemy
     {
         [SerializeField] private TextMeshProUGUI healthText;
-        
+        [SerializeField] private GameObject _parryArea;
         [SerializeField] private TargetDetector _targetDetector;
         [SerializeField] private EnemyAttackController _attackController;
         
@@ -26,6 +26,12 @@ namespace Entity.Enemy.WarriorEnemy
         {
             get => _targetDetector;
             set => _targetDetector = value;
+        }
+
+        public GameObject ParryArea
+        {
+            get => _parryArea;
+            set => _parryArea = value;
         }
 
 
@@ -51,6 +57,8 @@ namespace Entity.Enemy.WarriorEnemy
             _enemyModel.ChasingToDistance = stats.ChasingToDistance;
             _enemyModel.AttackDistance = stats.AttackDistance;
             _enemyModel.AttackChargeTime = stats.AttackChargeTime;
+            _enemyModel.ParryTime = stats.ParryTime;
+            
             
             _enemyModel.Health.SetMaxHealth(stats.Health, true);
             _enemyModel.Damage = stats.Damage;
@@ -58,6 +66,18 @@ namespace Entity.Enemy.WarriorEnemy
             _enemyModel.Skill1Cooldown = stats.Skill1Cooldown;
             _enemyModel.Skill2Cooldown = stats.Skill2Cooldown;
             
+        }
+        //Статы которые нужны для behavior agent
+        void InitializeBlackboard()
+        {
+            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.Idle);
+            behaviorTree.SetVariableValue("PatrolSpeed", _enemyModel.PatrolSpeed);
+            behaviorTree.SetVariableValue("ChaseSpeed", _enemyModel.ChaseSpeed);
+            behaviorTree.SetVariableValue("ChasingToDistance", _enemyModel.ChasingToDistance);
+            behaviorTree.SetVariableValue("AttackDistance", _enemyModel.AttackDistance);
+            behaviorTree.SetVariableValue("AttackCooldownTime", 1f / _enemyModel.AttackSpeed);
+            behaviorTree.SetVariableValue("AttackChargeTime", _enemyModel.AttackChargeTime);
+            behaviorTree.SetVariableValue("ParryTime", _enemyModel.ParryTime);
         }
         
         public new void Start()
@@ -70,16 +90,14 @@ namespace Entity.Enemy.WarriorEnemy
             
             UpdateHealthText(Damagable.Health.CurrentHealth);
             Damagable.Health.OnHealthChanged += UpdateHealthText;
-            Damagable.Health.OnHealthChanged += DashBack;
+            
+            // Damagable.Health.OnHealthChanged += DashBack;
+            // Damagable.Health.OnHealthChanged += Block;
             Damagable.Health.OnDeath += Die;
         }
 
-        private void Die()
-        {
-            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.Dead);
-            _attackController.AttackQueue.FinishAttack();
-            
-        }
+        
+        
         public new void OnDestroy()
         {
             Damagable.Health.OnDeath -= Die;
@@ -87,22 +105,25 @@ namespace Entity.Enemy.WarriorEnemy
             
             base.OnDestroy();
         }
-
+        
+        private void Die()
+        {
+            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.Dead);
+            _attackController.AttackQueue.FinishAttack();
+            
+        }
+        
         public void DashBack(int a)
         {
             behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility1);
         }
         
-        //Статы которые нужны для behavior agent
-        void InitializeBlackboard()
+        public void Block(int a)
         {
-            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.Idle);
-            behaviorTree.SetVariableValue("PatrolSpeed", _enemyModel.PatrolSpeed);
-            behaviorTree.SetVariableValue("ChaseSpeed", _enemyModel.ChaseSpeed);
-            behaviorTree.SetVariableValue("ChasingToDistance", _enemyModel.ChasingToDistance);
-            behaviorTree.SetVariableValue("AttackDistance", _enemyModel.AttackDistance);
-            behaviorTree.SetVariableValue("AttackCooldownTime", 1f / _enemyModel.AttackSpeed);
-            behaviorTree.SetVariableValue("AttackChargeTime", _enemyModel.AttackChargeTime);
+            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility2);
         }
+        
+        
+        
     }
 }

@@ -20,6 +20,7 @@ public class EnemyAttackController : MonoBehaviour
     [Inject] private EnemyAttackQueue _attackQueue;
     
     private EnemyModel _enemyModel;
+    private bool _isAbleToParry;
 
     public EnemyAttackQueue AttackQueue
     {
@@ -33,6 +34,11 @@ public class EnemyAttackController : MonoBehaviour
         set => _enemyModel = value;
     }
 
+    public bool IsAbleToParry
+    {
+        get => _isAbleToParry;
+        set => _isAbleToParry = value;
+    }
 
 
     private void Start()

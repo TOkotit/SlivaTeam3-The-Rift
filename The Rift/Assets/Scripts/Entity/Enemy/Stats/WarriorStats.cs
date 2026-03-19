@@ -18,6 +18,7 @@ public class WarriorStats : ScriptableObject
     [SerializeField] private float _damage;
     [SerializeField] private float _attackSpeed;
     [SerializeField] private float _attackChargeTime;
+    [SerializeField] private float _parryTime;
     
     [SerializeField] private int _health;
     [SerializeField] private float _skill1Cooldown;
@@ -34,6 +35,8 @@ public class WarriorStats : ScriptableObject
     public float Damage => _damage * BC.Damage;
     public float AttackSpeed => _attackSpeed *  BC.AtkSpeed;
     public float AttackChargeTime => _attackChargeTime;
+    
+    public float ParryTime => _parryTime;
     public int Health => _health * BC.Health;
     
     public float Skill1Cooldown => _skill1Cooldown * BC.CD;

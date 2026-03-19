@@ -11,7 +11,8 @@ namespace Entity.Enemy
         public override DamagableModel Damagable => _enemyModel;
         public EnemyModel EnemyModel => _enemyModel; 
         
-        
+        private GameObject _parryArea;
+        public GameObject ParryArea => _parryArea;
         
         
     }
