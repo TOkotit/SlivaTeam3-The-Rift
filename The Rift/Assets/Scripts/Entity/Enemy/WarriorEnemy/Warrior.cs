@@ -70,6 +70,7 @@ namespace Entity.Enemy.WarriorEnemy
             
             UpdateHealthText(Damagable.Health.CurrentHealth);
             Damagable.Health.OnHealthChanged += UpdateHealthText;
+            Damagable.Health.OnHealthChanged += DashBack;
             Damagable.Health.OnDeath += Die;
         }
 
@@ -86,10 +87,16 @@ namespace Entity.Enemy.WarriorEnemy
             
             base.OnDestroy();
         }
+
+        public void DashBack(int a)
+        {
+            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility1);
+        }
         
         //Статы которые нужны для behavior agent
         void InitializeBlackboard()
         {
+            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.Idle);
             behaviorTree.SetVariableValue("PatrolSpeed", _enemyModel.PatrolSpeed);
             behaviorTree.SetVariableValue("ChaseSpeed", _enemyModel.ChaseSpeed);
             behaviorTree.SetVariableValue("ChasingToDistance", _enemyModel.ChasingToDistance);
