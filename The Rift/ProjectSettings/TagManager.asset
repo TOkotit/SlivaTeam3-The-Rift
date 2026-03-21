@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PickableItem
   - Interactable
+  - ParryArea
   layers:
   - Default
   - TransparentFX
