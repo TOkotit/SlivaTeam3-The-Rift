@@ -172,7 +172,7 @@ namespace Systems
                     var targetModel = _registry.TryGetCharacter(hit.collider.gameObject);
                     if (!hittedModels.Contains(targetModel))
                     {
-                        OnHit.Invoke(targetModel);
+                        OnHit?.Invoke(targetModel);
                         hittedModels.Add(targetModel);
                     }
                     if (targetModel == null) continue;
