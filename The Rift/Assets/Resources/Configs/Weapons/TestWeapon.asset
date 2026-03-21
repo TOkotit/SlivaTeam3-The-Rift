@@ -41,7 +41,7 @@ MonoBehaviour:
       key: 0
       mouse: 1
       hold: 1
-      treshold: 1
+      treshold: 0.4
     AttackProfile:
       _underlyingValue: {fileID: 11400000, guid: 8e2fbd2e73522a841a62e00105e41164, type: 2}
   - keys:
@@ -49,6 +49,6 @@ MonoBehaviour:
       key: 31
       mouse: 1
       hold: 0
-      treshold: 1
+      treshold: 0.4
     AttackProfile:
       _underlyingValue: {fileID: 11400000, guid: 6d021c9440631184fb4cfaca4f7d3a35, type: 2}
