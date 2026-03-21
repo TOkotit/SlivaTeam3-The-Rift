@@ -185,7 +185,7 @@ namespace Systems
             if (hitAnybody)
             {
                 weaponProfile.Damage(1); // перенёс сюда, чтобы тратилось только при попадании
-                weaponProfile.Model.RegisterHit(); // регестрирую попадание чтобы руна сработала
+                weaponProfile.Model.RegisterHit(new GameObject(), new Vector3()); // регестрирую попадание чтобы руна сработала
                 hitAnybody = false;
             }
             Debug.Log("CastRaysContinuous finished" );

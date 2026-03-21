@@ -66,10 +66,30 @@ namespace Entity.Attacks
         }
         
         
-        public void RegisterHit()
+        public void RegisterHit(GameObject target, Vector3 hitPoint)
         {
             _lastHitTime = Time.time;
+            
+            var context = CreateContext();
+            context.Target = target;
+            context.HitPoint = hitPoint;
+            
+            foreach (var rune in _runes)
+            {
+                rune.OnWeaponHit(context);
+            }
         }
+        
+        private RuneContext CreateContext()
+        {
+            return new RuneContext 
+            { 
+                CurrentDurabilityPercent = MaxDurability > 0 ? _currentDurability / MaxDurability : 0,
+                TimeSinceLastHit = Time.time - _lastHitTime,
+                EquipType = EquipmentType.Weapon
+            };
+        }    
+            
         
         public void AddRune(RuneData rune)
         {
@@ -84,14 +104,7 @@ namespace Entity.Attacks
 
         private float GetMultiplier(Influence influence)
         {
-            var context = new RuneContext 
-            { 
-                CurrentDurabilityPercent = _maxDurability > 0 ? _currentDurability / _maxDurability : 0,
-                TimeSinceLastHit = Time.time - _lastHitTime,
-                EquipType = EquipmentType.Weapon
-            };
-    
-            return RuneCalculator.GetTotalMultiplier(_runes, influence, context);
+            return RuneCalculator.GetTotalMultiplier(_runes, influence, CreateContext());
         }
     }
 }
