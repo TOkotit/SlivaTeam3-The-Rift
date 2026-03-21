@@ -37,8 +37,9 @@ namespace MainCharacter
         [SerializeField] private string weaponID; //Свойство для теста, потом переделать получение через инвентарь
         public GameObject Arms => arms;
 
-        private void Start()
+        private new void Start()
         {
+            base.Start();
             _attackController.AddWeapon(_weaponManager.CreateWeapon(weaponID));
             Debug.Log(_mainCharacterModel.Weapons.Count + " weapons have been equipped");
         }
