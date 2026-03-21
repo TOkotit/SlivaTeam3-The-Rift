@@ -19,7 +19,7 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
     [SerializeField] private float wallCheckRadius;
     
     // флаг для того, чтобы отключать перемещение когда нужно
-    private bool isCharacterCanMove = false;
+    private bool isCharacterCanMove = true;
     
     
     

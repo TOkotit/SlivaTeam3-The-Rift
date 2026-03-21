@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Entity;
 using Entity.Attacks;
@@ -11,6 +12,7 @@ using Utils;
 using Utils.MiscClasses;
 using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace Systems
 {
@@ -25,6 +27,8 @@ namespace Systems
         
         [Inject] 
         private readonly IObjectResolver _container;
+
+        public Action<DamagableModel> OnHit;
         
         public AttackSystem Instance
         {
@@ -163,11 +167,15 @@ namespace Systems
                 CoroutineRunner.Destroy(lineObj, 0.1f);
                 //конец отрисовки
                 #endregion
-
+                var hittedModels = new List<DamagableModel>();
                 foreach (var hit in hits)
                 {
                     var targetModel = _registry.TryGetCharacter(hit.collider.gameObject);
-
+                    if (!hittedModels.Contains(targetModel))
+                    {
+                        OnHit?.Invoke(targetModel);
+                        hittedModels.Add(targetModel);
+                    }
                     if (targetModel == null) continue;
                     if (targetModel.Team == team) continue;
                     targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);
@@ -176,10 +184,6 @@ namespace Systems
                         yield break; 
                         
                 }
-
-                
-                
-
                 if (waitTime > 0f)  yield return new WaitForSeconds(waitTime); 
             }
             

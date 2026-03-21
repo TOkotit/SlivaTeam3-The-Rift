@@ -62,7 +62,7 @@
                 {
                     "name": "Interact",
                     "type": "Button",
-                    "id": "3b884e41-77fd-47f3-928e-1a4302aefe79",
+                    "id": "f54c105e-829d-42f1-8d10-fbb490e99eda",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -193,40 +193,12 @@
                 },
                 {
                     "name": "",
-                    "id": "abb9f2f4-b276-4021-9566-724851805041",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "UI",
-            "id": "6a89d007-8a71-4109-8d22-ca6a43de9736",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "4cd1c1ae-9750-4892-8e28-a3c783cd03d9",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "a40339c1-185a-447c-93ca-9d21a95269fa",
+                    "id": "89e766c4-f11b-486d-8dde-ae6f50178f6c",
                     "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
