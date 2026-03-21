@@ -31,7 +31,7 @@ namespace Systems
                     break;
                 
                 case MapsInput.UI:
-                    GameInput.UI.Enable();
+                    //GameInput.UI.Enable();
                     break;
             }
         }
@@ -44,7 +44,7 @@ namespace Systems
                     GameInput.Gameplay.Disable();
                     break;
                 case MapsInput.UI:
-                    GameInput.UI.Disable();
+                    //GameInput.UI.Disable();
                     break;
             }
         }

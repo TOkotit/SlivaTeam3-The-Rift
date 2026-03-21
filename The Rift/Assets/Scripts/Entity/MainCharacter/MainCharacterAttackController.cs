@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Entity;
 using Entity.Attacks;
 using Enums;
 using Systems;
@@ -33,8 +34,11 @@ namespace MainCharacter
         private Coroutine _timeoutCoroutine;
         private bool _inputAvailable = true;
         private AttackBind _bindToPerform;
-
-
+        private int _similarCounter;
+        private IAttackProfile _lastAttack;
+        
+        public Action<Weapon, IAttackProfile, bool> OnAttackPerformed;
+        public Action ThreeInARow;
         
         public List<Weapon> EquippedWeapons
         {
@@ -213,7 +217,12 @@ namespace MainCharacter
 
             if (_bindToPerform != null)
             {
+                OnAttackPerformed.Invoke( _bindToPerform.weapon,_bindToPerform.AttackProfile.Value, _bindToPerform.keys.Where(i => i.hold == true).Any());
+                if (_bindToPerform.AttackProfile.Value == _lastAttack) {_similarCounter++;}
+                else {_similarCounter = 1;}
                 _attackSystem.PerformAttack(_bindToPerform.AttackProfile.Value, _bindToPerform.weapon, gameObject, Teams.Player);
+                _lastAttack = _bindToPerform.AttackProfile.Value;
+                if(_similarCounter % 3 == 0){ ThreeInARow.Invoke();}
                 var weapon = _bindToPerform.weapon;
                 weapon.Damage(1);
                 Debug.Log(weapon.Durability);
