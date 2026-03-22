@@ -452,12 +452,12 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 9999
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0.5
@@ -483,7 +483,6 @@ MonoBehaviour:
   - rid: 2634737755876491925
   - rid: 2634737755876491926
   - rid: 2634737757089431905
-  - rid: 2634737893910774712
   - rid: 2634737901234291240
   - rid: 2634737901646119056
   m_OriginalGraph: {fileID: -4214591065027035826, guid: 7442ce24c1993c64ea1825ac7165ae79, type: 2}
@@ -516,14 +515,6 @@ MonoBehaviour:
           m_Value1: 1178864972813650807
         Name: Enemy Attack Controller
         m_Value: {fileID: 7768642235100415879}
-    - rid: 2634737893910774712
-      type: {class: 'BlackboardVariable`1[[EnemyAIStates, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 7422185179502515340
-          m_Value1: 1293373874729971862
-        Name: CurrentState
-        m_Value: 0
     - rid: 2634737901234291240
       type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
