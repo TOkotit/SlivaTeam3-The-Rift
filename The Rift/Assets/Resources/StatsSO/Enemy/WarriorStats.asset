@@ -21,7 +21,7 @@ MonoBehaviour:
   _damage: 1.5
   _attackSpeed: 0.5
   _attackChargeTime: 1
-  _parryTime: 1
+  _parryTime: 0.3
   _health: 20
   _skill1Cooldown: 3
   _skill2Cooldown: 3

@@ -1,4 +1,5 @@
 ﻿using System;
+using MainCharacter;
 using TMPro;
 using Unity.Behavior;
 using UnityEngine;
@@ -10,11 +11,17 @@ namespace Entity.Enemy.WarriorEnemy
     public class Warrior : Enemy
     {
         [SerializeField] private TextMeshProUGUI healthText;
-        [SerializeField] private GameObject _parryArea;
+        [SerializeField] private GameObject parryArea;
+        [SerializeField] private GameObject attackChargeIndicator;
+        [SerializeField] private GameObject parryIndicator;
+        
         [SerializeField] private TargetDetector _targetDetector;
         [SerializeField] private EnemyAttackController _attackController;
         
         private BehaviorGraphAgent behaviorTree;
+        
+        
+        [Inject] MainCharacterAttackController mainCharacterAttackController;
         
         public EnemyAttackController AttackController
         {
@@ -26,18 +33,6 @@ namespace Entity.Enemy.WarriorEnemy
         {
             get => _targetDetector;
             set => _targetDetector = value;
-        }
-
-        public GameObject ParryArea
-        {
-            get => _parryArea;
-            set => _parryArea = value;
-        }
-
-
-        private void Awake()
-        {
-            
         }
 
         public void UpdateHealthText(int health)
@@ -83,16 +78,24 @@ namespace Entity.Enemy.WarriorEnemy
         public new void Start()
         {
             base.Start();
+            
+            _parryArea = parryArea;
+            _attackChargeIndicator = attackChargeIndicator;
+            _parryIndicator = parryIndicator;
+            
             behaviorTree = GetComponent<BehaviorGraphAgent>();
             InitializeBlackboard();
             _attackController.EnemyModel = _enemyModel;
             
             
             UpdateHealthText(Damagable.Health.CurrentHealth);
+            
             Damagable.Health.OnHealthChanged += UpdateHealthText;
             
+            mainCharacterAttackController.ThreeInARow += DashBack;
+            
             // Damagable.Health.OnHealthChanged += DashBack;
-            // Damagable.Health.OnHealthChanged += Block;
+
             Damagable.Health.OnDeath += Die;
         }
 
@@ -102,25 +105,32 @@ namespace Entity.Enemy.WarriorEnemy
         {
             Damagable.Health.OnDeath -= Die;
             Damagable.Health.OnHealthChanged -= UpdateHealthText;
-            
+            mainCharacterAttackController.ThreeInARow -= DashBack;
             base.OnDestroy();
         }
         
         private void Die()
         {
             behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.Dead);
-            _attackController.AttackQueue.FinishAttack();
             
         }
         
-        public void DashBack(int a)
+        public void DashBack()
         {
-            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility1);
+            if (_targetDetector.IsTargetVisible 
+                && _targetDetector.DistanceToTarget <= _enemyModel.AttackDistance)
+            {
+                behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility1);
+            }
         }
         
-        public void Block(int a)
+        public void Block()
         {
-            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility2);
+            if (_targetDetector.IsTargetVisible
+                && _targetDetector.DistanceToTarget <= _enemyModel.AttackDistance)
+            {
+                behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility2);
+            }
         }
         
         

@@ -198,7 +198,7 @@ namespace Systems
         
     public void PerformEnemyAttack(IAttackProfile profile, EnemyModel enemyModel, GameObject sender, Teams team)
     {
-        profile.Events.ForEach(e => e.Value.Act());
+        // profile.Events.ForEach(e => e.Value.Act());
 
         if (profile is RaycastAttackProfile raycastProfile)
         {
