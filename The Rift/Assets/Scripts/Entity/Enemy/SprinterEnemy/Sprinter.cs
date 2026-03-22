@@ -1,14 +1,12 @@
-﻿using System;
 using MainCharacter;
 using TMPro;
 using Unity.Behavior;
 using UnityEngine;
 using VContainer;
 
-
-namespace Entity.Enemy.WarriorEnemy
+namespace Entity.Enemy.SprinterEnemy
 {
-    public class Warrior : Enemy
+    public class Sprinter : Enemy
     {
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private GameObject parryArea;
@@ -41,7 +39,7 @@ namespace Entity.Enemy.WarriorEnemy
         }
         
         [Inject]
-        private void SetupModel(WarriorStats stats)
+        private void SetupModel(SprinterStats stats)
         {
             _enemyModel.Health = new();
             
@@ -65,7 +63,7 @@ namespace Entity.Enemy.WarriorEnemy
         //Статы которые нужны для behavior agent
         void InitializeBlackboard()
         {
-            behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.Idle);
+            behaviorTree.SetVariableValue("CurrentState", SprinterAiStates.Idle);
             behaviorTree.SetVariableValue("PatrolSpeed", _enemyModel.PatrolSpeed);
             behaviorTree.SetVariableValue("ChaseSpeed", _enemyModel.ChaseSpeed);
             behaviorTree.SetVariableValue("ChasingToDistance", _enemyModel.ChasingToDistance);
@@ -92,9 +90,9 @@ namespace Entity.Enemy.WarriorEnemy
             
             Damagable.Health.OnHealthChanged += UpdateHealthText;
             
-            mainCharacterAttackController.ThreeInARow += DashBack;
             
-            // Damagable.Health.OnHealthChanged += DashBack;
+            
+            
 
             Damagable.Health.OnDeath += Die;
         }
@@ -105,33 +103,33 @@ namespace Entity.Enemy.WarriorEnemy
         {
             Damagable.Health.OnDeath -= Die;
             Damagable.Health.OnHealthChanged -= UpdateHealthText;
-            mainCharacterAttackController.ThreeInARow -= DashBack;
+            
             base.OnDestroy();
         }
         
         private void Die()
         {
-            behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.Dead);
+            behaviorTree.SetVariableValue("CurrentState", SprinterAiStates.Dead);
             
         }
         
-        public void DashBack()
-        {
-            if (_targetDetector.IsTargetVisible 
-                && _targetDetector.DistanceToTarget <= _enemyModel.AttackDistance)
-            {
-                behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.SpecialAbility1);
-            }
-        }
-        
-        public void Block()
-        {
-            if (_targetDetector.IsTargetVisible
-                && _targetDetector.DistanceToTarget <= _enemyModel.AttackDistance)
-            {
-                behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.SpecialAbility2);
-            }
-        }
+        // public void DashBack()
+        // {
+        //     if (_targetDetector.IsTargetVisible 
+        //         && _targetDetector.DistanceToTarget <= _enemyModel.AttackDistance)
+        //     {
+        //         behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility1);
+        //     }
+        // }
+        //
+        // public void Block()
+        // {
+        //     if (_targetDetector.IsTargetVisible
+        //         && _targetDetector.DistanceToTarget <= _enemyModel.AttackDistance)
+        //     {
+        //         behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility2);
+        //     }
+        // }
         
         
         

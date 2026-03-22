@@ -918,6 +918,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 11a3e2c60b0667b40bf071d53f35ae94, type: 2}
     - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
+      propertyPath: sprinterStats
+      value: 
+      objectReference: {fileID: 11400000, guid: f296ef15796ea21499c79ad3f109a894, type: 2}
+    - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
       propertyPath: parentReference.TypeName
       value: DI.RootScope
       objectReference: {fileID: 0}
@@ -1180,6 +1184,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!4 &493889155 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6031760192457675873, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+  m_PrefabInstance: {fileID: 670708609}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &573356358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1377,6 +1386,18 @@ PrefabInstance:
       propertyPath: _attackProfile
       value: 
       objectReference: {fileID: 11400000, guid: 11e24a81b104dc24394fdbaa0ccd0bd8, type: 2}
+    - target: {fileID: 1093432794799945814, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: _canvas
+      value: 
+      objectReference: {fileID: 1522962620}
+    - target: {fileID: 1093432794799945814, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: _object
+      value: 
+      objectReference: {fileID: 493889155}
+    - target: {fileID: 1093432794799945814, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 178764238}
     - target: {fileID: 1165254431357368015, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: managedReferences[2634737755876491925].Name
       value: ChaseSpeed
@@ -1421,6 +1442,18 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 178764238}
+    - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: managedReferences[2855442237276029237].m_Value.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'managedReferences[2855442237276029237].m_Value.Array.data[0]'
+      value: 
+      objectReference: {fileID: 177488072}
+    - target: {fileID: 3065929661280728363, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4c3bce37a451082439424ec4f16d0735, type: 2}
     - target: {fileID: 3347106962314286830, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: m_Name
       value: EnemyArea

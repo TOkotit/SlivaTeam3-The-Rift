@@ -14,12 +14,13 @@ public partial class SetAttackChargeIndicatorAction : Action
 
     protected override Status OnStart()
     {
-        Enemy.Value.AttackChargeIndicator.SetActive(Value.Value);
+        
         return Status.Running;
     }
 
     protected override Status OnUpdate()
     {
+        Enemy.Value.AttackChargeIndicator.SetActive(Value.Value);
         return Status.Success;
     }
 

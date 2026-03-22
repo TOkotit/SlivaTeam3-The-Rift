@@ -1,12 +1,12 @@
 using Entity;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WarriorStats", menuName = "Scriptable Objects/WarriorStats")]
-public class WarriorStats : ScriptableObject
+[CreateAssetMenu(fileName = "SprinterStats", menuName = "Scriptable Objects/SprinterStats")]
+public class SprinterStats : ScriptableObject
 {
     [Header("Значения зависят от у.е. (класс BC)")] 
     
-    [SerializeField] private WarriorAiStates _startingState;
+    [SerializeField] private SprinterAiStates _startingState;
     
     [SerializeField] private float _patrolSpeed;
     [SerializeField] private float _chaseSpeed;
