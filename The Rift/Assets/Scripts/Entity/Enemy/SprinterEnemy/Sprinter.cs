@@ -2,6 +2,7 @@ using MainCharacter;
 using TMPro;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.AI;
 using VContainer;
 
 namespace Entity.Enemy.SprinterEnemy
@@ -80,6 +81,8 @@ namespace Entity.Enemy.SprinterEnemy
             _parryArea = parryArea;
             _attackChargeIndicator = attackChargeIndicator;
             _parryIndicator = parryIndicator;
+            // var _navAgent = GetComponent<NavMeshAgent>();
+            // _navAgent.stoppingDistance = _enemyModel.ChasingToDistance;
             
             behaviorTree = GetComponent<BehaviorGraphAgent>();
             InitializeBlackboard();

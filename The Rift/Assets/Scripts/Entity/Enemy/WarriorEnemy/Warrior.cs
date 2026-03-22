@@ -92,9 +92,7 @@ namespace Entity.Enemy.WarriorEnemy
             
             Damagable.Health.OnHealthChanged += UpdateHealthText;
             
-            mainCharacterAttackController.ThreeInARow += DashBack;
-            
-            // Damagable.Health.OnHealthChanged += DashBack;
+            mainCharacterAttackController.ThreeInARow += Block;
 
             Damagable.Health.OnDeath += Die;
         }
@@ -105,7 +103,7 @@ namespace Entity.Enemy.WarriorEnemy
         {
             Damagable.Health.OnDeath -= Die;
             Damagable.Health.OnHealthChanged -= UpdateHealthText;
-            mainCharacterAttackController.ThreeInARow -= DashBack;
+            mainCharacterAttackController.ThreeInARow -= Block;
             base.OnDestroy();
         }
         
@@ -117,8 +115,7 @@ namespace Entity.Enemy.WarriorEnemy
         
         public void DashBack()
         {
-            if (_targetDetector.IsTargetVisible 
-                && _targetDetector.DistanceToTarget <= _enemyModel.AttackDistance)
+            if (_targetDetector.IsTargetVisible )
             {
                 behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.SpecialAbility1);
             }
@@ -126,8 +123,7 @@ namespace Entity.Enemy.WarriorEnemy
         
         public void Block()
         {
-            if (_targetDetector.IsTargetVisible
-                && _targetDetector.DistanceToTarget <= _enemyModel.AttackDistance)
+            if (_targetDetector.IsTargetVisible)
             {
                 behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.SpecialAbility2);
             }
