@@ -5,20 +5,20 @@ using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Enemy Attack", story: "Enemy attacks with [EnemyAttackController]", category: "Action", id: "629c9a2ab6cab8c4d9b7a60484765308")]
-public partial class EnemyAttackAction : Action
+[NodeDescription(name: "DequeueEnemyAttack", story: "[enemy] quit queue with [enemyAttackController]", category: "Action", id: "59ad88fab777817be77b80548cc6808b")]
+public partial class DequeueEnemyAttackAction : Action
 {
+    [SerializeReference] public BlackboardVariable<GameObject> Enemy;
     [SerializeReference] public BlackboardVariable<EnemyAttackController> EnemyAttackController;
+
     protected override Status OnStart()
     {
+        EnemyAttackController.Value.AttackQueue.CancelAttack(EnemyAttackController.Value);
         return Status.Running;
     }
 
     protected override Status OnUpdate()
     {
-        EnemyAttackController.Value.Attack();
-        
-        
         return Status.Success;
     }
 

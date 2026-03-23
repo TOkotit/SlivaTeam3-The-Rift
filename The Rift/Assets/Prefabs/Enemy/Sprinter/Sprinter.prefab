@@ -277,13 +277,13 @@ GameObject:
   - component: {fileID: 6716048779697674017}
   - component: {fileID: 8746112809066921429}
   - component: {fileID: 1524492050279601720}
-  - component: {fileID: 3581404945338025882}
+  - component: {fileID: 8801139576575288267}
   - component: {fileID: 7049032616681864171}
   - component: {fileID: 7768642235100415879}
   - component: {fileID: 1325253078982403747}
   - component: {fileID: 8606563936905016539}
   m_Layer: 8
-  m_Name: Warrior
+  m_Name: Sprinter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,7 +341,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 4c3bce37a451082439424ec4f16d0735, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -384,7 +384,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3581404945338025882
+--- !u!114 &8801139576575288267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -393,7 +393,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3924380231106395243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7679811191114ab6867eaaf62d3d24ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f29a345064a10e4f9177fae492afe4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthText: {fileID: 9196176963525010645}
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Graph: {fileID: -4214591065027035826, guid: 05d89fa5e77fca54cb6aed1708251478, type: 2}
+  m_Graph: {fileID: -4214591065027035826, guid: 7442ce24c1993c64ea1825ac7165ae79, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 2855442237276029173
   - rid: 2855442237276029237
@@ -485,7 +485,7 @@ MonoBehaviour:
   - rid: 2634737757089431905
   - rid: 2634737901234291240
   - rid: 2634737901646119056
-  m_OriginalGraph: {fileID: -4214591065027035826, guid: 05d89fa5e77fca54cb6aed1708251478, type: 2}
+  m_OriginalGraph: {fileID: -4214591065027035826, guid: 7442ce24c1993c64ea1825ac7165ae79, type: 2}
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
@@ -547,8 +547,6 @@ MonoBehaviour:
           m_Value1: 16400748797183518356
         Name: PatrolPoints
         m_Value:
-        - {fileID: 0}
-        - {fileID: 0}
         - {fileID: 0}
     - rid: 2855442237276029427
       type: {class: 'BlackboardVariable`1[[Entity.Enemy.TargetDetector, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
