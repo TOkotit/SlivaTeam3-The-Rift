@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Entity.Runes
 {
-    [CreateAssetMenu(fileName = "New Rune", menuName = "Runes/Rune")]
     public class RuneData : ScriptableObject
     {
         public string runeName;

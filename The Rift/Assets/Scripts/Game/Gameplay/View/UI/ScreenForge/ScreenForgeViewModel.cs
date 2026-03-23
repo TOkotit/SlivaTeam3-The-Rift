@@ -13,7 +13,6 @@ namespace Game.Gameplay.View.UI.ScreenForge
 {
     public class ScreenForgeViewModel : WindowViewModel
     {
-        public RuneType SelectedRune { get; private set; }
         public readonly Subject<RuneType> OnRuneSelectedEvent = new();
         private readonly GameplayUIManager _uiManager;
         private readonly IGameManager _gameManager;
@@ -54,13 +53,6 @@ namespace Game.Gameplay.View.UI.ScreenForge
         public void RequestGoToScreenGameplay()
         {
             _uiManager.OpenScreenGameplay();
-        }
-        
-        public void OnRuneSelected(RuneType type)
-        {
-            SelectedRune = type; // Записываем руну
-            OnRuneSelectedEvent.OnNext(type); // Уведомляем UI
-            Debug.Log($"Rune {type} is now active");
         }
         
     }

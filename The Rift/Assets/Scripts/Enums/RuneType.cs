@@ -2,6 +2,7 @@
 {
     public enum RuneType
     {
+        Sharpenes,
         Persistence,
         Durability,
         Repulsion,

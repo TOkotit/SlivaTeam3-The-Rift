@@ -27,7 +27,7 @@ namespace Game.Gameplay.View.UI.ScreenForge
         private void Start()
         {
             _btnCloseForgeScreen?.onClick.AddListener(CloseForgeScreenButtonClicked);
-            _btnGain?.onClick.AddListener(GainItem);
+            // _btnGain?.onClick.AddListener(GainItem);
             foreach (var runeType in ViewModel.RuneManager.UnlockedRunes)
             {
                 CreateRuneSlot(runeType);
@@ -44,20 +44,12 @@ namespace Game.Gameplay.View.UI.ScreenForge
             var data = ViewModel.RuneManager.GetRuneData(type);
             var slot = Instantiate(_runeSlotPrefab, _runesContainer);
             
-            slot.Setup(data, () => {
-                ViewModel.OnRuneSelected(type);
-                UpdateVisualSelection(type);
-            });
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_runesContainer as RectTransform);
+            slot.Setup(data);
             
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_runesContainer as RectTransform);
             _spawnedSlots.Add(slot);
         }
         
-        private void UpdateVisualSelection(RuneType selectedType)
-        {
-            foreach (var slot in _spawnedSlots)
-                slot.SetSelected(slot.SlotType == selectedType);
-        }
         
         private void OnDestroy()
         {
@@ -65,14 +57,14 @@ namespace Game.Gameplay.View.UI.ScreenForge
             _disposables.Dispose();
         }
 
-        private void GainItem()
-        {
-            var weaponModel = ViewModel._mainCharacter.Weapons.First();
-            var selectedRuneData = ViewModel.RuneManager.GetRuneData(ViewModel.SelectedRune);
-            
-            weaponModel.AddRune(selectedRuneData);
-            Debug.Log($"<color=green>Add rune {selectedRuneData.runeName}</color>");
-        }
+        // private void GainItem()
+        // {
+        //     var weaponModel = ViewModel._mainCharacter.Weapons.First();
+        //     var selectedRuneData = ViewModel.RuneManager.GetRuneData(ViewModel.SelectedRune);
+        //     
+        //     weaponModel.AddRune(selectedRuneData);
+        //     Debug.Log($"<color=green>Add rune {selectedRuneData.runeName}</color>");
+        // }
         private void CloseForgeScreenButtonClicked()
         {
             ViewModel.RequestGoToScreenGameplay();

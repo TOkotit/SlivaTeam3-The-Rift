@@ -29,7 +29,6 @@ namespace Systems
         private readonly IObjectResolver _container;
 
         public Action<DamagableModel> OnHit;
-        
         public AttackSystem Instance
         {
             get
@@ -45,7 +44,6 @@ namespace Systems
                 instance = value;
             }
         }
-        
     public void PerformAttack(IAttackProfile profile, Weapon weaponProfile, GameObject sender, Teams team)
     {
         profile.Events.ForEach(e => e.Value.Act());

@@ -68,7 +68,7 @@ namespace Entity.Enemy.WarriorEnemy
             
         }
         //Статы которые нужны для behavior agent
-        void InitializeBlackboard()
+       public void InitializeBlackboard()
         {
             behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.Idle);
             behaviorTree.SetVariableValue("PatrolSpeed", _enemyModel.PatrolSpeed);

@@ -8,21 +8,29 @@ namespace Entity.Runes
     public class RuneCalculator
     {
         
-        public static float GetTotalMultiplier(IEnumerable<RuneData> runes, Influence target, RuneContext context)
+        public static float CalculateStat(float baseValue, Influence influence, List<RuneSlot> slots, Func<RuneSlotsType, RuneContext> contextFactory)
         {
             var totalBonus = 0f;
-            
             var runePowerMultiplier = 1f;
-            foreach (var rune in runes)
-                runePowerMultiplier += (rune.GetStatMultiplier(Influence.OtherRunes, context) - 1f);
 
-            foreach (var rune in runes)
+            foreach (var slot in slots)
             {
-                var baseBonus = rune.GetStatMultiplier(target, context) - 1f;
+                if (slot.IsEmpty) continue;
+                
+                var context = contextFactory.Invoke(slot.SlotType);
+                runePowerMultiplier += (slot.EquippedRune.GetStatMultiplier(Influence.OtherRunes, context) - 1f);
+            }
+
+            foreach (var slot in slots)
+            {
+                if (slot.IsEmpty) continue;
+
+                var context = contextFactory.Invoke(slot.SlotType);
+                var baseBonus = slot.EquippedRune.GetStatMultiplier(influence, context) - 1f;
                 totalBonus += baseBonus * runePowerMultiplier;
             }
-            
-            return 1f + totalBonus;
+
+            return baseValue * (1f + totalBonus);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Linq;
+using System.Runtime.InteropServices;
 using Entity.Runes;
 using Game.Gameplay.View.UI;
 using Game.Inventory.Runes;
@@ -11,18 +12,12 @@ namespace Game
     public class TestInteract: MonoBehaviour, IInteractable
     {
         [Inject] RuneManager runeManager;
-        [SerializeField] RuneType rune1;
-        [SerializeField] RuneType rune2;
-        [SerializeField] RuneType rune3;
-        [SerializeField] RuneType rune4;
+        [SerializeField] RuneType runeToInsert;
+        [Inject] MainCharacterModel mainCharacterModel;
         
         public void Interact()
         {
-            Debug.Log("Interact");
-            runeManager.UnlockRune(rune1);
-            runeManager.UnlockRune(rune2);
-            runeManager.UnlockRune(rune3);
-            runeManager.UnlockRune(rune4);
+            runeManager.UnlockRune(runeToInsert);
         }
 
         public Transform InteractionPoint => transform;

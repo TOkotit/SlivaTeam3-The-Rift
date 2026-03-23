@@ -21,20 +21,21 @@ namespace Entity.Attacks
         private float _currentDurability;
         private Dictionary<Key,string> _attackIDs;
         
-        //----TOkotit: Добавляю руны и кэш с рунами
-        private bool _isDirty = true;
+        // слоты для рун
+        private List<RuneSlot> _runeSlots;
         // Руны, по хорошему потом будем сохранять их
         public readonly List<RuneData> _runes = new();
         //---------
-
+        public List<RuneSlot> Slots => _runeSlots;
         
         public float Range => _range;
-        public float Damage => _damage * GetMultiplier(Influence.Damage);
+        public float Damage => RuneCalculator.CalculateStat(_damage, Influence.Damage, _runeSlots, CreateContext);
+        
         public bool Piercing => _piercing;
 
         public float AttackSpeed
         {
-            get => _attackSpeed * GetMultiplier(Influence.Cooldown);
+            get => RuneCalculator.CalculateStat(_attackSpeed, Influence.Cooldown, _runeSlots, CreateContext);
             set => _attackSpeed = value;
         }
         public float SwingSpeed => _swingSpeed;
@@ -43,8 +44,12 @@ namespace Entity.Attacks
 
         public float CurrentDurability
         {
-            get => Math.Clamp(_currentDurability * GetMultiplier(Influence.Durability), 0, _maxDurability);
-            set => _currentDurability = Math.Clamp(value, 0, _maxDurability);
+            get 
+            {
+                var maxWithRunes = RuneCalculator.CalculateStat(_maxDurability, Influence.Durability, _runeSlots, CreateContext);
+                return Math.Clamp(_currentDurability, 0, maxWithRunes);
+            }
+            set => _currentDurability = value; 
         }
         
         
@@ -58,11 +63,7 @@ namespace Entity.Attacks
             _name = profile.Name;
             _maxDurability = profile.MaxDurability;
             _currentDurability = _maxDurability;
-            Debug.Log($"Runes on weapon:");
-            foreach (var rune in _runes)
-            {
-                Debug.Log(rune);
-            }
+            _runeSlots = new ();
         }
         
         
@@ -70,25 +71,27 @@ namespace Entity.Attacks
         {
             _lastHitTime = Time.time;
             
-            var context = CreateContext();
-            context.Target = target;
-            context.HitPoint = hitPoint;
+            foreach (var slot in _runeSlots)
+                if (!slot.IsEmpty)
+                {
+                    var context = CreateContext(slot.SlotType); 
+                    context.Target = target;
+                    context.HitPoint = hitPoint;
             
-            foreach (var rune in _runes)
-            {
-                rune.OnWeaponHit(context);
-            }
+                    slot.EquippedRune.OnWeaponHit(context);
+                }
         }
         
-        private RuneContext CreateContext()
+        private RuneContext CreateContext(RuneSlotsType slotType)
         {
             return new RuneContext 
             { 
-                CurrentDurabilityPercent = MaxDurability > 0 ? _currentDurability / MaxDurability : 0,
+                CurrentDurabilityPercent = _maxDurability > 0 ? _currentDurability / _maxDurability : 0,
                 TimeSinceLastHit = Time.time - _lastHitTime,
-                EquipType = EquipmentType.Weapon
+                EquipType = EquipmentType.Weapon,
+                CurrentSlotType = slotType,
             };
-        }    
+        } 
             
         
         public void AddRune(RuneData rune)
@@ -101,10 +104,33 @@ namespace Entity.Attacks
             
             _runes.Add(rune);
         }
-
-        private float GetMultiplier(Influence influence)
+        
+        public bool TryInsertRune(RuneData rune, int slotIndex)
         {
-            return RuneCalculator.GetTotalMultiplier(_runes, influence, CreateContext());
+            if (slotIndex < 0 || slotIndex >= _runeSlots.Count) return false;
+            if (!_runeSlots[slotIndex].IsEmpty) return false;
+
+            foreach (var slot in _runeSlots)
+                if (!slot.IsEmpty && slot.EquippedRune == rune) return false;
+
+            _runeSlots[slotIndex].EquippedRune = rune;
+            return true;
+        }
+        
+        public RuneData ExtractRune(int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= _runeSlots.Count) return null;
+            
+            var rune = _runeSlots[slotIndex].EquippedRune;
+            _runeSlots[slotIndex].EquippedRune = null;
+            return rune;
+        }
+        
+        private IEnumerable<RuneData> GetActiveRunes()
+        {
+            foreach (var slot in _runeSlots)
+                if (!slot.IsEmpty)
+                    yield return slot.EquippedRune;
         }
     }
 }
