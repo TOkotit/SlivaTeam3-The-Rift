@@ -64,6 +64,10 @@ namespace Entity.Attacks
             _maxDurability = profile.MaxDurability;
             _currentDurability = _maxDurability;
             _runeSlots = new ();
+            foreach (var slotType in profile.SlotTypes)
+            {
+                _runeSlots.Add(new RuneSlot(slotType)); 
+            }
         }
         
         
@@ -82,6 +86,8 @@ namespace Entity.Attacks
                 }
         }
         
+        
+        // Создание контекста для рун, всякие данные из модели для обработки условий
         private RuneContext CreateContext(RuneSlotsType slotType)
         {
             return new RuneContext 
@@ -93,30 +99,24 @@ namespace Entity.Attacks
             };
         } 
             
-        
-        public void AddRune(RuneData rune)
-        {
-            if (_runes.Contains(rune)) 
-            {
-                Debug.LogWarning($"Руна {rune.runeName} уже установлена на это оружие!");
-                return;
-            }
-            
-            _runes.Add(rune);
-        }
+        // Дообавить руну в слот
         
         public bool TryInsertRune(RuneData rune, int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= _runeSlots.Count) return false;
             if (!_runeSlots[slotIndex].IsEmpty) return false;
 
-            foreach (var slot in _runeSlots)
-                if (!slot.IsEmpty && slot.EquippedRune == rune) return false;
+            
+            // проверка на дубликаты, пока не нужна
+            // foreach (var slot in _runeSlots)
+            //     if (!slot.IsEmpty && slot.EquippedRune == rune) return false;
 
             _runeSlots[slotIndex].EquippedRune = rune;
             return true;
         }
         
+        
+        // убрать руну из слота
         public RuneData ExtractRune(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= _runeSlots.Count) return null;
@@ -126,6 +126,8 @@ namespace Entity.Attacks
             return rune;
         }
         
+        
+        //получить все действующие руны на оружии
         private IEnumerable<RuneData> GetActiveRunes()
         {
             foreach (var slot in _runeSlots)

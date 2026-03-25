@@ -872,6 +872,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 11a3e2c60b0667b40bf071d53f35ae94, type: 2}
     - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
+      propertyPath: sprinterStats
+      value: 
+      objectReference: {fileID: 11400000, guid: f296ef15796ea21499c79ad3f109a894, type: 2}
+    - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
       propertyPath: parentReference.TypeName
       value: DI.RootScope
       objectReference: {fileID: 0}

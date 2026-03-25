@@ -40,6 +40,7 @@ namespace MainCharacter
         private new void Start()
         {
             base.Start();
+
             _attackController.AddWeapon(_weaponManager.CreateWeapon(weaponID));
             Debug.Log(_mainCharacterModel.Weapons.Count + " weapons have been equipped");
         }

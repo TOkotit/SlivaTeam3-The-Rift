@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entity.Runes;
 using Game.Inventory.Runes;
 using Game.UI;
@@ -53,6 +54,28 @@ namespace Game.Gameplay.View.UI.ScreenForge
         public void RequestGoToScreenGameplay()
         {
             _uiManager.OpenScreenGameplay();
+        }
+        
+        public List<RuneSlot> GetActiveWeaponSlots()
+        {
+            var weapon = _mainCharacter.Weapons.Count > 0 ? _mainCharacter.Weapons[0] : null;
+            Debug.Log($"<color=red> weapon is null: {weapon == null}</color>");
+            return weapon?.Slots;
+        }
+        
+        public void SaveRunesToWeapon(List<RuneData> runesFromUI)
+        {
+            var weapon = _mainCharacter.Weapons.Count > 0 ? _mainCharacter.Weapons[0] : null;
+            if (weapon == null) return;
+
+            for (var i = 0; i < runesFromUI.Count; i++)
+            {
+                weapon.ExtractRune(i);
+                if (runesFromUI[i] != null)
+                    weapon.TryInsertRune(runesFromUI[i], i);
+            }
+    
+            Debug.Log("Stats updated! New Damage: " + weapon.Damage);
         }
         
     }
