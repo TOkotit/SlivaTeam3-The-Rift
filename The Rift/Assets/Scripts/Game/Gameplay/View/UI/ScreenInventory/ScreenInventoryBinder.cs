@@ -11,7 +11,7 @@ namespace Game.Gameplay.View.UI.ScreenInventory
         
         [SerializeField] private Button _btnClose;
         
-        [SerializeField] private TextMeshProUGUI _healthText;
+        // [SerializeField] private TextMeshProUGUI _healthText;
         
         
         [SerializeField] private List<GameObject> mainWeaponSlots;
@@ -34,7 +34,7 @@ namespace Game.Gameplay.View.UI.ScreenInventory
         
         private void OnCloseButtonClicked()
         {
-            ViewModel.RequestClose();
+            ViewModel.RequestGoToScreenGameplay();
         }
     }
 }

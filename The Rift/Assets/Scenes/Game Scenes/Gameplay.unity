@@ -1141,6 +1141,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 11a3e2c60b0667b40bf071d53f35ae94, type: 2}
     - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
+      propertyPath: sprinterStats
+      value: 
+      objectReference: {fileID: 11400000, guid: f296ef15796ea21499c79ad3f109a894, type: 2}
+    - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
       propertyPath: parentReference.TypeName
       value: DI.RootScope
       objectReference: {fileID: 0}
@@ -1360,6 +1364,18 @@ PrefabInstance:
       propertyPath: 'managedReferences[2855442237276029237].m_Value.Array.data[1]'
       value: 
       objectReference: {fileID: 497866530}
+    - target: {fileID: 1093432794799945814, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: _canvas
+      value: 
+      objectReference: {fileID: 1496976916}
+    - target: {fileID: 1093432794799945814, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: _object
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093432794799945814, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 467519258}
     - target: {fileID: 1165254431357368015, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: 'managedReferences[2855442237276029237].m_Value.Array.data[0]'
       value: 
@@ -1444,8 +1460,13 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 467519258}
+    - target: {fileID: 6031760192457675873, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -30.54
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7321166951101543573, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
@@ -2480,7 +2501,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: da5186de15cb9c049bcfa4e9d947c7b3, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 6f69a4a05797a0f4399eb016ab25653a, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1496976914
 GameObject:
