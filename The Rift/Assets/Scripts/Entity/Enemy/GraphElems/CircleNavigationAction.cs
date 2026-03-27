@@ -6,13 +6,13 @@ using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "CircleNavigation", story: "[NavAgent] navigates in orbit of [transform] with [radius] [speed]", category: "Action", id: "1e2129a95a27cc3b04cbf8c9fa50fe3c")]
+[NodeDescription(name: "CircleNavigation", story: "[NavAgent] navigates in orbit of [transform] with [speed] for [duration] seconds", category: "Action", id: "1e2129a95a27cc3b04cbf8c9fa50fe3c")]
 public partial class CircleNavigationAction : Action
 {
     [SerializeReference] public BlackboardVariable<NavMeshAgent> NavAgent;
     [SerializeReference] public BlackboardVariable<Transform> Transform;
-    [SerializeReference] public BlackboardVariable<float> Radius;
     [SerializeReference] public BlackboardVariable<float> Speed;
+    [SerializeReference] public BlackboardVariable<float> Duration;
     private float duration = 2f;
     private float elapsed = 0f;
     
@@ -28,7 +28,7 @@ public partial class CircleNavigationAction : Action
 
         elapsed += Time.deltaTime;
         
-        if (elapsed >= duration)
+        if (elapsed >= Duration.Value)
         {
             return Status.Success;
         }
@@ -43,7 +43,7 @@ public partial class CircleNavigationAction : Action
 
         lookRotation *= rotationToAdd;
         
-        NavAgent.Value.transform.rotation = Quaternion.Slerp(NavAgent.Value.transform.rotation, lookRotation, elapsed / duration);
+        NavAgent.Value.transform.rotation = Quaternion.Slerp(NavAgent.Value.transform.rotation, lookRotation, elapsed / Duration.Value);
         
         NavAgent.Value.speed = Speed.Value;
         
