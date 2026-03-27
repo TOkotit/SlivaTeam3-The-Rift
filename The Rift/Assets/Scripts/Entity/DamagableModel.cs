@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using System;
+using Enums;
 using MainCharacter;
 
 namespace Entity
@@ -13,5 +14,11 @@ namespace Entity
         }
         protected Teams _team;
         public Teams Team => _team;
+        
+        public event Action OnTakeHit;
+        public void TakeHit()
+        {
+            OnTakeHit?.Invoke();
+        }
     }
 }
