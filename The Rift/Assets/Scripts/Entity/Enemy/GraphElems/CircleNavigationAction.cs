@@ -13,7 +13,6 @@ public partial class CircleNavigationAction : Action
     [SerializeReference] public BlackboardVariable<Transform> Transform;
     [SerializeReference] public BlackboardVariable<float> Speed;
     [SerializeReference] public BlackboardVariable<float> Duration;
-    private float duration = 2f;
     private float elapsed = 0f;
     
     protected override Status OnStart()
