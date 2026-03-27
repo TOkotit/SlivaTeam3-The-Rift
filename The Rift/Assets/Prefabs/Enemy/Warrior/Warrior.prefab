@@ -414,9 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf4925e708c429d8c52364c7e63f3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
   _object: {fileID: 0}
-  _canvas: {fileID: 0}
   offset: {x: 0, y: 1, z: 0}
 --- !u!1 &3924380231106395243
 GameObject:
@@ -723,8 +721,8 @@ GameObject:
   m_Component:
   - component: {fileID: 540723961741970173}
   - component: {fileID: 2214090672734799903}
-  - component: {fileID: 9196176963525010645}
   - component: {fileID: 6683507734840996008}
+  - component: {fileID: 9196176963525010645}
   m_Layer: 5
   m_Name: HealthText
   m_TagString: Untagged
@@ -759,6 +757,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7245976710806670705}
   m_CullTransparentMesh: 1
+--- !u!114 &6683507734840996008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7245976710806670705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf4925e708c429d8c52364c7e63f3c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _object: {fileID: 0}
+  offset: {x: 0, y: 1, z: 0}
 --- !u!114 &9196176963525010645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -850,22 +862,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6683507734840996008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7245976710806670705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cf4925e708c429d8c52364c7e63f3c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  _object: {fileID: 0}
-  _canvas: {fileID: 0}
-  offset: {x: 0, y: 1, z: 0}
 --- !u!1 &8648330759580740151
 GameObject:
   m_ObjectHideFlags: 0

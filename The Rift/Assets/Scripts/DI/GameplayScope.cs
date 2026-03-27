@@ -24,7 +24,7 @@ namespace DI
         [SerializeField] private RuneDatabase _runeDatabase;
         [SerializeField] private WarriorStats warriorStats;
         [SerializeField] private SprinterStats sprinterStats;
-
+        [SerializeField] private GameObject worldCanvas;
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.Log("GameplayScope.Configure called");
@@ -39,7 +39,9 @@ namespace DI
             builder.Register<Health>(Lifetime.Scoped);
             builder.Register<Stamina>(Lifetime.Scoped);
             builder.Register<MainCharacterModel>(Lifetime.Singleton);
-
+            
+            builder.RegisterInstance(worldCanvas).Keyed("WorldCanvas");
+            
             builder.RegisterInstance(_runeDatabase);
             builder.Register<RuneManager>(Lifetime.Singleton);
             
