@@ -1526,6 +1526,10 @@ PrefabInstance:
       propertyPath: 'managedReferences[2855442237276029237].m_Value.Array.data[1]'
       value: 
       objectReference: {fileID: 2127118517}
+    - target: {fileID: 1980845544231852639, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2536396534568560518, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: _canvas
       value: 
@@ -1576,7 +1580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3620613020102898453, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: _sightDistance
-      value: 10.92
+      value: 25.36
       objectReference: {fileID: 0}
     - target: {fileID: 3622580370814250082, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: m_LocalPosition.x
