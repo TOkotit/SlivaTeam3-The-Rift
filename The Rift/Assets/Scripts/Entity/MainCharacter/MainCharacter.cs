@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Entity;
 using Entity.Attacks;
+using JetBrains.Annotations;
 using Systems;
 using UnityEngine;
 using VContainer;
@@ -14,9 +15,8 @@ namespace MainCharacter
         [Inject] private CharacterController _characterController;
         [Inject] private MainCharacterAttackController _attackController;
         [Inject] private WeaponManager _weaponManager;
-
         [Inject]
-        private void SetupModel(Stamina stamina, Health health, MovementStatsSO stats, MainCharacterModel mainCharacterModel)
+        private void SetupModel(Stamina stamina, Health health, MovementStatsSO stats, [CanBeNull] MainCharacterModel mainCharacterModel, CombatStatsSO  combatStats)
         {
             _mainCharacterModel = mainCharacterModel;
             mainCharacterModel.Stamina = stamina;
@@ -30,6 +30,7 @@ namespace MainCharacter
             _mainCharacterModel.WallJumpCost = stats.@WallJumpCost;
             _mainCharacterModel.Speed = stats.Speed;
             _mainCharacterModel.JumpHeight = stats.JumpHeight;
+            _mainCharacterModel.ParryReloadDelay = combatStats.ParryReloadDelay;
         }
         public override DamagableModel Damagable => _mainCharacterModel;
         public MainCharacterModel MainCharacterModel => _mainCharacterModel;

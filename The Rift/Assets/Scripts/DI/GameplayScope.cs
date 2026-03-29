@@ -20,7 +20,8 @@ namespace DI
 {
     public class GameplayScope: LifetimeScope
     {
-        [SerializeField] private MovementStatsSO stats;
+        [SerializeField] private MovementStatsSO movementStats;
+        [SerializeField] private CombatStatsSO combatStats;
         [SerializeField] private RuneDatabase _runeDatabase;
         [SerializeField] private WarriorStats warriorStats;
 
@@ -74,7 +75,8 @@ namespace DI
             builder.Register<EnemyAttackQueue>(Lifetime.Singleton);
             
             
-            builder.RegisterInstance(stats); 
+            builder.RegisterInstance(movementStats); 
+            builder.RegisterInstance(combatStats);
             
             builder.RegisterInstance(warriorStats);
             

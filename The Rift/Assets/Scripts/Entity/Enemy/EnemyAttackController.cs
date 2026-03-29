@@ -48,7 +48,7 @@ public class EnemyAttackController : MonoBehaviour
 
     public void Attack()
     {
-        _attackSystem.PerformEnemyAttack(_attackProfile, EnemyModel, gameObject, Teams.Enemy);
+       // _attackSystem.PerformEnemyAttack(_attackProfile, EnemyModel, gameObject, Teams.Enemy);
         
     }
     

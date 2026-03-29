@@ -37,6 +37,7 @@ namespace MainCharacter
         private float _dashTime = 0.1f;
         private float _dashCooldown = 1f;
         private int _wallJumpCount = 1;
+        private float parryReloadDelay = 0.5f;
 
         public float Speed {get => _speed; set => _speed = value; }
         public float JumpHeight {get => _jumpHeight; set => _jumpHeight = value; }
@@ -46,7 +47,8 @@ namespace MainCharacter
         public float DashTime {get   => _dashTime; set => _dashTime = value; }
         public float DashCooldown {get  => _dashCooldown; set => _dashCooldown = value; }
         public int WallJumpCount { get => _wallJumpCount; set => _wallJumpCount = value; }
-        
+        public float ParryReloadDelay { get => parryReloadDelay; set => parryReloadDelay = value; }
+
         public MainCharacterModel()
         {
             _team = Teams.Player;
