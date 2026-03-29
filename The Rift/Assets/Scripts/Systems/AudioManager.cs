@@ -24,6 +24,7 @@ namespace Systems
             public float masterVolume;
             public float musicVolume;
             public float sfxVolume;
+            
         }
         
         [Inject]
@@ -31,17 +32,7 @@ namespace Systems
         
         static private AudioManager _instance;
 
-        static public AudioManager Instance
-        {
-            get
-            {
-                return _instance ?? (_instance = new AudioManager());
-            }
-            set
-            {
-                _instance = value;
-            }
-        }
+        static public AudioManager Instance { get => _instance;  set =>  _instance = value;  }
         
         private AudioSource _musicSourceA;
         private AudioSource _musicSourceB;
@@ -52,6 +43,7 @@ namespace Systems
         
         public void Initialize(AudioSource sourceA, AudioSource sourceB, List<MusicSet> musicSets = null)
         {
+            _instance = this;
             _musicSourceA = sourceA;
             _musicSourceB = sourceB;
 
@@ -67,13 +59,15 @@ namespace Systems
             ApplyVolumes();
 
             _instance = this;
+            coroutineRunner.StartRoutine(FadeDown(_musicSourceA, 0));
+            coroutineRunner.StartRoutine(FadeDown(_musicSourceB, 0)); 
         }
 
         private void SetMusicSets(List<MusicSet> musicSets)
         {
             foreach (var musicSet in musicSets)
             {
-                _musicSetDict.Add(musicSet.id, musicSet);
+                _musicSetDict[musicSet.id] = musicSet;
             }
         }
         
@@ -94,15 +88,13 @@ namespace Systems
             _currentID = id;
             _musicSourceA.clip = _musicSetDict[id].calm;
             _musicSourceB.clip = _musicSetDict[id].battle;
-            FadeUp(_musicSourceA, duration);
-            yield return new WaitForSeconds(duration);
+            yield return FadeUp(_musicSourceA, duration);
         }
 
         public IEnumerator StopTrack(float duration)
         {
-            FadeDown(_musicSourceA, duration);
-            FadeDown(_musicSourceB, duration);
-            yield return new WaitForSeconds(duration);
+            yield return FadeDown(_musicSourceA, duration);
+            yield return FadeDown(_musicSourceB, duration);
         }
 
         public void SaveSettings()
@@ -122,43 +114,56 @@ namespace Systems
             }
             else
             {
-                _audioSaveData = new AudioSaveData();
+                _audioSaveData = new AudioSaveData
+                {
+                    masterVolume = 1f,
+                    musicVolume = 1f,
+                    sfxVolume = 1f
+                };
             }
         }
 
-        public void FadeUp(AudioSource source, float duration)
+        public IEnumerator FadeUp(AudioSource source, float duration)
         {
             source.Play();
-            while (source.volume < 1)
+            var startVolume = source.volume;
+            var targetVolume = _audioSaveData.masterVolume * _audioSaveData.musicVolume;
+            for (float t = 0; t < duration; t += Time.deltaTime)
             {
-                source.volume += Time.deltaTime / duration;
+                source.volume = Mathf.Lerp(startVolume, targetVolume, t / duration);
+                yield return null;
             }
+
+            source.volume = targetVolume;
         }
 
-        public void FadeDown(AudioSource source, float duration)
+        public IEnumerator FadeDown(AudioSource source, float duration)
         {
-            while (source.volume > 0)
+            var startVolume = source.volume;
+
+            for (float t = 0; t < duration; t += Time.deltaTime)
             {
-                source.volume -= Time.deltaTime / duration;
+                source.volume = Mathf.Lerp(startVolume, 0f, t / duration);
+                yield return null;
             }
+            source.volume = 0f;
             source.Stop();
         }
 
         public void SwitchToBattle(float duration)
         {
-            FadeDown(_musicSourceA, duration);
-            FadeUp(_musicSourceB, duration);
+            coroutineRunner.StartRoutine(FadeDown(_musicSourceA, duration));
+            coroutineRunner.StartRoutine(FadeUp(_musicSourceB, duration));
         }
 
         public void SwitchToCalm(float duration)
         {
-            FadeDown(_musicSourceB, duration);
-            FadeUp(_musicSourceA, duration);
+            coroutineRunner.StartRoutine(FadeDown(_musicSourceB, duration));
+            coroutineRunner.StartRoutine(FadeUp(_musicSourceA, duration));
         }
         
         public void PlaySound(AudioSource source, AudioClip clip)
         {
-            source.clip = clip;
             source.volume = _audioSaveData.masterVolume * _audioSaveData.sfxVolume;
             source.PlayOneShot(clip);
         }
