@@ -22,7 +22,7 @@ namespace Systems
 
         [Inject] private readonly DamagableRegistry _registry;
         [Inject] private ICoroutineRunner _coroutineRunner;
-
+        [Inject] ParrySystem _parrySystem;
         [Inject] private readonly IObjectResolver _container;
 
         public Action<DamagableModel> OnHit;
@@ -231,10 +231,10 @@ namespace Systems
                     }
                 }
 
-                if (hitPlayer && ParrySystem.Instance.IsParrying)
+                if (hitPlayer && _parrySystem.IsParrying)
                 {
                     Debug.Log("Attack parried!");
-                    ParrySystem.onParry?.Invoke(enemyModel);
+                    ParrySystem._onParry?.Invoke(enemyModel);
                 }
                 else if (hitPlayer)
                 {

@@ -31,6 +31,7 @@ namespace MainCharacter
             _mainCharacterModel.Speed = stats.Speed;
             _mainCharacterModel.JumpHeight = stats.JumpHeight;
             _mainCharacterModel.ParryReloadDelay = combatStats.ParryReloadDelay;
+            _mainCharacterModel.ParryDuration = combatStats.ParryDuration;
         }
         public override DamagableModel Damagable => _mainCharacterModel;
         public MainCharacterModel MainCharacterModel => _mainCharacterModel;

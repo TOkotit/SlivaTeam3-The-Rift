@@ -70,10 +70,9 @@ namespace DI
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
-            
+            builder.Register<ParrySystem>(Lifetime.Singleton);
 
-            builder.Register<EnemyAttackQueue>(Lifetime.Singleton);
-            
+            builder.Register<EnemyAttackQueue>(Lifetime.Singleton); 
             
             builder.RegisterInstance(movementStats); 
             builder.RegisterInstance(combatStats);
@@ -83,8 +82,11 @@ namespace DI
             builder.RegisterEntryPoint<MainCharacterInitializer>(Lifetime.Singleton);
             
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Singleton);
-
-
+        }
+        private void Start()
+        {
+            var parrySystem = Container.Resolve<ParrySystem>();
+            ParrySystem.SetInstance(parrySystem);
         }
     }
 }
