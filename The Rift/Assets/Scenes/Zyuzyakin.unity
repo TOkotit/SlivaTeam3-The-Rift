@@ -1542,6 +1542,10 @@ PrefabInstance:
       propertyPath: 'managedReferences[2855442237276029237].m_Value.Array.data[1]'
       value: 
       objectReference: {fileID: 1923717629}
+    - target: {fileID: 2809108780475059039, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 3012868955434068789, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: _movementController
       value: 

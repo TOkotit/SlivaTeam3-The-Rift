@@ -19,7 +19,7 @@ namespace Entity.Enemy.WarriorEnemy
         [SerializeField] private TargetDetector _targetDetector;
         [SerializeField] private EnemyAttackController _attackController;
         [SerializeField] private EnemyMovementController _movementController;
-        
+        [SerializeField] private Animator _animator;
         [Inject] MainCharacterAttackController mainCharacterAttackController;
         
         private BehaviorGraphAgent behaviorTree;
@@ -106,10 +106,10 @@ namespace Entity.Enemy.WarriorEnemy
 
             Damagable.OnTakeHit += IncHitCounter;
             Damagable.OnTakeHit += UpdateParryText;
-            
             Damagable.OnTakeHit += StartAttackPauseTimer;
-
             Damagable.Health.OnDeath += Die;
+            
+            Damagable.OnTakeHit += OnGotHitAnimation;
         }
 
         public void Update()
@@ -134,8 +134,9 @@ namespace Entity.Enemy.WarriorEnemy
             
             Damagable.OnTakeHit -= IncHitCounter;
             Damagable.OnTakeHit -= UpdateParryText;
-            
             Damagable.OnTakeHit -= StartAttackPauseTimer;
+            
+            Damagable.OnTakeHit -= OnGotHitAnimation;
             
             base.OnDestroy();
         }
@@ -190,8 +191,11 @@ namespace Entity.Enemy.WarriorEnemy
                 _lastHittedAttack = mainCharacterAttackController.LastAttack;
             }
         }
-        
-        
+
+        private void OnGotHitAnimation()
+        {
+            _animator.SetTrigger("GotHit");
+        }
 
     }
 }
