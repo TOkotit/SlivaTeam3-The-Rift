@@ -16,8 +16,8 @@ MonoBehaviour:
   _patrolSpeed: 1
   _chaseSpeed: 2
   _jumpHeight: 1
-  _chasingToDistance: 15
-  _attackDistance: 15
+  _chasingToDistance: 13
+  _attackDistance: 14
   _damage: 1
   _attackSpeed: 1
   _attackChargeTime: 0.5

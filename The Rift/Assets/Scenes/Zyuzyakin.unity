@@ -1574,6 +1574,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3364797593965476643, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364797593965476643, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364797593965476643, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_ImplicitTensor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364797593965476643, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3620613020102898453, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: _sightAngle
       value: 50
@@ -1670,6 +1686,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 6031760192457675873, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 6467089595710122286, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1714,6 +1734,10 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 178764238}
+    - target: {fileID: 8854518661899535229, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -4,6 +4,7 @@ using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
+using UnityEngine.AI;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "Dash", story: "[Gameobject] dashes [direction] for [value]", category: "Action", id: "e6932b791ffd3ded7964685a356e3fb7")]
@@ -12,14 +13,17 @@ public partial class DashAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Gameobject;
     [SerializeReference] public BlackboardVariable<Direction> Direction;
     [SerializeReference] public BlackboardVariable<float> Value;
-    private float duration = 0.5f;
+    private float duration = 1f;
     private float elapsed = 0f;
     private Vector3 startPos;
     private Vector3 direction;
     private Vector3 targetPos;
+    private Rigidbody rigidbody;
     
     protected override Status OnStart()
     {
+        rigidbody = Gameobject.Value.GetComponent<Rigidbody>();
+        
         startPos = Gameobject.Value.transform.position;
         direction = Direction.Value switch
         {
@@ -46,9 +50,10 @@ public partial class DashAction : Action
             Gameobject.Value.transform.position = targetPos;
             return Status.Success;
         }
+        var newPosition = Vector3.Lerp(startPos, targetPos, elapsed / duration);
         
-        Gameobject.Value.transform.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
-        elapsed += Time.deltaTime;
+        rigidbody.MovePosition(newPosition);
+        elapsed += Time.fixedDeltaTime;
         
         return Status.Running;
     }

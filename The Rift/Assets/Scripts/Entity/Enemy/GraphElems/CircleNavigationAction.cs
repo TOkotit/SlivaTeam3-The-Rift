@@ -25,7 +25,7 @@ public partial class CircleNavigationAction : Action
     {
         if (Transform.Value == null) return Status.Failure;
 
-        elapsed += Time.deltaTime;
+        elapsed += Time.fixedDeltaTime;
         
         if (elapsed >= Duration.Value)
         {
