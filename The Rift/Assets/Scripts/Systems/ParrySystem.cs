@@ -11,9 +11,22 @@ namespace Systems
     public class ParrySystem
     {
         private static ParrySystem instance;
-        [Inject]
         private MainCharacter.MainCharacter mainCharacter;
-        public static ParrySystem Instance => instance ?? (instance = new ParrySystem());
+        public static ParrySystem Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new ParrySystem();
+
+                if (instance.mainCharacter == null)
+                    instance.mainCharacter = GameObject.FindObjectOfType<MainCharacter.MainCharacter>();
+
+                return instance;
+            }
+        }
+    
+
         public static Action<EnemyModel> onParry;
         private bool parryAvailable = true;
         public bool ParryAvailable => parryAvailable;
