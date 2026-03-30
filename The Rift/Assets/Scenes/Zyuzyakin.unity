@@ -913,6 +913,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d824d402bd1f0c047b625be19748e084, type: 2}
     - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
+      propertyPath: combatStats
+      value: 
+      objectReference: {fileID: 11400000, guid: ec6b4bf2b21ca8547a27f98665181154, type: 2}
+    - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
       propertyPath: worldCanvas
       value: 
       objectReference: {fileID: 502161509}
@@ -924,6 +928,10 @@ PrefabInstance:
       propertyPath: _runeDatabase
       value: 
       objectReference: {fileID: 11400000, guid: 11a3e2c60b0667b40bf071d53f35ae94, type: 2}
+    - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
+      propertyPath: movementStats
+      value: 
+      objectReference: {fileID: 11400000, guid: d824d402bd1f0c047b625be19748e084, type: 2}
     - target: {fileID: 7189771564344085010, guid: 6a8444a0cc523a340a96a86335b66aca, type: 3}
       propertyPath: sprinterStats
       value: 
@@ -2982,6 +2990,10 @@ PrefabInstance:
     - target: {fileID: 1309948430813398443, guid: 60561fd8f1230b145995c7ec2aae840b, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581516083400499187, guid: 60561fd8f1230b145995c7ec2aae840b, type: 3}
+      propertyPath: runeToInsert
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9174288300602348769, guid: 60561fd8f1230b145995c7ec2aae840b, type: 3}
       propertyPath: m_LocalPosition.x

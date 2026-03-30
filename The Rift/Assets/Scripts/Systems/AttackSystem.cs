@@ -200,11 +200,13 @@ namespace Systems
             weaponProfile.Damage(1); // перенёс сюда, чтобы тратилось только при попадании
             if (!enemyGameObject)
             {
+                Debug.Log("<color=blue>ASDASDASDASDASDAsdasd</color>");
                 var mainCharacter = _container.Resolve<MainCharacter.MainCharacter>();
                 weaponProfile.Model.RegisterHit(null, mainCharacter.transform.position + mainCharacter.transform.forward, hitAnybody);
             }
             else
             {
+                Debug.Log("<color=red>ASDASDASDASDASDAsdasd</color>");
                 weaponProfile.Model.RegisterHit(enemyGameObject, enemyGameObject.transform.position, hitAnybody); // регестрирую попадание чтобы руна сработала
             }
                 
