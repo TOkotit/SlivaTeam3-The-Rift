@@ -1,6 +1,7 @@
 ﻿using System;
 using Enums;
 using MainCharacter;
+using UnityEngine;
 
 namespace Entity
 {
@@ -9,9 +10,17 @@ namespace Entity
         protected Health _health;  
         public Health Health
         {
-            get => _health;
-            set => _health = value;
+            get
+            {
+                return _health;
+            }
+            set
+            {
+                _health = value;
+                Debug.Log(_health);
+            }
         }
+
         protected Teams _team;
         public Teams Team => _team;
         

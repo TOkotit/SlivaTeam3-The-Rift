@@ -8,7 +8,7 @@ using VContainer.Unity;
 [RequireComponent(typeof(CharacterController))]
 public class MainCharacterMovement : MonoBehaviour, IControllable
 {
-    
+    public static MainCharacterMovement singleton;
     private CharacterController _controller;
     
     [SerializeField] private LayerMask groundMask;
@@ -26,6 +26,7 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
     [Inject]
     private void Construct(MainCharacter.MainCharacter mainCharacter)
     {
+        singleton = this;
         Debug.Log(mainCharacter + "=====");
         _mainCharacterModel =  mainCharacter.MainCharacterModel;
         _stamina =  _mainCharacterModel.Stamina;

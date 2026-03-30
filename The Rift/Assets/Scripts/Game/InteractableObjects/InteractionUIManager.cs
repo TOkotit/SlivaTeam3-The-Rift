@@ -71,7 +71,7 @@ namespace Game
         
         private void UpdatePosition()
         {
-            if (_currentTarget == null || _mainCam == null) return;
+            if (!_currentTarget || !_mainCam) return;
 
             _promptInstance.transform.position = _currentTarget.position + _offset;
 

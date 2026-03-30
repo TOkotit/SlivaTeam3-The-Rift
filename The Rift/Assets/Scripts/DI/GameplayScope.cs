@@ -20,7 +20,8 @@ namespace DI
 {
     public class GameplayScope: LifetimeScope
     {
-        [SerializeField] private MovementStatsSO stats;
+        [SerializeField] private MovementStatsSO movementStats;
+        [SerializeField] private CombatStatsSO combatStats;
         [SerializeField] private RuneDatabase _runeDatabase;
         [SerializeField] private WarriorStats warriorStats;
         [SerializeField] private SprinterStats sprinterStats;
@@ -72,12 +73,12 @@ namespace DI
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
-            
+            builder.Register<ParrySystem>(Lifetime.Singleton);
 
-            builder.Register<EnemyAttackQueue>(Lifetime.Singleton);
+            builder.Register<EnemyAttackQueue>(Lifetime.Singleton); 
             
-            
-            builder.RegisterInstance(stats); 
+            builder.RegisterInstance(movementStats); 
+            builder.RegisterInstance(combatStats);
             
             builder.RegisterInstance(warriorStats);
             builder.RegisterInstance(sprinterStats);
@@ -85,8 +86,11 @@ namespace DI
             builder.RegisterEntryPoint<MainCharacterInitializer>(Lifetime.Singleton);
             
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Singleton);
-
-
+        }
+        private void Start()
+        {
+            var parrySystem = Container.Resolve<ParrySystem>();
+            ParrySystem.SetInstance(parrySystem);
         }
     }
 }

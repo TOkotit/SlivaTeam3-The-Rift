@@ -38,6 +38,8 @@ namespace Entity
         
         public float TakeDamage(float damage, Enums.DamageTypes damageType)
         {
+            Debug.Log("Object got damaged!");
+            Debug.Log(_currentHealth);
             if (damage <= 0) return 0;
             if (!_vulnerabilities.TryGetValue(damageType, out float coefficient))
                 coefficient = 1f;
@@ -45,7 +47,6 @@ namespace Entity
             if (_damageImmunity) total = 0;
             CurrentHealth -= total;
             OnHealthChanged?.Invoke(CurrentHealth);
-            //Возврат количества здоровья на случай визуализации 
             
             if (CurrentHealth <= 0) OnDeath?.Invoke();
             return _currentHealth;
