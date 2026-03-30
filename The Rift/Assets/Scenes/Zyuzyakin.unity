@@ -1539,9 +1539,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 178764238}
     - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
-      propertyPath: m_BlackboardVariableOverridesList.Array.size
-      value: 8
+      propertyPath: 'managedReferences[2634738414148124687]'
+      value: 'Unity.Behavior Unity.Behavior.BlackboardVariable`1[[Entity.Enemy.EnemyMovementController,
+        Assembly-CSharp]]'
       objectReference: {fileID: 0}
+    - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: managedReferences[2634738414148124687].Name
+      value: Enemy Movement Controller
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_BlackboardVariableOverridesList.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: managedReferences[2634738414148124687].m_Value
+      value: 
+      objectReference: {fileID: 1611805288}
     - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: 'm_BlackboardVariableOverridesList.Array.data[6]'
       value: 2634737901234291240
@@ -1549,6 +1562,18 @@ PrefabInstance:
     - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: 'm_BlackboardVariableOverridesList.Array.data[7]'
       value: 2634737901646119056
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'm_BlackboardVariableOverridesList.Array.data[8]'
+      value: 2634738414148124687
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: managedReferences[2634738414148124687].GUID.m_Value0
+      value: 9739032891603591459
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: managedReferences[2634738414148124687].GUID.m_Value1
+      value: 4880099146977041498
       objectReference: {fileID: 0}
     - target: {fileID: 2638152564679179301, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: managedReferences[2855442237276029237].m_Value.Array.size
@@ -1562,6 +1587,10 @@ PrefabInstance:
       propertyPath: 'managedReferences[2855442237276029237].m_Value.Array.data[1]'
       value: 
       objectReference: {fileID: 1923717629}
+    - target: {fileID: 3012868955434068789, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: _movementController
+      value: 
+      objectReference: {fileID: 1611805288}
     - target: {fileID: 3065929661280728363, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1576,6 +1605,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3364797593965476643, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364797593965476643, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: m_Interpolate
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3364797593965476643, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
@@ -2814,6 +2847,17 @@ Transform:
   - {fileID: 2145604902}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1611805288 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3374004845983890267, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+  m_PrefabInstance: {fileID: 670708609}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123c89aef4b245ec9783b8a7c68b4e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1660019059
 GameObject:
   m_ObjectHideFlags: 0

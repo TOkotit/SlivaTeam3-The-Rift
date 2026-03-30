@@ -16,6 +16,7 @@ namespace Entity.Enemy.SprinterEnemy
         
         [SerializeField] private TargetDetector _targetDetector;
         [SerializeField] private EnemyAttackController _attackController;
+        [SerializeField] private EnemyMovementController  _movementController;
         
         private BehaviorGraphAgent behaviorTree;
         
@@ -81,8 +82,6 @@ namespace Entity.Enemy.SprinterEnemy
             _parryArea = parryArea;
             _attackChargeIndicator = attackChargeIndicator;
             _parryIndicator = parryIndicator;
-            // var _navAgent = GetComponent<NavMeshAgent>();
-            // _navAgent.stoppingDistance = _enemyModel.ChasingToDistance;
             
             behaviorTree = GetComponent<BehaviorGraphAgent>();
             InitializeBlackboard();
@@ -93,14 +92,8 @@ namespace Entity.Enemy.SprinterEnemy
             
             Damagable.Health.OnHealthChanged += UpdateHealthText;
             
-            
-            
-            
-
             Damagable.Health.OnDeath += Die;
         }
-
-        
         
         public new void OnDestroy()
         {
@@ -115,26 +108,5 @@ namespace Entity.Enemy.SprinterEnemy
             behaviorTree.SetVariableValue("CurrentState", SprinterAiStates.Dead);
             
         }
-        
-        // public void DashBack()
-        // {
-        //     if (_targetDetector.IsTargetVisible 
-        //         && _targetDetector.DistanceToTarget <= _enemyModel.AttackDistance)
-        //     {
-        //         behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility1);
-        //     }
-        // }
-        //
-        // public void Block()
-        // {
-        //     if (_targetDetector.IsTargetVisible
-        //         && _targetDetector.DistanceToTarget <= _enemyModel.AttackDistance)
-        //     {
-        //         behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility2);
-        //     }
-        // }
-        
-        
-        
     }
 }

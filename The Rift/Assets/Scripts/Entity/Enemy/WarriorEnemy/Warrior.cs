@@ -18,7 +18,8 @@ namespace Entity.Enemy.WarriorEnemy
         
         [SerializeField] private TargetDetector _targetDetector;
         [SerializeField] private EnemyAttackController _attackController;
-
+        [SerializeField] private EnemyMovementController _movementController;
+        
         [Inject] MainCharacterAttackController mainCharacterAttackController;
         
         private BehaviorGraphAgent behaviorTree;

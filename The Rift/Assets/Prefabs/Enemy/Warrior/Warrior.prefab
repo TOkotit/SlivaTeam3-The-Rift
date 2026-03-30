@@ -432,6 +432,7 @@ GameObject:
   - component: {fileID: 3581404945338025882}
   - component: {fileID: 7049032616681864171}
   - component: {fileID: 7768642235100415879}
+  - component: {fileID: 861489173810660016}
   - component: {fileID: 1325253078982403747}
   - component: {fileID: 8606563936905016539}
   m_Layer: 8
@@ -583,6 +584,7 @@ MonoBehaviour:
   parryIndicator: {fileID: 128638698144556036}
   _targetDetector: {fileID: 7049032616681864171}
   _attackController: {fileID: 7768642235100415879}
+  _movementController: {fileID: 861489173810660016}
 --- !u!114 &7049032616681864171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622,6 +624,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackProfile: {fileID: 11400000, guid: 9431ab0a23870e44d8d5a8c447bf0903, type: 2}
+--- !u!114 &861489173810660016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3924380231106395243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123c89aef4b245ec9783b8a7c68b4e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbody: {fileID: 2170254624229945871}
 --- !u!195 &1325253078982403747
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -666,6 +681,7 @@ MonoBehaviour:
   - rid: 2634737757089431905
   - rid: 2634737901234291240
   - rid: 2634737901646119056
+  - rid: 2634738414148124686
   m_OriginalGraph: {fileID: -4214591065027035826, guid: 05d89fa5e77fca54cb6aed1708251478, type: 2}
   m_IsInitialised: 0
   m_IsStarted: 0
@@ -712,6 +728,14 @@ MonoBehaviour:
           m_Value1: 18088896671502396849
         Name: ChasingToDistance
         m_Value: 4
+    - rid: 2634738414148124686
+      type: {class: 'BlackboardVariable`1[[Entity.Enemy.EnemyMovementController, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 15406760819755860067
+          m_Value1: 655425914348554340
+        Name: Enemy Movement Controller
+        m_Value: {fileID: 861489173810660016}
     - rid: 2855442237276029173
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
