@@ -3,7 +3,7 @@
     public enum RuneSlotsType
     {
         Common,
-        Shrapness,
+        Special,
         SomeThingThird,
     }
 }

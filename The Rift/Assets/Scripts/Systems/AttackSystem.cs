@@ -139,7 +139,7 @@ namespace Systems
             var tilt = attackProfile.Tilt;                    
             var halfAngle = totalAngle * 0.5f;
             var waitTime = (swingSpeed > 0 ? 1f / swingSpeed : 0f) / totalAngle;
-            bool hitAnybody = false;
+            var hitAnybody = false;
             Debug.Log("CastRaysContinuous started");
             for (float angle = -halfAngle; angle <= halfAngle; angle += 1f)
             {
@@ -177,7 +177,10 @@ namespace Systems
                     if (targetModel == null) continue;
                     if (targetModel.Team == team) continue;
                     targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);
-                    hitAnybody = true;
+                    if (!hitAnybody)
+                    {
+                        hitAnybody = true;
+                    }
                     if (!piercing)
                         yield break; 
                         

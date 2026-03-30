@@ -14,7 +14,7 @@ namespace Game.Inventory.Runes.Runes_Data
         {
             if (parameter == Influence.Damage)
             {
-                if (context.CurrentSlotType == RuneSlotsType.Shrapness)
+                if (context.CurrentSlotType == RuneSlotsType.Special)
                     return 1f + SynergyDamageBonus;
                 
                 return 1f + BaseDamageBonus;
