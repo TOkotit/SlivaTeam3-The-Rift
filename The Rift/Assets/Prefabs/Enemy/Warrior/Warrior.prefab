@@ -172,68 +172,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &1879717413286546231
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3503352064029638275}
-  - component: {fileID: 2984410829773447679}
-  - component: {fileID: 3451229684610462277}
-  m_Layer: 0
-  m_Name: ParryArea
-  m_TagString: ParryArea
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &3503352064029638275
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1879717413286546231}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.36}
-  m_LocalScale: {x: 4.17, y: 4.17, z: 4.17}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 25100086755056799}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2984410829773447679
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1879717413286546231}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &3451229684610462277
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1879717413286546231}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2363159481648972675
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +393,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3503352064029638275}
   - {fileID: 540723961741970173}
   - {fileID: 208691131078138340}
   - {fileID: 6415505654972013681}
@@ -579,7 +516,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 9196176963525010645}
   parryText: {fileID: 8936380781807661156}
-  parryArea: {fileID: 1879717413286546231}
   attackChargeIndicator: {fileID: 8648330759580740151}
   parryIndicator: {fileID: 128638698144556036}
   _targetDetector: {fileID: 7049032616681864171}
@@ -623,7 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9749724ea5127f40a90447954e5450e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackProfile: {fileID: 11400000, guid: 9431ab0a23870e44d8d5a8c447bf0903, type: 2}
+  _attackData: {fileID: 11400000, guid: f2184cc6eac645a46994d571bcd2cd16, type: 2}
 --- !u!114 &861489173810660016
 MonoBehaviour:
   m_ObjectHideFlags: 0

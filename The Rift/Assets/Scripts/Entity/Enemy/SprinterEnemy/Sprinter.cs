@@ -10,7 +10,7 @@ namespace Entity.Enemy.SprinterEnemy
     public class Sprinter : Enemy
     {
         [SerializeField] private TextMeshProUGUI healthText;
-        [SerializeField] private GameObject parryArea;
+        
         [SerializeField] private GameObject attackChargeIndicator;
         [SerializeField] private GameObject parryIndicator;
         
@@ -79,7 +79,7 @@ namespace Entity.Enemy.SprinterEnemy
         {
             base.Start();
             
-            _parryArea = parryArea;
+            
             _attackChargeIndicator = attackChargeIndicator;
             _parryIndicator = parryIndicator;
             

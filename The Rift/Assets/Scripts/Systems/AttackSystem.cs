@@ -213,26 +213,27 @@ namespace Systems
             Debug.Log("CastRaysContinuous finished" );
         }
         
-    public void PerformEnemyAttack(IAttackProfile profile, EnemyModel enemyModel, GameObject sender, Teams team)
-    {
-        // profile.Events.ForEach(e => e.Value.Act());
-
-            Debug.Log("CastRaysContinuous finished");
-        }
+        // public void PerformEnemyAttack(IAttackProfile profile, EnemyModel enemyModel, GameObject sender, Teams team)
+        // {
+        // // profile.Events.ForEach(e => e.Value.Act());
+        //
+        //     Debug.Log("CastRaysContinuous finished");
+        // }
+        
         private GameObject _tempAttackBox;
         public void PerformEnemyAttack(EnemyAttackData attackData, EnemyModel enemyModel, GameObject sender)
         {
             if (attackData is CloseEnemyAttackData closeAttackData)
             {
-                _tempAttackBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                _tempAttackBox.transform.position = sender.transform.position + closeAttackData.Offset;
-                _tempAttackBox.transform.rotation = sender.transform.rotation;
-                _tempAttackBox.transform.localScale = closeAttackData.Metrics;
-                var renderer = _tempAttackBox.GetComponent<Renderer>();
-                renderer.material.color = new Color(1, 0, 0, 0.3f);
+                // _tempAttackBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                // _tempAttackBox.transform.position = sender.transform.position + sender.transform.rotation * closeAttackData.Offset;
+                // _tempAttackBox.transform.rotation = sender.transform.rotation;
+                // _tempAttackBox.transform.localScale = closeAttackData.Metrics;
+                // var renderer = _tempAttackBox.GetComponent<Renderer>();
+                // renderer.material.color = new Color(1, 0, 0, 0.3f);
     
                 Collider[] colliders = Physics.OverlapBox(
-                    sender.transform.position + closeAttackData.Offset,
+                    sender.transform.position + sender.transform.rotation * closeAttackData.Offset,
                     closeAttackData.Metrics / 2,
                     sender.transform.rotation
                 );

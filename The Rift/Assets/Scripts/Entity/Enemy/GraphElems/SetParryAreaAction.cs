@@ -14,8 +14,6 @@ public partial class SetParryAreaAction : Action
 
     protected override Status OnStart()
     {
-        Enemy.Value.ParryArea.SetActive(Value.Value);
-        
         return Status.Running;
     }
 

@@ -12,7 +12,7 @@ namespace Entity.Enemy.WarriorEnemy
     {
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private TextMeshProUGUI parryText;
-        [SerializeField] private GameObject parryArea;
+        
         [SerializeField] private GameObject attackChargeIndicator;
         [SerializeField] private GameObject parryIndicator;
         
@@ -90,7 +90,7 @@ namespace Entity.Enemy.WarriorEnemy
         {
             base.Start();
             
-            _parryArea = parryArea;
+            
             _attackChargeIndicator = attackChargeIndicator;
             _parryIndicator = parryIndicator;
             
