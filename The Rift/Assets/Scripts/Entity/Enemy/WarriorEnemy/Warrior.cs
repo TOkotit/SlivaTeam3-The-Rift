@@ -1,4 +1,5 @@
 ﻿using System;
+using MainCharacter;
 using TMPro;
 using Unity.Behavior;
 using UnityEngine;
@@ -10,11 +11,23 @@ namespace Entity.Enemy.WarriorEnemy
     public class Warrior : Enemy
     {
         [SerializeField] private TextMeshProUGUI healthText;
-        [SerializeField] private GameObject _parryArea;
+        [SerializeField] private TextMeshProUGUI parryText;
+        [SerializeField] private GameObject parryArea;
+        [SerializeField] private GameObject attackChargeIndicator;
+        [SerializeField] private GameObject parryIndicator;
+        
         [SerializeField] private TargetDetector _targetDetector;
         [SerializeField] private EnemyAttackController _attackController;
+        [SerializeField] private EnemyMovementController _movementController;
+        
+        [Inject] MainCharacterAttackController mainCharacterAttackController;
         
         private BehaviorGraphAgent behaviorTree;
+        private int _hitCounter = 0;
+        private IAttackProfile _lastHittedAttack;
+        
+        private float _attackPauseTimer;
+        private bool _attackPauseTimerStarted;
         
         public EnemyAttackController AttackController
         {
@@ -28,21 +41,14 @@ namespace Entity.Enemy.WarriorEnemy
             set => _targetDetector = value;
         }
 
-        public GameObject ParryArea
-        {
-            get => _parryArea;
-            set => _parryArea = value;
-        }
-
-
-        private void Awake()
-        {
-            
-        }
-
         public void UpdateHealthText(int health)
         {
             healthText.text = $"Health: {health}";
+        }
+        
+        public void UpdateParryText()
+        {
+            parryText.text = $"{_hitCounter}";
         }
         
         [Inject]
@@ -68,9 +74,9 @@ namespace Entity.Enemy.WarriorEnemy
             
         }
         //Статы которые нужны для behavior agent
-        void InitializeBlackboard()
+       public void InitializeBlackboard()
         {
-            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.Idle);
+            behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.Idle);
             behaviorTree.SetVariableValue("PatrolSpeed", _enemyModel.PatrolSpeed);
             behaviorTree.SetVariableValue("ChaseSpeed", _enemyModel.ChaseSpeed);
             behaviorTree.SetVariableValue("ChasingToDistance", _enemyModel.ChasingToDistance);
@@ -83,47 +89,109 @@ namespace Entity.Enemy.WarriorEnemy
         public new void Start()
         {
             base.Start();
+            
+            _parryArea = parryArea;
+            _attackChargeIndicator = attackChargeIndicator;
+            _parryIndicator = parryIndicator;
+            
             behaviorTree = GetComponent<BehaviorGraphAgent>();
             InitializeBlackboard();
             _attackController.EnemyModel = _enemyModel;
             
             
             UpdateHealthText(Damagable.Health.CurrentHealth);
-            Damagable.Health.OnHealthChanged += UpdateHealthText;
             
-            // Damagable.Health.OnHealthChanged += DashBack;
-            // Damagable.Health.OnHealthChanged += Block;
+            Damagable.Health.OnHealthChanged += UpdateHealthText;
+
+
+            Damagable.OnTakeHit += IncHitCounter;
+            Damagable.OnTakeHit += UpdateParryText;
+            
+            Damagable.OnTakeHit += StartAttackPauseTimer;
+
             Damagable.Health.OnDeath += Die;
         }
 
-        
+        public void Update()
+        {
+            if (_attackPauseTimerStarted)
+            {
+                _attackPauseTimer += Time.deltaTime;
+                if (_attackPauseTimer >= 2.5f)
+                {
+                    DashBack();
+                    _attackPauseTimer = 0f;
+                    _attackPauseTimerStarted = false;
+                }
+            }
+        }
         
         public new void OnDestroy()
         {
             Damagable.Health.OnDeath -= Die;
+            
             Damagable.Health.OnHealthChanged -= UpdateHealthText;
+            
+            Damagable.OnTakeHit -= IncHitCounter;
+            Damagable.OnTakeHit -= UpdateParryText;
+            
+            Damagable.OnTakeHit -= StartAttackPauseTimer;
             
             base.OnDestroy();
         }
         
         private void Die()
         {
-            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.Dead);
-            _attackController.AttackQueue.FinishAttack();
+            _attackPauseTimerStarted = false;
+            behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.Dead);
+        }
+        
+        public void DashBack()
+        {
+            if (_targetDetector.IsTargetVisible )
+            {
+                behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.SpecialAbility1);
+            }
+        }
+
+        public void StartAttackPauseTimer()
+        {
+            _attackPauseTimer = 0;
+            _attackPauseTimerStarted  = true;
+        }
+        
+        public void Block()
+        {
+            if (_targetDetector.IsTargetVisible)
+            {
+                behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.SpecialAbility2);
+            }
+        }
+        
+        private void IncHitCounter()
+        {
             
+            if (_lastHittedAttack == mainCharacterAttackController.LastAttack)
+            {
+                _hitCounter++;
+                if (_hitCounter >= 2)
+                {
+                    _hitCounter = 0;
+                    Block();
+                    _lastHittedAttack = null;
+                }
+                else
+                {
+                    _lastHittedAttack = mainCharacterAttackController.LastAttack;
+                }
+            }
+            else
+            {
+                _lastHittedAttack = mainCharacterAttackController.LastAttack;
+            }
         }
         
-        public void DashBack(int a)
-        {
-            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility1);
-        }
         
-        public void Block(int a)
-        {
-            behaviorTree.SetVariableValue("CurrentState", EnemyAIStates.SpecialAbility2);
-        }
-        
-        
-        
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entity.Runes;
 using Game.Inventory.Runes;
 using Game.UI;
@@ -13,7 +14,6 @@ namespace Game.Gameplay.View.UI.ScreenForge
 {
     public class ScreenForgeViewModel : WindowViewModel
     {
-        public RuneType SelectedRune { get; private set; }
         public readonly Subject<RuneType> OnRuneSelectedEvent = new();
         private readonly GameplayUIManager _uiManager;
         private readonly IGameManager _gameManager;
@@ -56,11 +56,26 @@ namespace Game.Gameplay.View.UI.ScreenForge
             _uiManager.OpenScreenGameplay();
         }
         
-        public void OnRuneSelected(RuneType type)
+        public List<RuneSlot> GetActiveWeaponSlots()
         {
-            SelectedRune = type; // Записываем руну
-            OnRuneSelectedEvent.OnNext(type); // Уведомляем UI
-            Debug.Log($"Rune {type} is now active");
+            var weapon = _mainCharacter.Weapons.Count > 0 ? _mainCharacter.Weapons[0] : null;
+            Debug.Log($"<color=red> weapon is null: {weapon == null}</color>");
+            return weapon?.Slots;
+        }
+        
+        public void SaveRunesToWeapon(List<RuneData> runesFromUI)
+        {
+            var weapon = _mainCharacter.Weapons.Count > 0 ? _mainCharacter.Weapons[0] : null;
+            if (weapon == null) return;
+
+            for (var i = 0; i < runesFromUI.Count; i++)
+            {
+                weapon.ExtractRune(i);
+                if (runesFromUI[i] != null)
+                    weapon.TryInsertRune(runesFromUI[i], i);
+            }
+    
+            Debug.Log("Stats updated! New Damage: " + weapon.Damage);
         }
         
     }

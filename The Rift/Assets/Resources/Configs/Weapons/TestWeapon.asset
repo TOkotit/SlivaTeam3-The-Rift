@@ -19,6 +19,7 @@ MonoBehaviour:
   swingSpeed: 20
   name: TestWeapon
   maxDurability: 100
+  slotTypes: 000000000100000000000000
   _attacks:
   - keys:
     - device: 1

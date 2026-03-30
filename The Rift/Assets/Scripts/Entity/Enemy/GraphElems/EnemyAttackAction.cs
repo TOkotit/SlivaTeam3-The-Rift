@@ -18,7 +18,7 @@ public partial class EnemyAttackAction : Action
     {
         EnemyAttackController.Value.Attack();
         
-        EnemyAttackController.Value.AttackQueue.FinishAttack();
+        
         return Status.Success;
     }
 

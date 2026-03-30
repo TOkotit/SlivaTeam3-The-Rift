@@ -9,7 +9,7 @@ namespace Game.Gameplay.View.UI
 {
     public class ScreenGameplayBinder : WindowBinder<ScreenGameplayViewModel>
     {
-        [SerializeField] private Button _btnGoToMainMenu;
+        // [SerializeField] private Button _btnGoToMainMenu;
         
         [SerializeField] private TextMeshProUGUI _healthText;
         
@@ -29,7 +29,7 @@ namespace Game.Gameplay.View.UI
 
         private void Start()
         {
-            _btnGoToMainMenu?.onClick.AddListener(OnGoToMainMenuButtonClicked);
+            // _btnGoToMainMenu?.onClick.AddListener(OnGoToMainMenuButtonClicked);
             
             ViewModel.InitHealthText(UpdateHealthText);
             ViewModel.RequestSubHealthText(UpdateHealthText);
@@ -40,7 +40,7 @@ namespace Game.Gameplay.View.UI
 
         private void OnDestroy()
         {
-            _btnGoToMainMenu?.onClick.RemoveListener(OnGoToMainMenuButtonClicked);
+            // _btnGoToMainMenu?.onClick.RemoveListener(OnGoToMainMenuButtonClicked);
 
             
             ViewModel.RequestUnsubHealthText(UpdateHealthText);
@@ -58,10 +58,10 @@ namespace Game.Gameplay.View.UI
             StaminaText.text = newValue.ToString(CultureInfo.InvariantCulture);
         }
         
-        private void OnGoToMainMenuButtonClicked()
-        {
-            ViewModel.RequestGoToMainMenu();
-        }
+        // private void OnGoToMainMenuButtonClicked()
+        // {
+        //     ViewModel.RequestGoToMainMenu();
+        // }
         
     }
 }

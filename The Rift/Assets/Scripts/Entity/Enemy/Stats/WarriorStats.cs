@@ -6,7 +6,7 @@ public class WarriorStats : ScriptableObject
 {
     [Header("Значения зависят от у.е. (класс BC)")] 
     
-    [SerializeField] private EnemyAIStates _startingState;
+    [SerializeField] private WarriorAiStates _startingState;
     
     [SerializeField] private float _patrolSpeed;
     [SerializeField] private float _chaseSpeed;
