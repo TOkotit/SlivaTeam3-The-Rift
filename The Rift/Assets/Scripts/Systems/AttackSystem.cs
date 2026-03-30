@@ -27,6 +27,7 @@ namespace Systems
         
         [Inject] 
         private readonly IObjectResolver _container;
+        
 
         public Action<DamagableModel> OnHit;
         public AttackSystem Instance
@@ -44,6 +45,7 @@ namespace Systems
                 instance = value;
             }
         }
+        
     public void PerformAttack(IAttackProfile profile, Weapon weaponProfile, GameObject sender, Teams team)
     {
         profile.Events.ForEach(e => e.Value.Act());
@@ -140,10 +142,11 @@ namespace Systems
             var tilt = attackProfile.Tilt;                    
             var halfAngle = totalAngle * 0.5f;
             var waitTime = (swingSpeed > 0 ? 1f / swingSpeed : 0f) / totalAngle;
-            bool hitAnybody = false;
+            var hitAnybody = false;
+            GameObject enemyGameObject = null;
             var oncePerAttackHittedModels = new HashSet<DamagableModel>(); 
             Debug.Log("CastRaysContinuous started");
-            for (float angle = -halfAngle; angle <= halfAngle; angle += 1f)
+            for (var angle = -halfAngle; angle <= halfAngle; angle += 1f)
             {
                 var baseDirection = sender.transform.forward;
                 var horizontalRotation = Quaternion.AngleAxis(angle, Vector3.up);
@@ -154,9 +157,9 @@ namespace Systems
                 var hits = Physics.RaycastAll(ray, range);
                 #region DrawRays 
                 // начало отрисовки
-                Vector3 endPoint = ray.origin + ray.direction * range;
-                GameObject lineObj = new GameObject("AttackRay");
-                LineRenderer lr = lineObj.AddComponent<LineRenderer>();
+                var endPoint = ray.origin + ray.direction * range;
+                var lineObj = new GameObject("AttackRay");
+                var lr = lineObj.AddComponent<LineRenderer>();
                 lr.positionCount = 2;
                 lr.SetPosition(0, ray.origin);
                 lr.SetPosition(1, endPoint);
@@ -183,6 +186,7 @@ namespace Systems
                     targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);
                     if (!hitAnybody)
                     {
+                        enemyGameObject = hit.collider.gameObject;
                         hitAnybody = true;
                     }
                     if (!piercing)
@@ -192,12 +196,17 @@ namespace Systems
                 if (waitTime > 0f)  yield return new WaitForSeconds(waitTime); 
             }
             
-            if (hitAnybody)
+            weaponProfile.Damage(1); // перенёс сюда, чтобы тратилось только при попадании
+            if (!enemyGameObject)
             {
-                weaponProfile.Damage(1); // перенёс сюда, чтобы тратилось только при попадании
-                weaponProfile.Model.RegisterHit(new GameObject(), new Vector3()); // регестрирую попадание чтобы руна сработала
-                hitAnybody = false;
+                var mainCharacter = _container.Resolve<MainCharacter.MainCharacter>();
+                weaponProfile.Model.RegisterHit(null, mainCharacter.transform.position + mainCharacter.transform.forward, hitAnybody);
             }
+            else
+            {
+                weaponProfile.Model.RegisterHit(enemyGameObject, enemyGameObject.transform.position, hitAnybody); // регестрирую попадание чтобы руна сработала
+            }
+                
             Debug.Log("CastRaysContinuous finished" );
         }
         

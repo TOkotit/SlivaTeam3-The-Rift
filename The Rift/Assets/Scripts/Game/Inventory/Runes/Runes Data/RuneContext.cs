@@ -6,8 +6,8 @@ namespace Game.Inventory.Runes
     {
         public GameObject Owner;       
         public GameObject Target;      
-        public Vector3 HitPoint;       
-    
+        public Vector3 HitPoint;
+        public bool IsHitEnemy;
         public float CurrentDurabilityPercent; 
         public float HealthPercent;
         public float TimeSinceLastHit;

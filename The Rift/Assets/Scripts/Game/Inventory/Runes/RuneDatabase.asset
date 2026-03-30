@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allRunes:
   - {fileID: 11400000, guid: 0c55f85cadb60964096ed571c9b18c1b, type: 2}
+  - {fileID: 11400000, guid: 0d00eacba8629a34988fe496be8a512f, type: 2}

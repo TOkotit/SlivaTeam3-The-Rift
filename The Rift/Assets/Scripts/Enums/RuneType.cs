@@ -7,6 +7,7 @@
         Durability,
         Repulsion,
         Catalyst,
-        Regression
+        Regression,
+        Shaet
     }
 }

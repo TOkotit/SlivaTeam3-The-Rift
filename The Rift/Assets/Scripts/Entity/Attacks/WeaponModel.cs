@@ -71,7 +71,7 @@ namespace Entity.Attacks
         }
         
         
-        public void RegisterHit(GameObject target, Vector3 hitPoint)
+        public void RegisterHit(GameObject target, Vector3 hitPoint, bool isHitEnemy)
         {
             _lastHitTime = Time.time;
             
@@ -81,7 +81,7 @@ namespace Entity.Attacks
                     var context = CreateContext(slot.SlotType); 
                     context.Target = target;
                     context.HitPoint = hitPoint;
-            
+                    context.IsHitEnemy = isHitEnemy;
                     slot.EquippedRune.OnWeaponHit(context);
                 }
         }
