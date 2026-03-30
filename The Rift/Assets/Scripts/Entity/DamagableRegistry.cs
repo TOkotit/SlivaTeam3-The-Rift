@@ -12,7 +12,7 @@ namespace Entity
             var damagable = character.gameObject;
             if (!_damagableObjects.ContainsKey(damagable))
                 _damagableObjects.Add(damagable, character.Damagable); 
-            
+            Debug.Log($"{character.gameObject.name} has been registered");
         }
         
         

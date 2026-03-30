@@ -12,12 +12,15 @@ using VContainer;
 
 public class EnemyAttackController : MonoBehaviour
 {
-    [SerializeField] private RaycastAttackProfile _attackProfile;
-    [SerializeField] private Weapon _weaponProfile;
+    
+    [SerializeField] private AttackProfile _attackProfile;
+    
+    [Inject] private WeaponManager _weaponManager;
     [Inject] private AttackSystem _attackSystem;
     [Inject] private EnemyAttackQueue _attackQueue;
     
-
+    private EnemyModel _enemyModel;
+    private bool _isAbleToParry;
 
     public EnemyAttackQueue AttackQueue
     {
@@ -25,10 +28,27 @@ public class EnemyAttackController : MonoBehaviour
         set => _attackQueue = value;
     }
 
+    public EnemyModel EnemyModel
+    {
+        get => _enemyModel;
+        set => _enemyModel = value;
+    }
+
+    public bool IsAbleToParry
+    {
+        get => _isAbleToParry;
+        set => _isAbleToParry = value;
+    }
+
+
+    private void Start()
+    {
+       
+    }
 
     public void Attack()
     {
-        // _attackSystem.PerformAttack(_attackProfile, _weaponProfile, gameObject, Teams.Enemy);
+       // _attackSystem.PerformEnemyAttack(_attackProfile, EnemyModel, gameObject, Teams.Enemy);
         
     }
     

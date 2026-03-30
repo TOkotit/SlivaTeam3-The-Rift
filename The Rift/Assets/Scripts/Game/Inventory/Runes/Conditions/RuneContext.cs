@@ -1,9 +1,14 @@
-﻿namespace Game.Inventory.Runes
+﻿using UnityEngine;
+
+namespace Game.Inventory.Runes
 {
     public struct RuneContext
     {
-        
-        //тут будет добавляться по мере необходимости
+        public GameObject Owner;       
+        public GameObject Target;      
+        public Vector3 HitPoint;       
+    
+        // Твои текущие параметры
         public float CurrentDurabilityPercent; 
         public float HealthPercent;
         public float TimeSinceLastHit;

@@ -4,21 +4,39 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WarriorStats", menuName = "Scriptable Objects/WarriorStats")]
 public class WarriorStats : ScriptableObject
 {
-    [Header("Значения зависят от у.е. (класс BC)")]
-    [SerializeField] private float _speed;
+    [Header("Значения зависят от у.е. (класс BC)")] 
+    
+    [SerializeField] private EnemyAIStates _startingState;
+    
+    [SerializeField] private float _patrolSpeed;
+    [SerializeField] private float _chaseSpeed;
     [SerializeField] private float _jumpHeight;
+
+    [SerializeField] private float _chasingToDistance;
+    [SerializeField] private float _attackDistance;
+
     [SerializeField] private float _damage;
     [SerializeField] private float _attackSpeed;
+    [SerializeField] private float _attackChargeTime;
+    [SerializeField] private float _parryTime;
+    
     [SerializeField] private int _health;
     [SerializeField] private float _skill1Cooldown;
     [SerializeField] private float _skill2Cooldown;
     
     
-    public float Speed => _speed * BC.Speed;
+    public float PatrolSpeed => _patrolSpeed * BC.Speed;
+    public float ChaseSpeed => _chaseSpeed * BC.Speed;
     public float JumpHeight => _jumpHeight * BC.Speed;
+    
+    public float ChasingToDistance => _chasingToDistance;
+    public float AttackDistance => _attackDistance;
     
     public float Damage => _damage * BC.Damage;
     public float AttackSpeed => _attackSpeed *  BC.AtkSpeed;
+    public float AttackChargeTime => _attackChargeTime;
+    
+    public float ParryTime => _parryTime;
     public int Health => _health * BC.Health;
     
     public float Skill1Cooldown => _skill1Cooldown * BC.CD;
