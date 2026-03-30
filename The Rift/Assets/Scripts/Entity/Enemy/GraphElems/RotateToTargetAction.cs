@@ -32,11 +32,11 @@ public partial class RotateToTargetAction : Action
         var lookRotation = Quaternion.LookRotation(direction);
         
         if (Quaternion.Angle(lookRotation, Gameobgect.Value.transform.rotation) 
-            < 10f) return Status.Success;
+            < 5f) return Status.Success;
         
         Gameobgect.Value.transform.rotation = Quaternion.Slerp(Gameobgect.Value.transform.rotation, 
             lookRotation, 
-            Time.deltaTime * rotationSpeed);
+            Time.fixedDeltaTime * rotationSpeed);
         
         
         return Status.Running;

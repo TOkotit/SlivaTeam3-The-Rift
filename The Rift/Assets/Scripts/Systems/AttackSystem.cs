@@ -122,7 +122,8 @@ namespace Systems
                 if (target == null) continue;
                 if (target.Team == team) continue;
                 target.Health.TakeDamage(weaponProfile.Model.Damage, circularProfile.DamageType);
-                
+                OnHit?.Invoke(target);
+                target.TakeHit();
                 if (!circularProfile.Piercing) break;
             }
         }   
@@ -139,7 +140,8 @@ namespace Systems
             var tilt = attackProfile.Tilt;                    
             var halfAngle = totalAngle * 0.5f;
             var waitTime = (swingSpeed > 0 ? 1f / swingSpeed : 0f) / totalAngle;
-            var hitAnybody = false;
+            bool hitAnybody = false;
+            var oncePerAttackHittedModels = new HashSet<DamagableModel>(); 
             Debug.Log("CastRaysContinuous started");
             for (float angle = -halfAngle; angle <= halfAngle; angle += 1f)
             {
@@ -165,15 +167,17 @@ namespace Systems
                 CoroutineRunner.Destroy(lineObj, 0.1f);
                 //конец отрисовки
                 #endregion
-                var hittedModels = new List<DamagableModel>();
+                // var hittedModels = new List<DamagableModel>();
+                
                 foreach (var hit in hits)
                 {
                     var targetModel = _registry.TryGetCharacter(hit.collider.gameObject);
-                    if (!hittedModels.Contains(targetModel))
+                    if (!oncePerAttackHittedModels.Contains(targetModel))
                     {
                         OnHit?.Invoke(targetModel);
-                        hittedModels.Add(targetModel);
+                        targetModel?.TakeHit();
                     }
+                    oncePerAttackHittedModels.Add(targetModel);
                     if (targetModel == null) continue;
                     if (targetModel.Team == team) continue;
                     targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);
