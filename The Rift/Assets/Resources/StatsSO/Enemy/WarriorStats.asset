@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WarriorStats
   m_EditorClassIdentifier: 
   _startingState: 1
-  _patrolSpeed: 1
+  _patrolSpeed: 0.5
   _chaseSpeed: 1
   _jumpHeight: 1
   _chasingToDistance: 4

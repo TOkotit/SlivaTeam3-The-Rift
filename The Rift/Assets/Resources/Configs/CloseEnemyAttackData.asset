@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e55baef8a44097bbd58be03064ef24, type: 3}
   m_Name: CloseEnemyAttackData
   m_EditorClassIdentifier: 
-  _offset: {x: 1.5, y: 0, z: 0}
+  _offset: {x: 0, y: 0, z: 1.5}
   _damage: 10
   _damageType: 0
   _metrics: {x: 1, y: 1, z: 1}

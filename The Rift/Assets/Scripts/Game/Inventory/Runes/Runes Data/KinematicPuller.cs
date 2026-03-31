@@ -28,15 +28,15 @@ namespace Game.Inventory.Runes.Runes_Data
             
             
             // рендер для дебага
-            // var visualSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            // visualSphere.transform.position = center;
-            // visualSphere.transform.localScale = Vector3.one * radius * 2f;
-            // Destroy(visualSphere.GetComponent<Collider>());
-            //
-            // var renderer = visualSphere.GetComponent<Renderer>();
-            // renderer.material.color = new Color(0, 1, 0, 0.1f);
-            //
-            // visualSphere.transform.SetParent(this.transform);
+            var visualSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            visualSphere.transform.position = center;
+            visualSphere.transform.localScale = Vector3.one * radius * 2f;
+            Destroy(visualSphere.GetComponent<Collider>());
+            
+            var renderer = visualSphere.GetComponent<Renderer>();
+            renderer.material.color = new Color(0, 1, 0, 0.1f);
+            
+            visualSphere.transform.SetParent(this.transform);
             
             
             StartCoroutine(PullRoutine());
