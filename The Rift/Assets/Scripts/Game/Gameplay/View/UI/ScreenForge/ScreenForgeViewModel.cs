@@ -21,7 +21,7 @@ namespace Game.Gameplay.View.UI.ScreenForge
         private readonly IGameInputManager _gameInputManager;
         
         public readonly MainCharacterModel  _mainCharacter;
-        public override string Id => "ScreenForge";
+        public override string Id => "ScreenForge/ScreenForge";
         
         public readonly RuneManager RuneManager;
         
@@ -42,6 +42,12 @@ namespace Game.Gameplay.View.UI.ScreenForge
         {
             Debug.Log($"RequestSubText {_mainCharacter.Health == null}");
             _mainCharacter.Health.OnHealthChanged += f;
+        }
+        
+        public string GetActiveWeaponName()
+        {
+            var weapon = _mainCharacter.Weapons.Count > 0 ? _mainCharacter.Weapons[0] : null;
+            return weapon != null ? weapon.Name : "No Weapon"; 
         }
         
         public void RequestUnsubText(Action<int> f)

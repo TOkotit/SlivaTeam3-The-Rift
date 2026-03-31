@@ -1,4 +1,6 @@
 ﻿using Entity.Runes;
+using Game.Inventory.Runes;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +11,7 @@ namespace Game.Gameplay.View.UI.ScreenForge
     {
         [SerializeField] private Image iconImage; 
         [SerializeField] private Image backgroundImage;
+        [SerializeField] private TextMeshProUGUI slotTypeText;
         
         public RuneData ContainedRune { get; private set; }
         public bool IsEmpty => ContainedRune == null;
@@ -23,6 +26,13 @@ namespace Game.Gameplay.View.UI.ScreenForge
             _canvasGroup = GetComponent<CanvasGroup>();
             UpdateVisuals(); 
         }
+        
+        public void SetSlotType(RuneSlotsType type)
+        {
+            if (slotTypeText != null)
+                slotTypeText.text = type.ToString();
+        }
+        
         
         public void SetRune(RuneData rune)
         {

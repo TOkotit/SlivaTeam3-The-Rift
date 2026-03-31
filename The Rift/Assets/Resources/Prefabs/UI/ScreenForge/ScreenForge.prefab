@@ -945,6 +945,7 @@ MonoBehaviour:
   _weaponSlotPrefab: {fileID: 7394310066516628970, guid: a63733300c031c6419d6183dc312d5bb, type: 3}
   _runesContainer: {fileID: 5545426695851584345}
   _weaponSlotsContainer: {fileID: 1465645031396995330}
+  weaponName: {fileID: 7429084012090609923}
 --- !u!1 &4321374920350912771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,7 +1435,7 @@ MonoBehaviour:
   m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -2034,7 +2035,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: 10
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0

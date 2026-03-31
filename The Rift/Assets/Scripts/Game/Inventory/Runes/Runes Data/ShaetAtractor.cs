@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Entity.Enemy;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Game.Inventory.Runes.Runes_Data
 {
     public class ShaetAtractor : MonoBehaviour
     {
         [Header("Settings")]
-        private List<Transform> affectedTransforms = new ();
+        private List<EnemyMovementController> _affectedControllers = new();
         private Vector3 center;
         private float force;
         private float duration;
@@ -50,32 +52,42 @@ namespace Game.Inventory.Runes.Runes_Data
         IEnumerator PullRoutine()
         {
             float elapsed = 0;
-            
             var results = new Collider[20];
-            
+            var waitForFixedUpdate = new WaitForFixedUpdate();
+
             while (elapsed < duration)
             {
-                
-                var count = Physics.OverlapSphereNonAlloc(center, radius, results, targetLayer);      
-                
-                
+                var count = Physics.OverlapSphereNonAlloc(center, radius, results, targetLayer);
+        
                 for (var i = 0; i < count; i++)
                 {
-                    var target = results[i].transform;
+                    // Пытаемся достать агента напрямую
+                    if (results[i].TryGetComponent<NavMeshAgent>(out var agent))
+                    {
+                        if (!agent.enabled) continue;
+
+                        // Вектор к центру притягивания
+                        Vector3 directionToCenter = (center - agent.transform.position);
+                        directionToCenter.y = 0; // Игнорируем высоту
                 
-                    if (target == null) continue;
+                        float distance = directionToCenter.magnitude;
+                
+                        if (distance > 0.1f)
+                        {
+                            // Нормализуем и умножаем на силу
+                            Vector3 pullVelocity = directionToCenter.normalized * force;
 
-                    var targetPos = new Vector3(center.x, target.position.y, center.z);
-
-                    target.position = Vector3.MoveTowards(
-                        target.position, 
-                        targetPos, 
-                        force * Time.deltaTime
-                    );
+                            // Плавное подмешивание силы притягивания к текущей скорости агента
+                            // Это позволит ему "пытаться" идти в свою сторону, но его будет тянуть
+                            agent.velocity += pullVelocity * Time.fixedDeltaTime;
+                        }
+                    }
                 }
-                elapsed += Time.deltaTime;
-                yield return null; 
+
+                elapsed += Time.fixedDeltaTime;
+                yield return waitForFixedUpdate;
             }
+
             onDestroyCallback?.Invoke();
             Destroy(gameObject);
         }

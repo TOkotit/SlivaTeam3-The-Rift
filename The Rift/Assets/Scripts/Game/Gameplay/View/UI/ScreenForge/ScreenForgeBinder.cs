@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace Game.Gameplay.View.UI.ScreenForge
 {
     public class ScreenForgeBinder : WindowBinder<ScreenForgeViewModel>
@@ -23,6 +24,8 @@ namespace Game.Gameplay.View.UI.ScreenForge
         [SerializeField] private WeaponRuneSlotView _weaponSlotPrefab;
         [SerializeField] private Transform _runesContainer;
         [SerializeField] private Transform _weaponSlotsContainer;
+        [SerializeField] private TextMeshProUGUI weaponName;
+
         
         private readonly List<WeaponRuneSlotView> _weaponSlotViews = new();
         
@@ -84,14 +87,16 @@ namespace Game.Gameplay.View.UI.ScreenForge
         {
             var slots = ViewModel.GetActiveWeaponSlots();
             if (slots == null || slots.Count == 0) return;
-
+            weaponName.text = ViewModel.GetActiveWeaponName();
             foreach (var view in _weaponSlotViews) Destroy(view.gameObject);
             _weaponSlotViews.Clear();
 
             for (var i = 0; i < slots.Count; i++)
             {
                 var slotView = Instantiate(_weaponSlotPrefab, _weaponSlotsContainer, false);
-        
+                    
+                slotView.SetSlotType(slots[i].SlotType);
+                
                 var rectTransform = slotView.GetComponent<RectTransform>();
                 rectTransform.localScale = Vector3.one;
                 rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, rectTransform.localPosition.y, 0f);
