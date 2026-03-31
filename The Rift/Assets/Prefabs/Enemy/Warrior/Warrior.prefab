@@ -274,11 +274,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5222990675171195804}
   - {fileID: 540723961741970173}
   - {fileID: 208691131078138340}
   - {fileID: 1157115120236539029}
   - {fileID: 4864210276642606758}
+  - {fileID: 5648825427073349179}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1524492050279601720
@@ -348,7 +348,7 @@ MonoBehaviour:
   _targetDetector: {fileID: 7049032616681864171}
   _attackController: {fileID: 7768642235100415879}
   _movementController: {fileID: 861489173810660016}
-  _animator: {fileID: 2205609932432892390}
+  _animator: {fileID: 3344519661427229603}
 --- !u!114 &7049032616681864171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,7 +414,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 9999
   avoidancePriority: 50
-  m_AngularSpeed: 180
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
@@ -437,79 +437,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Graph: {fileID: -4214591065027035826, guid: 05d89fa5e77fca54cb6aed1708251478, type: 2}
   m_BlackboardVariableOverridesList:
-  - rid: 2855442237276029173
-  - rid: 2855442237276029237
-  - rid: 2855442237276029427
-  - rid: 2634737755876491925
-  - rid: 2634737755876491926
-  - rid: 2634737757089431905
-  - rid: 2634737901234291240
-  - rid: 2634737901646119056
-  - rid: 2634738414148124686
-  - rid: 2634738420317421707
+  - rid: 2634738439234781256
+  - rid: 2634738439234781257
+  - rid: 2634738439234781258
+  - rid: 2634738439234781259
+  - rid: 2634738439234781260
+  - rid: 2634738439234781261
+  - rid: 2634738439234781262
+  - rid: 2634738439234781263
+  - rid: 2634738439234781264
+  - rid: 2634738439234781557
   m_OriginalGraph: {fileID: -4214591065027035826, guid: 05d89fa5e77fca54cb6aed1708251478, type: 2}
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
     RefIds:
-    - rid: 2634737755876491925
-      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 11463812822336596237
-          m_Value1: 5376397103915661007
-        Name: ChaseSpeed
-        m_Value: 3
-    - rid: 2634737755876491926
-      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 15218463936856450808
-          m_Value1: 5351848367771275790
-        Name: PatrolSpeed
-        m_Value: 1
-    - rid: 2634737757089431905
-      type: {class: 'BlackboardVariable`1[[EnemyAttackController, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 1654973419478656639
-          m_Value1: 1178864972813650807
-        Name: Enemy Attack Controller
-        m_Value: {fileID: 7768642235100415879}
-    - rid: 2634737901234291240
-      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 5712609619565267378
-          m_Value1: 3425561221690673051
-        Name: AttackDistance
-        m_Value: 5
-    - rid: 2634737901646119056
-      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 16671505176583519837
-          m_Value1: 18088896671502396849
-        Name: ChasingToDistance
-        m_Value: 4
-    - rid: 2634738414148124686
-      type: {class: 'BlackboardVariable`1[[Entity.Enemy.EnemyMovementController, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 15406760819755860067
-          m_Value1: 655425914348554340
-        Name: Enemy Movement Controller
-        m_Value: {fileID: 861489173810660016}
-    - rid: 2634738420317421707
-      type: {class: 'BlackboardVariable`1[[UnityEngine.Animator, UnityEngine.AnimationModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 1687531675630729028
-          m_Value1: 16298771962398732300
-        Name: Animator
-        m_Value: {fileID: 2205609932432892390}
-    - rid: 2855442237276029173
+    - rid: 2634738439234781256
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -517,7 +461,7 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 3924380231106395243}
-    - rid: 2855442237276029237
+    - rid: 2634738439234781257
       type: {class: 'BlackboardVariable`1[[System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]], mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -528,7 +472,7 @@ MonoBehaviour:
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 2855442237276029427
+    - rid: 2634738439234781258
       type: {class: 'BlackboardVariable`1[[Entity.Enemy.TargetDetector, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -536,6 +480,62 @@ MonoBehaviour:
           m_Value1: 16940672235840032048
         Name: Target Detector
         m_Value: {fileID: 7049032616681864171}
+    - rid: 2634738439234781259
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 11463812822336596237
+          m_Value1: 5376397103915661007
+        Name: ChaseSpeed
+        m_Value: 3
+    - rid: 2634738439234781260
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 15218463936856450808
+          m_Value1: 5351848367771275790
+        Name: PatrolSpeed
+        m_Value: 1
+    - rid: 2634738439234781261
+      type: {class: 'BlackboardVariable`1[[EnemyAttackController, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1654973419478656639
+          m_Value1: 1178864972813650807
+        Name: Enemy Attack Controller
+        m_Value: {fileID: 7768642235100415879}
+    - rid: 2634738439234781262
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 5712609619565267378
+          m_Value1: 3425561221690673051
+        Name: AttackDistance
+        m_Value: 5
+    - rid: 2634738439234781263
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 16671505176583519837
+          m_Value1: 18088896671502396849
+        Name: ChasingToDistance
+        m_Value: 4
+    - rid: 2634738439234781264
+      type: {class: 'BlackboardVariable`1[[Entity.Enemy.EnemyMovementController, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 15406760819755860067
+          m_Value1: 655425914348554340
+        Name: Enemy Movement Controller
+        m_Value: {fileID: 861489173810660016}
+    - rid: 2634738439234781557
+      type: {class: 'BlackboardVariable`1[[UnityEngine.Animator, UnityEngine.AnimationModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1687531675630729028
+          m_Value1: 16298771962398732300
+        Name: Animator
+        m_Value: {fileID: 3344519661427229603}
 --- !u!1 &7245976710806670705
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +773,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &5760512004565294199
+--- !u!1001 &5327214862950715856
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -781,70 +781,87 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 25100086755056799}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.53
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
+    - target: {fileID: 919132149155446097, guid: 371dff773afb60947a2513db5e157034, type: 3}
       propertyPath: m_Name
-      value: warrior
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: cbf284c257917dd46a1c563efab34cfb, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
+      value: warrior (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
---- !u!95 &2205609932432892390 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
-  m_PrefabInstance: {fileID: 5760512004565294199}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 371dff773afb60947a2513db5e157034, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3344519661427229603}
+  m_SourcePrefab: {fileID: 100100000, guid: 371dff773afb60947a2513db5e157034, type: 3}
+--- !u!1 &4985335668522019969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 371dff773afb60947a2513db5e157034, type: 3}
+  m_PrefabInstance: {fileID: 5327214862950715856}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5222990675171195804 stripped
+--- !u!95 &3344519661427229603
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4985335668522019969}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 371dff773afb60947a2513db5e157034, type: 3}
+  m_Controller: {fileID: 9100000, guid: cbf284c257917dd46a1c563efab34cfb, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &5648825427073349179 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 198594c9c577ceb449ad8b51addd3f51, type: 3}
-  m_PrefabInstance: {fileID: 5760512004565294199}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 371dff773afb60947a2513db5e157034, type: 3}
+  m_PrefabInstance: {fileID: 5327214862950715856}
   m_PrefabAsset: {fileID: 0}
