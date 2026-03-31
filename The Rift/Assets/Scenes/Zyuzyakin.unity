@@ -1491,6 +1491,18 @@ PrefabInstance:
       value: PatrolSpeed
       objectReference: {fileID: 0}
     - target: {fileID: 613379773155075061, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'managedReferences[2634738439234781257].m_Value.Array.data[0]'
+      value: 
+      objectReference: {fileID: 177488072}
+    - target: {fileID: 613379773155075061, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'managedReferences[2634738439234781257].m_Value.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1303721649}
+    - target: {fileID: 613379773155075061, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'managedReferences[2634738439234781257].m_Value.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2127118517}
+    - target: {fileID: 613379773155075061, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: 'managedReferences[2855442237276029237].m_Value.Array.data[0]'
       value: 
       objectReference: {fileID: 2127118517}
@@ -1523,6 +1535,18 @@ PrefabInstance:
       value: PatrolSpeed
       objectReference: {fileID: 0}
     - target: {fileID: 1165254431357368015, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: managedReferences[2634738439234781257].m_Value.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1165254431357368015, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'managedReferences[2634738439234781257].m_Value.Array.data[0]'
+      value: 
+      objectReference: {fileID: 177488072}
+    - target: {fileID: 1165254431357368015, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'managedReferences[2634738439234781257].m_Value.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1303721649}
+    - target: {fileID: 1165254431357368015, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: 'managedReferences[2855442237276029237].m_Value.Array.data[0]'
       value: 
       objectReference: {fileID: 1388895326}
@@ -1542,6 +1566,18 @@ PrefabInstance:
       propertyPath: managedReferences[2634737755876491926].Name
       value: PatrolSpeed
       objectReference: {fileID: 0}
+    - target: {fileID: 1781504550187655582, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'managedReferences[2634738439234781257].m_Value.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1303721649}
+    - target: {fileID: 1781504550187655582, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'managedReferences[2634738439234781257].m_Value.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1388895326}
+    - target: {fileID: 1781504550187655582, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
+      propertyPath: 'managedReferences[2634738439234781257].m_Value.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2127118517}
     - target: {fileID: 1781504550187655582, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: 'managedReferences[2855442237276029237].m_Value.Array.data[0]'
       value: 
@@ -1769,7 +1805,7 @@ PrefabInstance:
       objectReference: {fileID: 178764238}
     - target: {fileID: 7321166951101543573, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7705530819128011800, guid: 86b5f0bf0c21c904f82bab08eca5e1cf, type: 3}
       propertyPath: _canvas
