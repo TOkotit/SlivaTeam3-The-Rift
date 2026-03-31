@@ -3,11 +3,7 @@
     public enum RuneType
     {
         Sharpenes,
-        Persistence,
-        Durability,
-        Repulsion,
-        Catalyst,
-        Regression,
-        Shaet
+        Shaet,
+        Ksarone
     }
 }

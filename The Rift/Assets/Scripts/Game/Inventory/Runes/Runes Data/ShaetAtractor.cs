@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Inventory.Runes.Runes_Data
 {
-    public class KinematicPuller : MonoBehaviour
+    public class ShaetAtractor : MonoBehaviour
     {
         [Header("Settings")]
         private List<Transform> affectedTransforms = new ();
@@ -28,15 +28,19 @@ namespace Game.Inventory.Runes.Runes_Data
             
             
             // рендер для дебага
-            var visualSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            visualSphere.transform.position = center;
-            visualSphere.transform.localScale = Vector3.one * radius * 2f;
-            Destroy(visualSphere.GetComponent<Collider>());
+            var visualDisk = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            visualDisk.transform.position = center + Vector3.up * 0.05f; 
+
+            visualDisk.transform.localScale = new Vector3(radius * 2f, 0.01f, radius * 2f);
+
+            Destroy(visualDisk.GetComponent<Collider>());
+
+            var renderer = visualDisk.GetComponent<Renderer>();
             
-            var renderer = visualSphere.GetComponent<Renderer>();
-            renderer.material.color = new Color(0, 1, 0, 0.1f);
-            
-            visualSphere.transform.SetParent(this.transform);
+            renderer.material = new Material(Shader.Find("Sprites/Default")); 
+            renderer.material.color = new Color(0, 1, 0, 0.2f); 
+
+            visualDisk.transform.SetParent(this.transform);
             
             
             StartCoroutine(PullRoutine());

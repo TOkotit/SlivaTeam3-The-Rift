@@ -47,7 +47,7 @@ namespace Game.Inventory.Runes.Runes_Data
                 var radius = context.IsHitEnemy ? 10f : 4f;
 
                 var workerObj = new GameObject("DynamicPull_Effect");
-                var worker = workerObj.AddComponent<KinematicPuller>();
+                var worker = workerObj.AddComponent<ShaetAtractor>();
                 
                 worker.Initialize(context.HitPoint, pullForce, duration, radius, LayerMask.GetMask("Enemy"), OnEffectFinished);
                 
