@@ -51,7 +51,8 @@ namespace Game.Inventory.Runes.Runes_Data
 
         IEnumerator PullRoutine()
         {
-            float elapsed = 0;
+            var stopDistance = 0.5f;
+            var elapsed = 0f;
             var results = new Collider[20];
             var waitForFixedUpdate = new WaitForFixedUpdate();
 
@@ -61,26 +62,25 @@ namespace Game.Inventory.Runes.Runes_Data
         
                 for (var i = 0; i < count; i++)
                 {
-                    // Пытаемся достать агента напрямую
                     if (results[i].TryGetComponent<NavMeshAgent>(out var agent))
                     {
                         if (!agent.enabled) continue;
 
-                        // Вектор к центру притягивания
-                        Vector3 directionToCenter = (center - agent.transform.position);
-                        directionToCenter.y = 0; // Игнорируем высоту
+                        var directionToCenter = (center - agent.transform.position);
+                        directionToCenter.y = 0;
                 
-                        float distance = directionToCenter.magnitude;
-                
-                        if (distance > 0.1f)
+                        var distance = directionToCenter.magnitude;
+                        
+                        if (distance > stopDistance) 
                         {
-                            // Нормализуем и умножаем на силу
-                            Vector3 pullVelocity = directionToCenter.normalized * force;
-
-                            // Плавное подмешивание силы притягивания к текущей скорости агента
-                            // Это позволит ему "пытаться" идти в свою сторону, но его будет тянуть
+                            var pullVelocity = directionToCenter.normalized * force;
                             agent.velocity += pullVelocity * Time.fixedDeltaTime;
                         }
+                        else 
+                        {
+                            agent.velocity = Vector3.Lerp(agent.velocity, Vector3.zero, Time.fixedDeltaTime * 5f);
+                        }
+                        
                     }
                 }
 

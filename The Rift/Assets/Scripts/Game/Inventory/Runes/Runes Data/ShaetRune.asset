@@ -16,6 +16,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 4de9cff3eb52044428f4cd27f7fb6dc4, type: 3}
   Rune: 1
   NonSpecialSlotBobus: 0.3
-  pullForce: 10
+  pullForce: 1000
   duration: 5
   cooldown: 3

@@ -128,7 +128,7 @@ namespace Systems
         }
 
 
-        private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, Weapon weaponProfile,
+private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, Weapon weaponProfile,
             GameObject sender, Teams team)
         {
             var range = weaponProfile.Model.Range * attackProfile.DistanceMultiplier;
@@ -138,13 +138,25 @@ namespace Systems
             var totalAngle = attackProfile.Angle;
             var tilt = attackProfile.Tilt;
             var halfAngle = totalAngle * 0.5f;
-            var waitTime = (swingSpeed > 0 ? 1f / swingSpeed : 0f) / totalAngle;
+            var attackDuration = (totalAngle / 180f) * (1f / swingSpeed);
+            var rayCount = Mathf.CeilToInt(totalAngle); 
+            if (rayCount <= 0) yield break;
+
+            var timeBetweenRays = attackDuration / rayCount;
+
+            var oncePerAttackHittedModels = new HashSet<DamagableModel>();
             var hitAnybody = false;
-            GameObject enemyGameObject = null;
-            var oncePerAttackHittedModels = new HashSet<DamagableModel>(); 
-            Debug.Log("CastRaysContinuous started");
-            for (var angle = -halfAngle; angle <= halfAngle; angle += 1f)
+            GameObject enemyGameObject = null;      
+            Vector3 hitPoint = Vector3.zero;       
+            var elapsed = 0f;
+            var rayIndex = 0;
+
+            while (rayIndex < rayCount)
             {
+                
+                var t = elapsed / attackDuration;
+                var angle = Mathf.Lerp(-halfAngle, halfAngle, t);
+
                 var baseDirection = sender.transform.forward;
                 var horizontalRotation = Quaternion.AngleAxis(angle, Vector3.up);
                 var directionAfterYaw = horizontalRotation * baseDirection;
@@ -154,8 +166,6 @@ namespace Systems
                 var hits = Physics.RaycastAll(ray, range);
 
                 #region DrawRays
-
-                // начало отрисовки
                 var endPoint = ray.origin + ray.direction * range;
                 var lineObj = new GameObject("AttackRay");
                 var lr = lineObj.AddComponent<LineRenderer>();
@@ -167,36 +177,43 @@ namespace Systems
                 lr.startColor = Color.red;
                 lr.endColor = Color.red;
                 CoroutineRunner.Destroy(lineObj, 0.1f);
-                //конец отрисовки
-
                 #endregion
-                // var hittedModels = new List<DamagableModel>();
-                
+
                 foreach (var hit in hits)
                 {
                     var targetModel = _registry.TryGetCharacter(hit.collider.gameObject);
                     if (!oncePerAttackHittedModels.Contains(targetModel))
                     {
                         OnHit?.Invoke(targetModel);
-                        targetModel?.TakeHit();
+                        //targetModel?.TakeHit();
+                        oncePerAttackHittedModels.Add(targetModel);
                     }
-                    oncePerAttackHittedModels.Add(targetModel);
+
                     if (targetModel == null) continue;
                     if (targetModel.Team == team) continue;
+
                     targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);
+
                     if (!hitAnybody)
                     {
                         enemyGameObject = hit.collider.gameObject;
+                        hitPoint = hit.point;
                         hitAnybody = true;
                     }
+
                     if (!piercing)
                         yield break;
-
                 }
 
-                if (waitTime > 0f) yield return new WaitForSeconds(waitTime);
+                rayIndex++;
+                var nextTime = rayIndex * timeBetweenRays;
+                while (elapsed < nextTime)
+                {
+                    elapsed += Time.deltaTime;
+                    yield return null;
+                }
             }
-            
+
             weaponProfile.Damage(1); // перенёс сюда, чтобы тратилось только при попадании
             if (!enemyGameObject)
             {
@@ -210,6 +227,10 @@ namespace Systems
                 
             Debug.Log("CastRaysContinuous finished" );
         }
+
+        
+        
+        
         
         // public void PerformEnemyAttack(IAttackProfile profile, EnemyModel enemyModel, GameObject sender, Teams team)
         // {
