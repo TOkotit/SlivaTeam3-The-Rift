@@ -73,6 +73,10 @@ namespace Entity.Enemy.SprinterEnemy
             behaviorTree.SetVariableValue("AttackCooldownTime", 1f / _enemyModel.AttackSpeed);
             behaviorTree.SetVariableValue("AttackChargeTime", _enemyModel.AttackChargeTime);
             behaviorTree.SetVariableValue("ParryTime", _enemyModel.ParryTime);
+            
+            behaviorTree.SetVariableValue(_targetDetector.GetType().Name, _targetDetector);
+            behaviorTree.SetVariableValue(_attackController.GetType().Name, _attackController);
+            behaviorTree.SetVariableValue(_movementController.GetType().Name, _movementController);
         }
         
         public new void Start()
