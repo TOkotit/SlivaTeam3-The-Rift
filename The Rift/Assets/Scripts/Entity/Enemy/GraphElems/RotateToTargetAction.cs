@@ -26,8 +26,6 @@ public partial class RotateToTargetAction : Action
         var direction = (Target.Value.position - Gameobgect.Value.transform.position).normalized;
         
         direction.y = 0;
-
-        
         
         var lookRotation = Quaternion.LookRotation(direction);
         

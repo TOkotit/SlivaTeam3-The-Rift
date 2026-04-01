@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: CombatStats
   m_EditorClassIdentifier: 
   parryReloadDelay: 0.9
+  parryDuration: 0.5
