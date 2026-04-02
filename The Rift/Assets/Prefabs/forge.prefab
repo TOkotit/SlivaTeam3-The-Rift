@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3335066727154797885}
   - component: {fileID: 4464903937297309731}
   - component: {fileID: 8662637966665668043}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: forge
   m_TagString: Interactable
   m_Icon: {fileID: 0}

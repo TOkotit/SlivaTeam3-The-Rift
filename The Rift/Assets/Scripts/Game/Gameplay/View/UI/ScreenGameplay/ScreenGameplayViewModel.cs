@@ -62,9 +62,9 @@ namespace Game.Gameplay.View.UI
             _mainCharacter.Stamina.OnStaminaChanged -= f;
         }
         
-        public void RequestGoToMainMenu()
-        {
-            _coroutines.StartRoutine(_gameManager.LoadMainMenu());
-        }
+        // public void RequestGoToMainMenu()
+        // {
+        //     _coroutines.StartRoutine(_gameManager.LoadMainMenu());
+        // }
     }
 }

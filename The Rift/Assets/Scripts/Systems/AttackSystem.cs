@@ -22,7 +22,7 @@ namespace Systems
 
         [Inject] private readonly DamagableRegistry _registry;
         [Inject] private ICoroutineRunner _coroutineRunner;
-
+        [Inject] ParrySystem _parrySystem;
         [Inject] private readonly IObjectResolver _container;
 
         public Action<DamagableModel> OnHit;
@@ -128,7 +128,7 @@ namespace Systems
         }
 
 
-        private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, Weapon weaponProfile,
+private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, Weapon weaponProfile,
             GameObject sender, Teams team)
         {
             var range = weaponProfile.Model.Range * attackProfile.DistanceMultiplier;
@@ -138,11 +138,25 @@ namespace Systems
             var totalAngle = attackProfile.Angle;
             var tilt = attackProfile.Tilt;
             var halfAngle = totalAngle * 0.5f;
-            var waitTime = (swingSpeed > 0 ? 1f / swingSpeed : 0f) / totalAngle;
-            bool hitAnybody = false;
-            Debug.Log("CastRaysContinuous started");
-            for (float angle = -halfAngle; angle <= halfAngle; angle += 1f)
+            var attackDuration = (totalAngle / 180f) * (1f / swingSpeed);
+            var rayCount = Mathf.CeilToInt(totalAngle); 
+            if (rayCount <= 0) yield break;
+
+            var timeBetweenRays = attackDuration / rayCount;
+
+            var oncePerAttackHittedModels = new HashSet<DamagableModel>();
+            var hitAnybody = false;
+            GameObject enemyGameObject = null;      
+            Vector3 hitPoint = Vector3.zero;       
+            var elapsed = 0f;
+            var rayIndex = 0;
+
+            while (rayIndex < rayCount)
             {
+                
+                var t = elapsed / attackDuration;
+                var angle = Mathf.Lerp(-halfAngle, halfAngle, t);
+
                 var baseDirection = sender.transform.forward;
                 var horizontalRotation = Quaternion.AngleAxis(angle, Vector3.up);
                 var directionAfterYaw = horizontalRotation * baseDirection;
@@ -152,11 +166,9 @@ namespace Systems
                 var hits = Physics.RaycastAll(ray, range);
 
                 #region DrawRays
-
-                // начало отрисовки
-                Vector3 endPoint = ray.origin + ray.direction * range;
-                GameObject lineObj = new GameObject("AttackRay");
-                LineRenderer lr = lineObj.AddComponent<LineRenderer>();
+                var endPoint = ray.origin + ray.direction * range;
+                var lineObj = new GameObject("AttackRay");
+                var lr = lineObj.AddComponent<LineRenderer>();
                 lr.positionCount = 2;
                 lr.SetPosition(0, ray.origin);
                 lr.SetPosition(1, endPoint);
@@ -165,55 +177,76 @@ namespace Systems
                 lr.startColor = Color.red;
                 lr.endColor = Color.red;
                 CoroutineRunner.Destroy(lineObj, 0.1f);
-                //конец отрисовки
-
                 #endregion
 
-                var hittedModels = new List<DamagableModel>();
                 foreach (var hit in hits)
                 {
                     var targetModel = _registry.TryGetCharacter(hit.collider.gameObject);
-                    if (!hittedModels.Contains(targetModel))
+                    if (!oncePerAttackHittedModels.Contains(targetModel))
                     {
                         OnHit?.Invoke(targetModel);
-                        hittedModels.Add(targetModel);
+                        targetModel?.TakeHit();
+                        oncePerAttackHittedModels.Add(targetModel);
                     }
 
                     if (targetModel == null) continue;
                     if (targetModel.Team == team) continue;
+
                     targetModel.Health.TakeDamage(Mathf.RoundToInt(damage), attackProfile.DamageType);
-                    hitAnybody = true;
+
+                    if (!hitAnybody)
+                    {
+                        enemyGameObject = hit.collider.gameObject;
+                        hitPoint = hit.point;
+                        hitAnybody = true;
+                    }
+
                     if (!piercing)
                         yield break;
-
                 }
 
-                if (waitTime > 0f) yield return new WaitForSeconds(waitTime);
+                rayIndex++;
+                var nextTime = rayIndex * timeBetweenRays;
+                while (elapsed < nextTime)
+                {
+                    elapsed += Time.deltaTime;
+                    yield return null;
+                }
             }
 
-            if (hitAnybody)
+            weaponProfile.Damage(1); // перенёс сюда, чтобы тратилось только при попадании
+            if (!enemyGameObject)
             {
-                weaponProfile.Damage(1); // перенёс сюда, чтобы тратилось только при попадании
-                weaponProfile.Model.RegisterHit(new GameObject(),
-                    new Vector3()); // регестрирую попадание чтобы руна сработала
+                var mainCharacter = _container.Resolve<MainCharacter.MainCharacter>();
+                weaponProfile.Model.RegisterHit(null, mainCharacter.transform.position + mainCharacter.transform.forward, hitAnybody);
             }
-
-            Debug.Log("CastRaysContinuous finished");
+            else
+            {
+                weaponProfile.Model.RegisterHit(enemyGameObject, enemyGameObject.transform.position, hitAnybody); // регестрирую попадание чтобы руна сработала
+            }
+                
+            Debug.Log("CastRaysContinuous finished" );
         }
+
+        
+        
+        
+        
         private GameObject _tempAttackBox;
         public void PerformEnemyAttack(EnemyAttackData attackData, EnemyModel enemyModel, GameObject sender)
         {
             if (attackData is CloseEnemyAttackData closeAttackData)
             {
                 _tempAttackBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                _tempAttackBox.transform.position = sender.transform.position + closeAttackData.Offset;
+                _tempAttackBox.transform.position = sender.transform.position + sender.transform.rotation * closeAttackData.Offset;
                 _tempAttackBox.transform.rotation = sender.transform.rotation;
                 _tempAttackBox.transform.localScale = closeAttackData.Metrics;
+                GameObject.Destroy(_tempAttackBox.GetComponent<Collider>());
                 var renderer = _tempAttackBox.GetComponent<Renderer>();
                 renderer.material.color = new Color(1, 0, 0, 0.3f);
     
                 Collider[] colliders = Physics.OverlapBox(
-                    sender.transform.position + closeAttackData.Offset,
+                    sender.transform.position + sender.transform.rotation * closeAttackData.Offset,
                     closeAttackData.Metrics / 2,
                     sender.transform.rotation
                 );
@@ -231,10 +264,10 @@ namespace Systems
                     }
                 }
 
-                if (hitPlayer && ParrySystem.Instance.IsParrying)
+                if (hitPlayer && _parrySystem.IsParrying)
                 {
                     Debug.Log("Attack parried!");
-                    ParrySystem.onParry?.Invoke(enemyModel);
+                    ParrySystem._onParry?.Invoke(enemyModel);
                 }
                 else if (hitPlayer)
                 {

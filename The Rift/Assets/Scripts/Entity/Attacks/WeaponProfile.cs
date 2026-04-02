@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entity;
 using Entity.Attacks;
+using Game.Inventory.Runes;
 using MainCharacter;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,6 +19,8 @@ namespace Entity
         [SerializeField] private float swingSpeed;
         [SerializeField] private string name;
         [SerializeField] private int maxDurability;
+        
+        [SerializeField] private List<RuneSlotsType> slotTypes = new();
         public float Range => range;
         public int Damage => damage;
         public bool Piercing => piercing; 
@@ -29,8 +32,10 @@ namespace Entity
         [SerializeField]
         public List<AttackBind> _attacks = new List<AttackBind>();
         public IReadOnlyList<AttackBind> Attacks => _attacks;
+
         
-        
-        
+        // слоты для рун
+        public IReadOnlyList<RuneSlotsType> SlotTypes => slotTypes;
+
     }
 }

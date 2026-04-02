@@ -50,6 +50,12 @@ namespace MainCharacter
             }
         }
 
+        public IAttackProfile LastAttack
+        {
+            get => _lastAttack;
+            set => _lastAttack = value;
+        }
+
         private void Awake()
         {
             RebuildComboData();
@@ -218,10 +224,10 @@ namespace MainCharacter
             if (_bindToPerform != null)
             {
                 OnAttackPerformed?.Invoke( _bindToPerform.weapon,_bindToPerform.AttackProfile.Value, _bindToPerform.keys.Where(i => i.hold == true).Any());
-                if (_bindToPerform.AttackProfile.Value == _lastAttack) {_similarCounter++;}
+                if (_bindToPerform.AttackProfile.Value == LastAttack) {_similarCounter++;}
                 else {_similarCounter = 1;}
                 _attackSystem?.PerformAttack(_bindToPerform.AttackProfile.Value, _bindToPerform.weapon, gameObject, Teams.Player);
-                _lastAttack = _bindToPerform.AttackProfile.Value;
+                LastAttack = _bindToPerform.AttackProfile.Value;
                 if(_similarCounter % 3 == 0){ ThreeInARow?.Invoke();}
                 var weapon = _bindToPerform.weapon;
                 weapon.Damage(1);

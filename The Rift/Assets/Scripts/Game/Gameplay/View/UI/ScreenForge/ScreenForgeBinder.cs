@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace Game.Gameplay.View.UI.ScreenForge
 {
     public class ScreenForgeBinder : WindowBinder<ScreenForgeViewModel>
@@ -20,7 +21,14 @@ namespace Game.Gameplay.View.UI.ScreenForge
         
         private readonly List<RuneSlotView> _spawnedSlots = new();
         [SerializeField] private RuneSlotView _runeSlotPrefab;
+        [SerializeField] private WeaponRuneSlotView _weaponSlotPrefab;
         [SerializeField] private Transform _runesContainer;
+        [SerializeField] private Transform _weaponSlotsContainer;
+        [SerializeField] private TextMeshProUGUI weaponName;
+
+        
+        private readonly List<WeaponRuneSlotView> _weaponSlotViews = new();
+        
         
         private readonly CompositeDisposable _disposables = new();
 
@@ -37,6 +45,7 @@ namespace Game.Gameplay.View.UI.ScreenForge
                 .Subscribe(CreateRuneSlot)
                 .AddTo(_disposables);
             
+            InitializeWeaponSlots(); 
         }
         
         private void CreateRuneSlot(RuneType type)
@@ -44,20 +53,12 @@ namespace Game.Gameplay.View.UI.ScreenForge
             var data = ViewModel.RuneManager.GetRuneData(type);
             var slot = Instantiate(_runeSlotPrefab, _runesContainer);
             
-            slot.Setup(data, () => {
-                ViewModel.OnRuneSelected(type);
-                UpdateVisualSelection(type);
-            });
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_runesContainer as RectTransform);
+            slot.Setup(data);
             
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_runesContainer as RectTransform);
             _spawnedSlots.Add(slot);
         }
         
-        private void UpdateVisualSelection(RuneType selectedType)
-        {
-            foreach (var slot in _spawnedSlots)
-                slot.SetSelected(slot.SlotType == selectedType);
-        }
         
         private void OnDestroy()
         {
@@ -67,17 +68,46 @@ namespace Game.Gameplay.View.UI.ScreenForge
 
         private void GainItem()
         {
-            var weaponModel = ViewModel._mainCharacter.Weapons.First();
-            var selectedRuneData = ViewModel.RuneManager.GetRuneData(ViewModel.SelectedRune);
-            
-            weaponModel.AddRune(selectedRuneData);
-            Debug.Log($"<color=green>Add rune {selectedRuneData.runeName}</color>");
+            var runesToSave = new List<RuneData>();
+
+            foreach (var slotView in _weaponSlotViews)
+                runesToSave.Add(slotView.ContainedRune);
+
+            ViewModel.SaveRunesToWeapon(runesToSave);
+    
+            Debug.Log("Rune setup applied to weapon!");
         }
+        
         private void CloseForgeScreenButtonClicked()
         {
             ViewModel.RequestGoToScreenGameplay();
         }
         
+        private void InitializeWeaponSlots()
+        {
+            var slots = ViewModel.GetActiveWeaponSlots();
+            if (slots == null || slots.Count == 0) return;
+            weaponName.text = ViewModel.GetActiveWeaponName();
+            foreach (var view in _weaponSlotViews) Destroy(view.gameObject);
+            _weaponSlotViews.Clear();
+
+            for (var i = 0; i < slots.Count; i++)
+            {
+                var slotView = Instantiate(_weaponSlotPrefab, _weaponSlotsContainer, false);
+                    
+                slotView.SetSlotType(slots[i].SlotType);
+                
+                var rectTransform = slotView.GetComponent<RectTransform>();
+                rectTransform.localScale = Vector3.one;
+                rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, rectTransform.localPosition.y, 0f);
+
+                if (!slots[i].IsEmpty)
+                {
+                    slotView.SetRune(slots[i].EquippedRune);
+                }
         
+                _weaponSlotViews.Add(slotView);
+            }
+        }
     }
 }
