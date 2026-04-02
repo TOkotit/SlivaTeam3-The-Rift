@@ -19,7 +19,7 @@ namespace Entity.Enemy
         [SerializeField] private LayerMask _obstacleLayer; 
         
         [Header("Sharing Signal Settings")]
-        [SerializeField] private Transform _sharingAreaCenter;
+        private Transform _sharingAreaCenter => transform;
         [SerializeField] private float _sharingAreaRadius;
         public Transform DetectedTarget { get; private set; }
         public float DistanceToTarget { get; private set; } = -1f;
@@ -29,7 +29,7 @@ namespace Entity.Enemy
         
         public void SetTargetFromOther(Transform detectedTarget, float distanceToTarget, bool isTargetVisible)
         {
-            Debug.Log("SetTargetFromOther");
+            // Debug.Log("SetTargetFromOther");
             DetectedTarget = detectedTarget;
             DistanceToTarget = distanceToTarget;
             IsTargetVisibleByGroup = isTargetVisible;
@@ -84,7 +84,7 @@ namespace Entity.Enemy
                         
                         if (enemiesSize > 0)
                         {
-                            Debug.Log("FOR ENEMIES: TARGET DETECTED IN AREA");
+                            // Debug.Log("FOR ENEMIES: TARGET DETECTED IN AREA");
                             foreach (var enemy in enemiesInRadius)
                             {
                                 enemy?.GetComponent<TargetDetector>()?.SetTargetFromOther(DetectedTarget,

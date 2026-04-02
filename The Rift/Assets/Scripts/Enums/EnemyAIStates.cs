@@ -10,5 +10,6 @@ public enum EnemyAIStates
 	WaitingForAttack,
 	Attack,
 	SpecialAbility1,
-	SpecialAbility2
+	SpecialAbility2,
+	Dead
 }

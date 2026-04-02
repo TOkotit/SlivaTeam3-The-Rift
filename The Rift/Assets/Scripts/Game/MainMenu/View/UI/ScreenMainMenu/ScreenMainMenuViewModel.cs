@@ -18,7 +18,7 @@ namespace Game.MainMenu.View.UI.ScreenMainMenu
         private readonly MainMenuUIManager _uiManager;
         private readonly IGameManager _gameManager;
         private readonly ICoroutineRunner _coroutines;
-        private readonly EntryPoint _entryPoint;
+        
 
         public ScreenMainMenuViewModel(MainMenuUIManager uiManager, IObjectResolver container)
         {

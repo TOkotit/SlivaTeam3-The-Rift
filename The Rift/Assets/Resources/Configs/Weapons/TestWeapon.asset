@@ -16,9 +16,10 @@ MonoBehaviour:
   damage: 1
   piercing: 1
   attackSpeed: 1
-  swingSpeed: 20
+  swingSpeed: 4
   name: TestWeapon
   maxDurability: 100
+  slotTypes: 000000000100000000000000
   _attacks:
   - keys:
     - device: 1
@@ -40,15 +41,15 @@ MonoBehaviour:
     - device: 1
       key: 0
       mouse: 1
-      hold: 1
-      treshold: 1
+      hold: 0
+      treshold: 0
     AttackProfile:
-      _underlyingValue: {fileID: 11400000, guid: 8e2fbd2e73522a841a62e00105e41164, type: 2}
+      _underlyingValue: {fileID: 11400000, guid: bc1a73636f74fde4891414d8e3a017ef, type: 2}
   - keys:
     - device: 0
       key: 31
       mouse: 1
       hold: 0
-      treshold: 1
+      treshold: 0.4
     AttackProfile:
       _underlyingValue: {fileID: 11400000, guid: 6d021c9440631184fb4cfaca4f7d3a35, type: 2}

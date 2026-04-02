@@ -5,16 +5,18 @@ namespace MainCharacter
 {
     public class RotateCanvas : MonoBehaviour
     {
-        [SerializeField] public Transform mainCamera;
         [SerializeField] public Transform _object;
-        [SerializeField] public Transform _canvas;
-        
-        
         [SerializeField] public Vector3 offset;
-        void Awake()
+
+        [Inject] private MainCharacterCamera mainCamera;
+        [Inject] [Key("WorldCanvas")] private GameObject _canvas;
+        
+        
+        void Start()
         {
+            Debug.Log($"{mainCamera is null} {_canvas is null}");
             _object = transform.parent;
-            transform.SetParent(_canvas);
+            transform.SetParent(_canvas.transform);
         }
         void Update()
         {

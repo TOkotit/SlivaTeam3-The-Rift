@@ -6,7 +6,7 @@ using VContainer;
 namespace Game
 {
     public class InteractionUIManager : MonoBehaviour
-    {
+    { 
         [SerializeField] private Canvas _targetCanvas;
         [SerializeField] private GameObject _promptPrefab;
         [SerializeField] private Vector3 _offset = new Vector3(0, 1.5f, 0);
@@ -71,7 +71,7 @@ namespace Game
         
         private void UpdatePosition()
         {
-            if (_currentTarget == null || _mainCam == null) return;
+            if (!_currentTarget || !_mainCam) return;
 
             _promptInstance.transform.position = _currentTarget.position + _offset;
 

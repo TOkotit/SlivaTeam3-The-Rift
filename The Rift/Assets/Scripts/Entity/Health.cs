@@ -7,10 +7,10 @@ namespace Entity
 {
     public class Health
     { 
-        private int _maxHealth = 100;
+        private int _maxHealth = 100 * BC.Health;
         private int _currentHealth;
         private Dictionary<Enums.DamageTypes, float> _vulnerabilities = new Dictionary<Enums.DamageTypes, float>();
-
+        private bool _damageImmunity;
         public int CurrentHealth
         {
             get { return _currentHealth; }
@@ -27,18 +27,28 @@ namespace Entity
         }
         public IReadOnlyDictionary<Enums.DamageTypes, float> Vulnerabilities => _vulnerabilities;
 
+        public bool DamageImmunity
+        {
+            get => _damageImmunity;
+            set => _damageImmunity = value;
+        }
+
         public event Action<int> OnHealthChanged;
         public event Action OnDeath;
         
         public float TakeDamage(float damage, Enums.DamageTypes damageType)
         {
+            Debug.Log("Object got damaged!");
+            Debug.Log(_currentHealth);
             if (damage <= 0) return 0;
             if (!_vulnerabilities.TryGetValue(damageType, out float coefficient))
                 coefficient = 1f;
             var total = (int)(damage * coefficient);
+            if (_damageImmunity) total = 0;
             CurrentHealth -= total;
             OnHealthChanged?.Invoke(CurrentHealth);
-            //Возврат количества здоровья на случай визуализации 
+            
+            if (CurrentHealth <= 0) OnDeath?.Invoke();
             return _currentHealth;
         }
 

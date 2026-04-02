@@ -8,7 +8,7 @@ using VContainer.Unity;
 [RequireComponent(typeof(CharacterController))]
 public class MainCharacterMovement : MonoBehaviour, IControllable
 {
-    
+    public static MainCharacterMovement singleton;
     private CharacterController _controller;
     
     [SerializeField] private LayerMask groundMask;
@@ -19,13 +19,14 @@ public class MainCharacterMovement : MonoBehaviour, IControllable
     [SerializeField] private float wallCheckRadius;
     
     // флаг для того, чтобы отключать перемещение когда нужно
-    private bool isCharacterCanMove = false;
+    private bool isCharacterCanMove = true;
     
     
     
     [Inject]
     private void Construct(MainCharacter.MainCharacter mainCharacter)
     {
+        singleton = this;
         Debug.Log(mainCharacter + "=====");
         _mainCharacterModel =  mainCharacter.MainCharacterModel;
         _stamina =  _mainCharacterModel.Stamina;

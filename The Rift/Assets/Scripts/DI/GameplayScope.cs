@@ -20,10 +20,12 @@ namespace DI
 {
     public class GameplayScope: LifetimeScope
     {
-        [SerializeField] private MovementStatsSO stats;
+        [SerializeField] private MovementStatsSO movementStats;
+        [SerializeField] private CombatStatsSO combatStats;
         [SerializeField] private RuneDatabase _runeDatabase;
         [SerializeField] private WarriorStats warriorStats;
-
+        [SerializeField] private SprinterStats sprinterStats;
+        [SerializeField] private GameObject worldCanvas;
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.Log("GameplayScope.Configure called");
@@ -38,7 +40,9 @@ namespace DI
             builder.Register<Health>(Lifetime.Scoped);
             builder.Register<Stamina>(Lifetime.Scoped);
             builder.Register<MainCharacterModel>(Lifetime.Singleton);
-
+            
+            builder.RegisterInstance(worldCanvas).Keyed("WorldCanvas");
+            
             builder.RegisterInstance(_runeDatabase);
             builder.Register<RuneManager>(Lifetime.Singleton);
             
@@ -69,20 +73,24 @@ namespace DI
             builder.Register<GameplayUIRootViewModel>(Lifetime.Singleton);
             builder.Register<GameplayUIManager>(Lifetime.Singleton);
             
-            
+            builder.Register<ParrySystem>(Lifetime.Singleton);
 
-            builder.Register<EnemyAttackQueue>(Lifetime.Singleton);
+            builder.Register<EnemyAttackQueue>(Lifetime.Singleton); 
             
-            
-            builder.RegisterInstance(stats); 
+            builder.RegisterInstance(movementStats); 
+            builder.RegisterInstance(combatStats);
             
             builder.RegisterInstance(warriorStats);
+            builder.RegisterInstance(sprinterStats);
             
             builder.RegisterEntryPoint<MainCharacterInitializer>(Lifetime.Singleton);
             
             builder.RegisterEntryPoint<GameplayEntryPoint>(Lifetime.Singleton);
-
-
+        }
+        private void Start()
+        {
+            var parrySystem = Container.Resolve<ParrySystem>();
+            ParrySystem.SetInstance(parrySystem);
         }
     }
 }

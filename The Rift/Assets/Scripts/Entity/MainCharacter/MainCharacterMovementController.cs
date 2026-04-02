@@ -65,6 +65,7 @@ namespace MainCharacter
             try
             {
                 _gameInput.Gameplay.Jump.performed -= OnJumpPerformed;
+                _gameInput.Gameplay.Dash.performed -= OnDashPerformed;
             }
             catch (Exception ex)
             {

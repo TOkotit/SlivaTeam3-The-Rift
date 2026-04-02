@@ -15,6 +15,7 @@ namespace Utils.MiscClasses
         public bool hold;
         public float treshold;
 
+        /*
         public bool IsPressed()
         {
             if (device == DeviceType.Keyboard)
@@ -33,7 +34,7 @@ namespace Utils.MiscClasses
         {
             if (device == DeviceType.Keyboard)
                 return Keyboard.current[key].wasReleasedThisFrame;
-            
+
             var mouseDev = Mouse.current;
             return mouse switch
             {
@@ -46,9 +47,9 @@ namespace Utils.MiscClasses
 
         public bool IsHeld()
         {
-            if (device == DeviceType.Keyboard) 
+            if (device == DeviceType.Keyboard)
                 return Keyboard.current[key].isPressed;
-                
+
             var mouseDev = Mouse.current;
             return mouse switch
             {
@@ -57,6 +58,6 @@ namespace Utils.MiscClasses
                 MouseButton.Middle => mouseDev.middleButton.isPressed,
                 _ => false
             };
-        }
+        }*/
     }
 }

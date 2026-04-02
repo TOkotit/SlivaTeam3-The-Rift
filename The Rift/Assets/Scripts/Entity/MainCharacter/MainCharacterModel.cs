@@ -2,6 +2,7 @@
 using Entity;
 using Entity.Attacks;
 using Entity.Runes;
+using Enums;
 using NUnit.Framework;
 using R3;
 using UnityEngine;
@@ -36,6 +37,8 @@ namespace MainCharacter
         private float _dashTime = 0.1f;
         private float _dashCooldown = 1f;
         private int _wallJumpCount = 1;
+        private float _parryReloadDelay = 1f;
+        private float _parryDuration = 0.5f;
 
         public float Speed {get => _speed; set => _speed = value; }
         public float JumpHeight {get => _jumpHeight; set => _jumpHeight = value; }
@@ -45,7 +48,15 @@ namespace MainCharacter
         public float DashTime {get   => _dashTime; set => _dashTime = value; }
         public float DashCooldown {get  => _dashCooldown; set => _dashCooldown = value; }
         public int WallJumpCount { get => _wallJumpCount; set => _wallJumpCount = value; }
-        public MainCharacterModel(Stamina stamina, Health health)
+        public float ParryReloadDelay { get => _parryReloadDelay; set => _parryReloadDelay = value; }
+        public float ParryDuration { get => _parryDuration; set => _parryDuration = value; }
+
+        public MainCharacterModel()
+        {
+            _team = Teams.Player;
+        }
+        
+        public MainCharacterModel(Stamina stamina, Health health) : base()
         {
             Weapons = new List<WeaponModel>();
             _stamina = stamina;

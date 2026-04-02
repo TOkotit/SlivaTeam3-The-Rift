@@ -5,23 +5,18 @@ using UnityEngine;
 
 namespace Entity.Runes
 {
-    [CreateAssetMenu(fileName = "New Rune", menuName = "Runes/Rune")]
     public class RuneData : ScriptableObject
     {
         public string runeName;
         public Sprite icon;
         public RuneType Rune;
         [Tooltip("Список всех параметров, которые меняет эта руна")]
-        public List<RuneModifier> Modifiers = new();
-    }
-    
-    [Serializable] 
-    public struct RuneModifier
-    {
-        public Influence Parameter; 
-        public float Coefficient;
+        public virtual float GetStatMultiplier(Influence parameter, RuneContext context) => 1f;
         
-        // условия для наложения бафа если есть
-        public List<RuneCondition> Conditions;
+        public virtual void OnWeaponHit(RuneContext context) { }
+        
+        public virtual void OnArmorTakeDamage(RuneContext context) { }
+        
+        public virtual void OnTick(RuneContext context) { }
     }
 }
