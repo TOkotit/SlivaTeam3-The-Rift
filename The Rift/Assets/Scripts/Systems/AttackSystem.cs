@@ -185,7 +185,7 @@ private IEnumerator CastRaysContinuous(RaycastAttackProfile attackProfile, Weapo
                     if (!oncePerAttackHittedModels.Contains(targetModel))
                     {
                         OnHit?.Invoke(targetModel);
-                        //targetModel?.TakeHit();
+                        targetModel?.TakeHit();
                         oncePerAttackHittedModels.Add(targetModel);
                     }
 

@@ -16,7 +16,7 @@ MonoBehaviour:
   damage: 1
   piercing: 1
   attackSpeed: 1
-  swingSpeed: 7
+  swingSpeed: 4
   name: TestWeapon
   maxDurability: 100
   slotTypes: 000000000100000000000000

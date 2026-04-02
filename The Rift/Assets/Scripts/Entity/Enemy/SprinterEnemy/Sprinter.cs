@@ -111,6 +111,7 @@ namespace Entity.Enemy.SprinterEnemy
         {
             behaviorTree.SetVariableValue("CurrentState", SprinterAiStates.Dead);
             
+            Destroy(gameObject);
         }
     }
 }

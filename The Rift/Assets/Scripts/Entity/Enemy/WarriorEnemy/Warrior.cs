@@ -147,7 +147,7 @@ namespace Entity.Enemy.WarriorEnemy
         {
             _attackPauseTimerStarted = false;
             behaviorTree.SetVariableValue("CurrentState", WarriorAiStates.Dead);
-            // Destroy(gameObject);
+            Destroy(gameObject);
         }
         
         public void DashBack()
