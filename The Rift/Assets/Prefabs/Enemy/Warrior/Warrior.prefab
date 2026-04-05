@@ -401,6 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 2170254624229945871}
+  agent: {fileID: 1325253078982403747}
 --- !u!195 &1325253078982403747
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -1,12 +1,14 @@
 ﻿using System;
 using Enums;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Entity.Enemy
 {
     public class EnemyMovementController : MonoBehaviour
     {
         [SerializeField] private Rigidbody rigidbody;
+        [SerializeField] private NavMeshAgent agent;
         
         private float dashDuration;
         private float elapsed = 0f;
@@ -24,6 +26,8 @@ namespace Entity.Enemy
 
         public void Dash(Direction directionType, float value, float duration)
         {
+            agent.enabled = false;
+            
             dashStartPos = transform.position;
             dashDirection = directionType switch
             {
@@ -48,6 +52,7 @@ namespace Entity.Enemy
                 {
                     transform.position = dashTargetPos;
                     isDashing = false;
+                    agent.enabled = true;
                 }
                 var newPosition = Vector3.Lerp(dashStartPos, dashTargetPos, elapsed / dashDuration);
         

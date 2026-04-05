@@ -2,7 +2,9 @@
 using MainCharacter;
 using TMPro;
 using Unity.Behavior;
+using Unity.VisualScripting;
 using UnityEngine;
+using Utils;
 using VContainer;
 
 
@@ -21,6 +23,7 @@ namespace Entity.Enemy.WarriorEnemy
         [SerializeField] private EnemyMovementController _movementController;
         [SerializeField] private Animator _animator;
         [Inject] MainCharacterAttackController mainCharacterAttackController;
+        [Inject] ICoroutineRunner _coroutineRunner;
         
         private BehaviorGraphAgent behaviorTree;
         private int _hitCounter = 0;
@@ -89,6 +92,8 @@ namespace Entity.Enemy.WarriorEnemy
             behaviorTree.SetVariableValue(_attackController.GetType().Name, _attackController);
             behaviorTree.SetVariableValue(_movementController.GetType().Name, _movementController);
             behaviorTree.SetVariableValue(_animator.GetType().Name, _animator);
+            
+            behaviorTree.SetVariableValue("Coroutines", (Coroutines)_coroutineRunner);
         }
         
         public new void Start()
