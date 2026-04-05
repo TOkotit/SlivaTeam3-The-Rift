@@ -51,8 +51,7 @@ namespace Entity.Enemy
                 if (elapsed >= dashDuration)
                 {
                     transform.position = dashTargetPos;
-                    isDashing = false;
-                    agent.enabled = true;
+                    StopDashing();
                 }
                 var newPosition = Vector3.Lerp(dashStartPos, dashTargetPos, elapsed / dashDuration);
         
@@ -61,6 +60,12 @@ namespace Entity.Enemy
             }
         }
 
+        public void StopDashing()
+        {
+            isDashing = false;
+            agent.enabled = true;
+        }
+        
         public void MoveTo(Vector3 newPosition)
         {
             rigidbody.MovePosition(newPosition);
